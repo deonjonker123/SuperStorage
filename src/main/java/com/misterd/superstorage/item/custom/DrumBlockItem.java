@@ -3,6 +3,7 @@ package com.misterd.superstorage.item.custom;
 import com.misterd.superstorage.block.custom.DrumBlock;
 import com.misterd.superstorage.component.SSDataComponents;
 import com.misterd.superstorage.util.FluidText;
+import com.misterd.superstorage.util.TooltipDetails;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -29,5 +30,6 @@ public class DrumBlockItem extends BlockItem {
             builder.accept(FluidText.stored(fluid));
         }
         builder.accept(FluidText.capacity(drum.getTier().capacity()));
+        TooltipDetails.add(builder, flag, "drum", 2);
     }
 }

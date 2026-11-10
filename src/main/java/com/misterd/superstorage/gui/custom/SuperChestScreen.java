@@ -33,8 +33,7 @@ public class SuperChestScreen extends SuperScreen<SuperChestMenu> {
         return List.of(
                 stored.toStack().getHoverName(),
                 Component.literal(String.format("%,d", amount)),
-                Component.translatable("gui.superstorage.of", String.format("%,d", capacity)),
-                Component.literal(String.format("%.1f%%", capacity == 0 ? 0.0 : amount * 100.0 / capacity)));
+                Component.translatable("gui.superstorage.of", String.format("%,d", capacity)));
     }
 
     @Override

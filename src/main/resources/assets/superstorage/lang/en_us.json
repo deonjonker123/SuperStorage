@@ -65,6 +65,18 @@
   "tooltip.superstorage.fluid_value": "%s, %s mB",
   "tooltip.superstorage.fluid_amount": "%s mB",
   "tooltip.superstorage.fluid.empty": "Empty",
+  "tooltip.superstorage.hold_shift": "Hold %s for details",
+  "tooltip.superstorage.shift": "Shift",
+  "tooltip.superstorage.drum.info.1": "Right-click with a bucket or drum to fill or empty it.",
+  "tooltip.superstorage.drum.info.2": "Keeps its contents when broken.",
+  "tooltip.superstorage.super_chest.info.1": "Right-click the front with a matching item to insert it.",
+  "tooltip.superstorage.super_chest.info.2": "Double right-click the front to insert all matching items.",
+  "tooltip.superstorage.super_chest.info.3": "Left-click the front to take one item.",
+  "tooltip.superstorage.super_chest.info.4": "Middle-click the front to take a stack.",
+  "tooltip.superstorage.super_chest.info.5": "Keeps its contents when broken.",
+  "tooltip.superstorage.super_tank.info.1": "Right-click the front with a bucket or drum to move one bucket.",
+  "tooltip.superstorage.super_tank.info.2": "Place a drum in the I/O slot to fill it.",
+  "tooltip.superstorage.super_tank.info.3": "Keeps its contents when broken.",
 
   "jade.superstorage.locked": "Locked: %s",
   "jade.superstorage.void": "Void Overflow: %s",
@@ -113,5 +125,6 @@
   "gui.superstorage.mode.none": "None",
   "gui.superstorage.mode.input": "Input",
   "gui.superstorage.mode.output": "Output",
-  "gui.superstorage.mode.both": "Input + Output"
+  "gui.superstorage.mode.both": "Input + Output",
+  "gui.superstorage.fill": "%s%% Full"
 }

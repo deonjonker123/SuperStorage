@@ -15,6 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
@@ -113,6 +114,21 @@ public class SuperChestBlock extends BaseEntityBlock {
         player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new SuperChestMenu(containerId, inventory, chest), getName()),
                 buf -> buf.writeBlockPos(pos));
         return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData, Player player) {
+        if (!player.level().isClientSide() && !player.isCreative() && isLookingAtFront(state, pos, player)
+                && level.getBlockEntity(pos) instanceof SuperChestBlockEntity chest && !chest.getStored().isEmpty() && chest.getCount() > 0) {
+            ItemStack extracted = chest.extract(chest.getStored().getMaxStackSize());
+            ItemStack picked = extracted.copy();
+            player.getInventory().add(extracted);
+            if (!extracted.isEmpty()) {
+                chest.insert(extracted);
+            }
+            return picked;
+        }
+        return super.getCloneItemStack(level, pos, state, includeData, player);
     }
 
     @Override

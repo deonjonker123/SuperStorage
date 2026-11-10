@@ -7,6 +7,7 @@ import com.misterd.superstorage.component.SuperChestContents;
 import com.misterd.superstorage.component.SuperTankContents;
 import com.misterd.superstorage.util.FluidText;
 import com.misterd.superstorage.util.ItemText;
+import com.misterd.superstorage.util.TooltipDetails;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -30,12 +31,14 @@ public class SuperBlockItem extends BlockItem {
                 builder.accept(ItemText.stored(contents.item(), contents.count()));
             }
             builder.accept(ItemText.capacity(chest.getTier().capacity()));
+            TooltipDetails.add(builder, flag, "super_chest", 5);
         } else if (getBlock() instanceof SuperTankBlock tank) {
             SuperTankContents contents = stack.get(SSDataComponents.SUPER_TANK_CONTENTS.get());
             if (contents != null && !contents.fluid().isEmpty() && contents.amount() > 0) {
                 builder.accept(FluidText.stored(contents.fluid().toStack((int) contents.amount())));
             }
             builder.accept(FluidText.capacity(tank.getTier().capacity()));
+            TooltipDetails.add(builder, flag, "super_tank", 3);
         }
     }
 }

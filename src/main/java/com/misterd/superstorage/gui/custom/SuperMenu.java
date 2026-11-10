@@ -25,8 +25,8 @@ public abstract class SuperMenu extends AbstractContainerMenu {
     public static final int BUTTON_SIDE = 10;
 
     public static final int PLAYER_INV_X = 8;
-    public static final int PLAYER_INV_Y = 83;
-    public static final int HOTBAR_Y = 142;
+    public static final int PLAYER_INV_Y = 96;
+    public static final int HOTBAR_Y = 155;
 
     private static final int AMOUNT_SLOTS = 3;
 

@@ -12,9 +12,9 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import org.jspecify.annotations.Nullable;
 
 public class SuperChestMenu extends SuperMenu {
-    public static final int IN_X = 87;
+    public static final int IN_X = 86;
     public static final int IN_Y = 10;
-    public static final int OUT_X = 87;
+    public static final int OUT_X = 86;
     public static final int OUT_Y = 29;
 
     private static final int IN_SLOT = 0;

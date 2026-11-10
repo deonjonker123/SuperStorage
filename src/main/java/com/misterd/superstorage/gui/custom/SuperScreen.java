@@ -23,7 +23,7 @@ import java.util.List;
 public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainerScreen<T> {
     protected static final Identifier WIDGETS = Identifier.fromNamespaceAndPath(SuperStorage.MODID, "textures/gui/widgets.png");
     private static final int GUI_WIDTH = 176;
-    private static final int GUI_HEIGHT = 167;
+    private static final int GUI_HEIGHT = 179;
     private static final int TITLE_BAR_WIDTH = 176;
     private static final int TITLE_BAR_HEIGHT = 21;
     private static final int TITLE_TEXT_Y = 6;
@@ -46,6 +46,11 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
     private static final int LINE_HEIGHT = 9;
     private static final int DISPLAY_X = 67;
     private static final int DISPLAY_Y = 48;
+    private static final int GAUGE_X = 8;
+    private static final int GAUGE_Y = 71;
+    private static final int GAUGE_WIDTH = 160;
+    private static final int GAUGE_HEIGHT = 8;
+    private static final int GAUGE_V = 165;
     private static final int[][] SIDE_POSITIONS = {
             {132, 7},
             {132, 45},
@@ -69,7 +74,7 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
         buttons.add(new Button(SuperMenu.BUTTON_LOCK, 28, 47));
         buttons.add(new Button(SuperMenu.BUTTON_VOID, 47, 47));
         if (hasExtractButton()) {
-            buttons.add(new Button(SuperMenu.BUTTON_EXTRACT, 86, 47));
+            buttons.add(new Button(SuperMenu.BUTTON_EXTRACT, 85, 47));
         }
         for (RelativeSide side : RelativeSide.values()) {
             int[] position = SIDE_POSITIONS[side.ordinal()];
@@ -105,6 +110,19 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
         if (menu.isLocked()) {
             extractLockedDisplay(graphics, leftPos + DISPLAY_X, topPos + DISPLAY_Y);
         }
+        int filled = (int) Math.round(GAUGE_WIDTH * fillRatio());
+        if (filled > 0) {
+            graphics.blit(RenderPipelines.GUI_TEXTURED, WIDGETS, leftPos + GAUGE_X, topPos + GAUGE_Y, 0, GAUGE_V, filled, GAUGE_HEIGHT, 256, 256);
+        }
+    }
+
+    private double fillRatio() {
+        long capacity = menu.getCapacity();
+        return capacity <= 0 ? 0.0 : Math.min(1.0, (double) menu.getAmount() / capacity);
+    }
+
+    private boolean isOverGauge(double mouseX, double mouseY) {
+        return mouseX >= GAUGE_X && mouseX < GAUGE_X + GAUGE_WIDTH && mouseY >= GAUGE_Y && mouseY < GAUGE_Y + GAUGE_HEIGHT;
     }
 
     @Override
@@ -121,6 +139,10 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
+        if (isOverGauge(mouseX - leftPos, mouseY - topPos)) {
+            graphics.setTooltipForNextFrame(Component.translatable("gui.superstorage.fill", String.format("%.1f", fillRatio() * 100.0)), mouseX, mouseY);
+            return;
+        }
         for (Button button : buttons) {
             if (button.isHovered(mouseX - leftPos, mouseY - topPos)) {
                 graphics.setComponentTooltipForNextFrame(font, buttonTooltip(button), mouseX, mouseY);

@@ -43,8 +43,7 @@ public class SuperTankScreen extends SuperScreen<SuperTankMenu> {
         return List.of(
                 stored.toStack(1000).getHoverName(),
                 Component.translatable("gui.superstorage.buckets", FluidText.buckets(amount)),
-                Component.translatable("gui.superstorage.of_buckets", FluidText.buckets(capacity)),
-                Component.literal(String.format("%.1f%%", capacity == 0 ? 0.0 : amount * 100.0 / capacity)));
+                Component.translatable("gui.superstorage.of_buckets", FluidText.buckets(capacity)));
     }
 
     @Override
