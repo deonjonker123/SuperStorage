@@ -1,4 +1,4 @@
-![SuperStorage](https://raw.githubusercontent.com/deonjonker123/AgritechEvolved/refs/heads/26.1.2/ate_ban.png)
+![SuperStorage](https://raw.githubusercontent.com/deonjonker123/SuperStorage/refs/heads/master/ss_ban.png)
 
 # Super Storage
 
