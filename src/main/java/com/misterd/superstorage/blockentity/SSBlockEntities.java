@@ -3,6 +3,7 @@ package com.misterd.superstorage.blockentity;
 import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.block.SSBlocks;
 import com.misterd.superstorage.blockentity.custom.CrateBlockEntity;
+import com.misterd.superstorage.blockentity.custom.DrumBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -23,6 +24,16 @@ public class SSBlockEntities {
                     SSBlocks.EMERALD_CRATE.get(),
                     SSBlocks.DIAMOND_CRATE.get(),
                     SSBlocks.NETHERITE_CRATE.get()));
+
+    public static final Supplier<BlockEntityType<DrumBlockEntity>> DRUM_BE = BLOCK_ENTITIES.register("drum_be",
+            () -> new BlockEntityType<>(DrumBlockEntity::new,
+                    SSBlocks.WOODEN_DRUM.get(),
+                    SSBlocks.COPPER_DRUM.get(),
+                    SSBlocks.IRON_DRUM.get(),
+                    SSBlocks.GOLD_DRUM.get(),
+                    SSBlocks.EMERALD_DRUM.get(),
+                    SSBlocks.DIAMOND_DRUM.get(),
+                    SSBlocks.NETHERITE_DRUM.get()));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

@@ -11,6 +11,15 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "superstorage:fluid_content"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "superstorage:copper_drum"
         }
       ],

@@ -54,5 +54,18 @@
   "item.superstorage.super_tank_iii": "Super Tank III",
   "item.superstorage.super_tank_iv": "Super Tank IV",
 
-  "message.superstorage.tank.empty": "Drum is Empty"
+  "message.superstorage.tank.empty": "Drum is Empty",
+
+  "tooltip.superstorage.fluid.amount": "%s: %sB / %sB",
+  "tooltip.superstorage.fluid.empty": "Empty",
+
+  "config.jade.plugin_superstorage.drum": "Super Storage Drum",
+
+  "tier.superstorage.wooden": "Wooden",
+  "tier.superstorage.copper": "Copper",
+  "tier.superstorage.iron": "Iron",
+  "tier.superstorage.gold": "Gold",
+  "tier.superstorage.emerald": "Emerald",
+  "tier.superstorage.diamond": "Diamond",
+  "tier.superstorage.netherite": "Netherite"
 }

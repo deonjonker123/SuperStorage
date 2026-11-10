@@ -2,6 +2,7 @@ package com.misterd.superstorage.item;
 
 import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.block.SSBlocks;
+import com.misterd.superstorage.item.custom.DrumBlockItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
@@ -34,25 +35,25 @@ public class SSItems {
             props -> new BlockItem(SSBlocks.NETHERITE_CRATE.get(), props));
 
     public static final DeferredItem<Item> WOODEN_DRUM = ITEMS.registerItem("wooden_drum",
-            props -> new BlockItem(SSBlocks.WOODEN_DRUM.get(), props));
+            props -> new DrumBlockItem(SSBlocks.WOODEN_DRUM.get(), props));
 
     public static final DeferredItem<Item> COPPER_DRUM = ITEMS.registerItem("copper_drum",
-            props -> new BlockItem(SSBlocks.COPPER_DRUM.get(), props));
+            props -> new DrumBlockItem(SSBlocks.COPPER_DRUM.get(), props));
 
     public static final DeferredItem<Item> IRON_DRUM = ITEMS.registerItem("iron_drum",
-            props -> new BlockItem(SSBlocks.IRON_DRUM.get(), props));
+            props -> new DrumBlockItem(SSBlocks.IRON_DRUM.get(), props));
 
     public static final DeferredItem<Item> GOLD_DRUM = ITEMS.registerItem("gold_drum",
-            props -> new BlockItem(SSBlocks.GOLD_DRUM.get(), props));
+            props -> new DrumBlockItem(SSBlocks.GOLD_DRUM.get(), props));
 
     public static final DeferredItem<Item> DIAMOND_DRUM = ITEMS.registerItem("diamond_drum",
-            props -> new BlockItem(SSBlocks.DIAMOND_DRUM.get(), props));
+            props -> new DrumBlockItem(SSBlocks.DIAMOND_DRUM.get(), props));
 
     public static final DeferredItem<Item> EMERALD_DRUM = ITEMS.registerItem("emerald_drum",
-            props -> new BlockItem(SSBlocks.EMERALD_DRUM.get(), props));
+            props -> new DrumBlockItem(SSBlocks.EMERALD_DRUM.get(), props));
 
     public static final DeferredItem<Item> NETHERITE_DRUM = ITEMS.registerItem("netherite_drum",
-            props -> new BlockItem(SSBlocks.NETHERITE_DRUM.get(), props));
+            props -> new DrumBlockItem(SSBlocks.NETHERITE_DRUM.get(), props));
 
     public static final DeferredItem<Item> SUPER_CHEST_I = ITEMS.registerItem("super_chest_i",
             props -> new BlockItem(SSBlocks.SUPER_CHEST_I.get(), props));

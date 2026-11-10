@@ -75,7 +75,8 @@ configurations {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    implementation "maven.modrinth:jade:${project.jade_version}"
+    compileOnly "maven.modrinth:jade:${project.jade_version}"
+    localRuntime "maven.modrinth:jade:${project.jade_version}"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

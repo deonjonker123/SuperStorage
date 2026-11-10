@@ -21,3 +21,10 @@ Storage mod inspired by GTCEu's super chest and tank.
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+modId="jade"
+type="optional"
+versionRange="*"
+ordering="NONE"
+side="BOTH"

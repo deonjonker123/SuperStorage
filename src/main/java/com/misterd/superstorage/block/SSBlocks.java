@@ -2,7 +2,9 @@ package com.misterd.superstorage.block;
 
 import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.block.custom.CrateBlock;
+import com.misterd.superstorage.block.custom.DrumBlock;
 import com.misterd.superstorage.util.CrateTier;
+import com.misterd.superstorage.util.DrumTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -67,50 +69,50 @@ public class SSBlocks {
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> WOODEN_DRUM = registerBlock("wooden_drum",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<DrumBlock> WOODEN_DRUM = registerBlock("wooden_drum",
+            id -> new DrumBlock(DrumTier.WOODEN, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(2F, 3F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.WOOD)));
 
-    public static final DeferredBlock<Block> COPPER_DRUM = registerBlock("copper_drum",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<DrumBlock> COPPER_DRUM = registerBlock("copper_drum",
+            id -> new DrumBlock(DrumTier.COPPER, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> IRON_DRUM = registerBlock("iron_drum",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<DrumBlock> IRON_DRUM = registerBlock("iron_drum",
+            id -> new DrumBlock(DrumTier.IRON, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> GOLD_DRUM = registerBlock("gold_drum",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<DrumBlock> GOLD_DRUM = registerBlock("gold_drum",
+            id -> new DrumBlock(DrumTier.GOLD, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> DIAMOND_DRUM = registerBlock("diamond_drum",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<DrumBlock> DIAMOND_DRUM = registerBlock("diamond_drum",
+            id -> new DrumBlock(DrumTier.DIAMOND, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> EMERALD_DRUM = registerBlock("emerald_drum",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<DrumBlock> EMERALD_DRUM = registerBlock("emerald_drum",
+            id -> new DrumBlock(DrumTier.EMERALD, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> NETHERITE_DRUM = registerBlock("netherite_drum",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<DrumBlock> NETHERITE_DRUM = registerBlock("netherite_drum",
+            id -> new DrumBlock(DrumTier.NETHERITE, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
