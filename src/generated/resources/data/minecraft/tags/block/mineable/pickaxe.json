@@ -21,8 +21,6 @@
     "superstorage:super_tank_ii",
     "superstorage:super_tank_iii",
     "superstorage:super_tank_iv",
-    "superstorage:creative_super_tank",
-    "superstorage:super_controller",
-    "superstorage:storage_casing"
+    "superstorage:creative_super_tank"
   ]
 }

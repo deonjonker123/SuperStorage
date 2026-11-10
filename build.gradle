@@ -24,6 +24,14 @@ sourceSets.main.resources {
 repositories {
     mavenCentral()
     maven { url = "https://api.modrinth.com/maven" }
+    maven {
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
 }
 
 base {
@@ -77,6 +85,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     compileOnly "maven.modrinth:jade:${project.jade_version}"
     localRuntime "maven.modrinth:jade:${project.jade_version}"
+    compileOnly "maven.modrinth:jei:${project.jei_version}"
+    localRuntime "maven.modrinth:jei:${project.jei_version}"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {

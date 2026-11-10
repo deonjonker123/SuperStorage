@@ -198,20 +198,6 @@ public class SSBlocks {
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<SuperControllerBlock> SUPER_CONTROLLER = registerBlock("super_controller",
-            id -> new SuperControllerBlock(BlockBehaviour.Properties.of()
-                    .setId(ResourceKey.create(Registries.BLOCK, id))
-                    .strength(3F, 50F)
-                    .requiresCorrectToolForDrops()
-                    .sound(SoundType.METAL)));
-
-    public static final DeferredBlock<Block> STORAGE_CASING = registerBlock("storage_casing",
-            id -> new Block(BlockBehaviour.Properties.of()
-                    .setId(ResourceKey.create(Registries.BLOCK, id))
-                    .strength(3F, 50F)
-                    .requiresCorrectToolForDrops()
-                    .sound(SoundType.METAL)));
-
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<Identifier, T> factory) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, factory);
         return toReturn;

@@ -37,9 +37,7 @@ public class SSBlockTagProvider extends BlockTagsProvider {
                 .add(SSBlocks.SUPER_TANK_II.get())
                 .add(SSBlocks.SUPER_TANK_III.get())
                 .add(SSBlocks.SUPER_TANK_IV.get())
-                .add(SSBlocks.CREATIVE_SUPER_TANK.get())
-                .add(SSBlocks.SUPER_CONTROLLER.get())
-                .add(SSBlocks.STORAGE_CASING.get());
+                .add(SSBlocks.CREATIVE_SUPER_TANK.get());
 
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(SSBlocks.WOODEN_CRATE.get())

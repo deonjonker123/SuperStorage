@@ -88,12 +88,6 @@ public class SSItems {
     public static final DeferredItem<Item> CREATIVE_SUPER_TANK = ITEMS.registerItem("creative_super_tank",
             props -> new SuperBlockItem(SSBlocks.CREATIVE_SUPER_TANK.get(), props.rarity(Rarity.EPIC)));
 
-    public static final DeferredItem<Item> SUPER_CONTROLLER = ITEMS.registerItem("super_controller",
-            props -> new BlockItem(SSBlocks.SUPER_CONTROLLER.get(), props));
-
-    public static final DeferredItem<Item> STORAGE_CASING = ITEMS.registerItem("storage_casing",
-            props -> new BlockItem(SSBlocks.STORAGE_CASING.get(), props));
-
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

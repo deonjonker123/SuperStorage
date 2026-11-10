@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "front": "superstorage:block/super_controller_front",
-    "side": "superstorage:block/storage_casing",
-    "top": "superstorage:block/storage_casing"
-  }
-}

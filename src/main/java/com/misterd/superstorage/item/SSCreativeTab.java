@@ -34,8 +34,6 @@ public class SSCreativeTab {
                         output.accept(SSBlocks.DIAMOND_DRUM);
                         output.accept(SSBlocks.NETHERITE_DRUM);
 
-                        output.accept(SSBlocks.SUPER_CONTROLLER);
-
                         output.accept(SSBlocks.SUPER_CHEST_I);
                         output.accept(SSBlocks.SUPER_CHEST_II);
                         output.accept(SSBlocks.SUPER_CHEST_III);
@@ -48,8 +46,6 @@ public class SSCreativeTab {
 
                         output.accept(SSBlocks.CREATIVE_SUPER_CHEST);
                         output.accept(SSBlocks.CREATIVE_SUPER_TANK);
-
-                        output.accept(SSBlocks.STORAGE_CASING);
                     }).build());
 
     public static void register(IEventBus eventBus) {

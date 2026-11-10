@@ -254,26 +254,6 @@ public class SSRecipeProvider extends RecipeProvider {
                 .define('C', SSBlocks.NETHERITE_DRUM)
                 .unlockedBy("has_netherite_drum", has(SSBlocks.NETHERITE_DRUM))
                 .save(output);
-
-        shaped(RecipeCategory.MISC, SSBlocks.STORAGE_CASING.get(), 4)
-                .pattern("ISI")
-                .pattern("S S")
-                .pattern("ISI")
-                .define('I', Items.IRON_INGOT)
-                .define('S', Items.SMOOTH_STONE)
-                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
-                .save(output);
-
-        shaped(RecipeCategory.MISC, SSBlocks.SUPER_CONTROLLER.get())
-                .pattern("IRI")
-                .pattern("CDC")
-                .pattern("IRI")
-                .define('I', Items.IRON_INGOT)
-                .define('R', Items.REDSTONE)
-                .define('C', Items.COMPARATOR)
-                .define('D', Items.DIAMOND)
-                .unlockedBy("has_comparator", has(Items.COMPARATOR))
-                .save(output);
     }
 
 }
