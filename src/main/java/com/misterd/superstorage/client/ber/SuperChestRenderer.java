@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.feature.ModelFeatureRenderer;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.state.level.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.util.LightCoordsUtil;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.Nullable;
@@ -65,7 +66,7 @@ public class SuperChestRenderer implements BlockEntityRenderer<SuperChestBlockEn
                 poseStack.translate(0.0F, ITEM_Y, ITEM_Z);
                 poseStack.mulPose(Axis.YP.rotationDegrees(state.time * DEGREES_PER_TICK));
                 poseStack.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
-                state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                state.item.submit(poseStack, collector, LightCoordsUtil.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 0);
                 poseStack.popPose();
             }
             SuperBlockText.submitCount(poseStack, collector, font, state.count);

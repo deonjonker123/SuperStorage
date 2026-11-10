@@ -15,9 +15,9 @@ import net.neoforged.neoforge.transfer.fluid.FluidResource;
 public enum StoredContentsDecorator implements IItemDecorator {
     INSTANCE;
 
-    private static final int OFFSET = 8;
-    private static final int SIZE = 8;
-    private static final float ITEM_SCALE = 0.5F;
+    private static final int OFFSET = 12;
+    private static final int SIZE = 4;
+    private static final float ITEM_SCALE = 0.25F;
 
     @Override
     public boolean render(GuiGraphicsExtractor graphics, Font font, ItemStack stack, int xOffset, int yOffset) {

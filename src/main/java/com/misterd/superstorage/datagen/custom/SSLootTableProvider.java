@@ -4,6 +4,7 @@ import com.misterd.superstorage.block.SSBlocks;
 import com.misterd.superstorage.component.SSDataComponents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.block.Block;
@@ -23,13 +24,13 @@ public class SSLootTableProvider extends BlockLootSubProvider {
 
     @Override
     protected void generate() {
-        dropSelf(SSBlocks.WOODEN_CRATE.get());
-        dropSelf(SSBlocks.COPPER_CRATE.get());
-        dropSelf(SSBlocks.IRON_CRATE.get());
-        dropSelf(SSBlocks.GOLD_CRATE.get());
-        dropSelf(SSBlocks.EMERALD_CRATE.get());
-        dropSelf(SSBlocks.DIAMOND_CRATE.get());
-        dropSelf(SSBlocks.NETHERITE_CRATE.get());
+        add(SSBlocks.WOODEN_CRATE.get(), this::createCrateTable);
+        add(SSBlocks.COPPER_CRATE.get(), this::createCrateTable);
+        add(SSBlocks.IRON_CRATE.get(), this::createCrateTable);
+        add(SSBlocks.GOLD_CRATE.get(), this::createCrateTable);
+        add(SSBlocks.EMERALD_CRATE.get(), this::createCrateTable);
+        add(SSBlocks.DIAMOND_CRATE.get(), this::createCrateTable);
+        add(SSBlocks.NETHERITE_CRATE.get(), this::createCrateTable);
         add(SSBlocks.WOODEN_DRUM.get(), this::createDrumTable);
         add(SSBlocks.COPPER_DRUM.get(), this::createDrumTable);
         add(SSBlocks.IRON_DRUM.get(), this::createDrumTable);
@@ -47,21 +48,29 @@ public class SSLootTableProvider extends BlockLootSubProvider {
         add(SSBlocks.SUPER_TANK_IV.get(), this::createSuperTankTable);
     }
 
+    private LootTable.Builder createCrateTable(Block block) {
+        return createComponentTable(block, CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
+                .include(DataComponents.CUSTOM_NAME));
+    }
+
     private LootTable.Builder createDrumTable(Block block) {
         return createComponentTable(block, CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
-                .include(SSDataComponents.FLUID_CONTENT.get()));
+                .include(SSDataComponents.FLUID_CONTENT.get())
+                .include(DataComponents.CUSTOM_NAME));
     }
 
     private LootTable.Builder createSuperChestTable(Block block) {
         return createComponentTable(block, CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
                 .include(SSDataComponents.SUPER_CHEST_CONTENTS.get())
-                .include(SSDataComponents.SUPER_SETTINGS.get()));
+                .include(SSDataComponents.SUPER_SETTINGS.get())
+                .include(DataComponents.CUSTOM_NAME));
     }
 
     private LootTable.Builder createSuperTankTable(Block block) {
         return createComponentTable(block, CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
                 .include(SSDataComponents.SUPER_TANK_CONTENTS.get())
-                .include(SSDataComponents.SUPER_SETTINGS.get()));
+                .include(SSDataComponents.SUPER_SETTINGS.get())
+                .include(DataComponents.CUSTOM_NAME));
     }
 
     private LootTable.Builder createComponentTable(Block block, CopyComponentsFunction.Builder copy) {

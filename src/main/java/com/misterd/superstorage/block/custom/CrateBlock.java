@@ -3,6 +3,7 @@ package com.misterd.superstorage.block.custom;
 import com.misterd.superstorage.gui.custom.CrateMenu;
 import com.misterd.superstorage.util.CrateTier;
 import com.misterd.superstorage.blockentity.custom.CrateBlockEntity;
+import com.misterd.superstorage.util.MenuTitles;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -56,7 +57,7 @@ public class CrateBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof CrateBlockEntity crate) {
-            player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new CrateMenu(containerId, inventory, crate), getName()),
+            player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new CrateMenu(containerId, inventory, crate), MenuTitles.of(crate, this)),
                     buf -> buf.writeVarInt(tier.ordinal()));
         }
         return InteractionResult.SUCCESS;

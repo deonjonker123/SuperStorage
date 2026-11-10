@@ -17,6 +17,8 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -46,6 +48,9 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     private static final String CONFIG_KEY = "config";
     private static final int DOUBLE_CLICK_TICKS = 10;
     private static final int COUNT_SYNC_TICKS = 4;
+    private static final float SOUND_VOLUME = 0.4F;
+    private static final float INSERT_PITCH = 0.8F;
+    private static final float EXTRACT_PITCH = 1.2F;
 
     private final SuperTier tier;
     private final SuperConfig config = new SuperConfig();
@@ -129,7 +134,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
 
     @Override
     public long getCapacity() {
-        return tier.capacity();
+        return tier.itemCapacity();
     }
 
     public ResourceHandler<ItemResource> getStorage() {
@@ -164,6 +169,14 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     }
 
     public int insert(ItemStack stack) {
+        int inserted = insertSilently(stack);
+        if (inserted > 0) {
+            playSound(INSERT_PITCH);
+        }
+        return inserted;
+    }
+
+    public int insertSilently(ItemStack stack) {
         if (!accepts(stack)) {
             return 0;
         }
@@ -182,7 +195,16 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
         try (Transaction tx = Transaction.openRoot()) {
             int extracted = storage.extract(0, resource, amount, tx);
             tx.commit();
+            if (extracted > 0) {
+                playSound(EXTRACT_PITCH);
+            }
             return resource.toStack(extracted);
+        }
+    }
+
+    private void playSound(float pitch) {
+        if (level != null && !level.isClientSide()) {
+            level.playSound(null, worldPosition, SoundEvents.ITEM_PICKUP, SoundSource.BLOCKS, SOUND_VOLUME, pitch);
         }
     }
 
@@ -216,17 +238,22 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
         if (stored.isEmpty()) {
             return;
         }
+        boolean insertedAny = false;
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (!stack.isEmpty() && stored.matches(stack)) {
-                int inserted = insert(stack);
+                int inserted = insertSilently(stack);
                 if (inserted == 0) {
                     break;
                 }
                 stack.shrink(inserted);
+                insertedAny = true;
             }
         }
         player.getInventory().setChanged();
+        if (insertedAny) {
+            playSound(INSERT_PITCH);
+        }
     }
 
     @Override
@@ -265,7 +292,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
         if (count == 0) {
             return 0;
         }
-        return Mth.clamp(1 + (int) (count * 14 / tier.capacity()), 1, 15);
+        return Mth.clamp(1 + (int) (count * 14 / tier.itemCapacity()), 1, 15);
     }
 
     private void syncCount() {
@@ -317,7 +344,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
         SuperChestContents contents = components.get(SSDataComponents.SUPER_CHEST_CONTENTS.get());
         if (contents != null) {
             stored = contents.item();
-            count = Mth.clamp(contents.count(), 0, tier.capacity());
+            count = Mth.clamp(contents.count(), 0, tier.itemCapacity());
         }
         config.fromSettings(components.getOrDefault(SSDataComponents.SUPER_SETTINGS.get(), SuperSettings.DEFAULT));
     }
@@ -354,7 +381,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
 
         @Override
         public long getCapacityAsLong(int index, ItemResource resource) {
-            return index == 0 ? tier.capacity() : 0;
+            return index == 0 ? tier.itemCapacity() : 0;
         }
 
         @Override
@@ -367,7 +394,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
             if (index != 0 || amount <= 0 || !accepts(resource)) {
                 return 0;
             }
-            int toInsert = (int) Math.min(amount, tier.capacity() - count);
+            int toInsert = (int) Math.min(amount, tier.itemCapacity() - count);
             boolean voiding = config.isVoidOverflow();
             if (toInsert <= 0 && !voiding) {
                 return 0;

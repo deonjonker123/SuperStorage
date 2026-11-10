@@ -59,7 +59,7 @@ public class SuperChestMenu extends SuperMenu {
         ItemStack extracted = chest.extract(chest.getStored().getMaxStackSize());
         player.getInventory().add(extracted);
         if (!extracted.isEmpty()) {
-            chest.insert(extracted);
+            chest.insertSilently(extracted);
         }
         return true;
     }

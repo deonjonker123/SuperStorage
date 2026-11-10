@@ -4,6 +4,7 @@ import com.misterd.superstorage.blockentity.SSBlockEntities;
 import com.misterd.superstorage.blockentity.custom.SuperTankBlockEntity;
 import com.misterd.superstorage.gui.custom.SuperTankMenu;
 import com.misterd.superstorage.util.FluidTransfer;
+import com.misterd.superstorage.util.MenuTitles;
 import com.misterd.superstorage.util.SuperTier;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -115,7 +116,7 @@ public class SuperTankBlock extends BaseEntityBlock {
     }
 
     private void openMenu(Player player, BlockPos pos, SuperTankBlockEntity tank) {
-        player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new SuperTankMenu(containerId, inventory, tank), getName()),
+        player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new SuperTankMenu(containerId, inventory, tank), MenuTitles.of(tank, this)),
                 buf -> buf.writeBlockPos(pos));
     }
 

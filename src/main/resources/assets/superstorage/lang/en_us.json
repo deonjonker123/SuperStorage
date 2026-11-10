@@ -36,7 +36,6 @@
   "item.superstorage.netherite_crate": "Netherite Crate",
 
   "item.superstorage.wooden_drum": "Wooden Drum",
-  "item.superstorage.wooden_drum.subtitle": "Holds 16 buckets",
   "item.superstorage.copper_drum": "Copper Drum",
   "item.superstorage.iron_drum": "Iron Drum",
   "item.superstorage.gold_drum": "Gold Drum",
@@ -53,8 +52,6 @@
   "item.superstorage.super_tank_ii": "Super Tank II",
   "item.superstorage.super_tank_iii": "Super Tank III",
   "item.superstorage.super_tank_iv": "Super Tank IV",
-
-  "message.superstorage.tank.empty": "Drum is Empty",
 
   "tooltip.superstorage.item_slots": "Item Slots: ",
   "tooltip.superstorage.item_stored": "Item Stored: ",
@@ -96,14 +93,6 @@
   "config.jade.plugin_superstorage.super_tank": "Super Storage Super Tank",
   "config.jade.plugin_superstorage.super_config": "Super Storage Super Block Settings",
   "config.jade.plugin_superstorage.drum": "Super Storage Drum",
-
-  "tier.superstorage.wooden": "Wooden",
-  "tier.superstorage.copper": "Copper",
-  "tier.superstorage.iron": "Iron",
-  "tier.superstorage.gold": "Gold",
-  "tier.superstorage.emerald": "Emerald",
-  "tier.superstorage.diamond": "Diamond",
-  "tier.superstorage.netherite": "Netherite",
 
   "gui.superstorage.empty": "Empty",
   "gui.superstorage.of": "of %s",

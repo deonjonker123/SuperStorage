@@ -3,6 +3,7 @@ package com.misterd.superstorage.block.custom;
 import com.misterd.superstorage.blockentity.SSBlockEntities;
 import com.misterd.superstorage.blockentity.custom.SuperChestBlockEntity;
 import com.misterd.superstorage.gui.custom.SuperChestMenu;
+import com.misterd.superstorage.util.MenuTitles;
 import com.misterd.superstorage.util.SuperTier;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -111,7 +112,7 @@ public class SuperChestBlock extends BaseEntityBlock {
         if (front && player.getMainHandItem().isEmpty() && chest.tryDoubleClickInsert(player)) {
             return InteractionResult.SUCCESS;
         }
-        player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new SuperChestMenu(containerId, inventory, chest), getName()),
+        player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new SuperChestMenu(containerId, inventory, chest), MenuTitles.of(chest, this)),
                 buf -> buf.writeBlockPos(pos));
         return InteractionResult.SUCCESS;
     }
@@ -124,7 +125,7 @@ public class SuperChestBlock extends BaseEntityBlock {
             ItemStack picked = extracted.copy();
             player.getInventory().add(extracted);
             if (!extracted.isEmpty()) {
-                chest.insert(extracted);
+                chest.insertSilently(extracted);
             }
             return picked;
         }

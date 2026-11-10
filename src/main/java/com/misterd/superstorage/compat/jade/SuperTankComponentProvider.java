@@ -24,7 +24,7 @@ public enum SuperTankComponentProvider implements IBlockComponentProvider {
         }
         CompoundTag data = accessor.getServerData();
         FluidStack fluid = data.contains(SuperTankDataProvider.FLUID_KEY) ? accessor.decodeFromNbt(FluidStack.OPTIONAL_STREAM_CODEC, data.get(SuperTankDataProvider.FLUID_KEY)).orElse(FluidStack.EMPTY) : FluidStack.EMPTY;
-        long capacity = tank.getTier().capacity();
+        long capacity = tank.getTier().fluidCapacity();
         ProgressView.Part part = fluid.isEmpty()
                 ? ProgressView.Part.of(0.0F)
                 : ProgressView.Part.of((float) ((double) fluid.getAmount() / capacity), JadeUI.fluid(JadeFluidObject.of(fluid.getFluid(), fluid.getAmount(), fluid.getComponentsPatch())));

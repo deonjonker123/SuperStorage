@@ -78,6 +78,11 @@ public class DrumBlockEntity extends BlockEntity {
         }
 
         @Override
+        protected int getCapacity(int index, FluidResource resource) {
+            return tier.capacity();
+        }
+
+        @Override
         protected void onContentsChanged(int index, FluidStack previousContents) {
             setChanged();
         }

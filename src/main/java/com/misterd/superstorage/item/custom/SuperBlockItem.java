@@ -30,14 +30,14 @@ public class SuperBlockItem extends BlockItem {
             if (contents != null && !contents.item().isEmpty() && contents.count() > 0) {
                 builder.accept(ItemText.stored(contents.item(), contents.count()));
             }
-            builder.accept(ItemText.capacity(chest.getTier().capacity()));
+            builder.accept(ItemText.capacity(chest.getTier().itemCapacity()));
             TooltipDetails.add(builder, flag, "super_chest", 5);
         } else if (getBlock() instanceof SuperTankBlock tank) {
             SuperTankContents contents = stack.get(SSDataComponents.SUPER_TANK_CONTENTS.get());
             if (contents != null && !contents.fluid().isEmpty() && contents.amount() > 0) {
                 builder.accept(FluidText.stored(contents.fluid().toStack((int) contents.amount())));
             }
-            builder.accept(FluidText.capacity(tank.getTier().capacity()));
+            builder.accept(FluidText.capacity(tank.getTier().fluidCapacity()));
             TooltipDetails.add(builder, flag, "super_tank", 3);
         }
     }

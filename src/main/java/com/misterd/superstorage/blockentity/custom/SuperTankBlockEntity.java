@@ -129,7 +129,7 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
 
     @Override
     public long getCapacity() {
-        return tier.capacity();
+        return tier.fluidCapacity();
     }
 
     public ResourceHandler<FluidResource> getStorage() {
@@ -209,7 +209,7 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
         if (amount == 0) {
             return 0;
         }
-        return Mth.clamp(1 + (int) (amount * 14 / tier.capacity()), 1, 15);
+        return Mth.clamp(1 + (int) (amount * 14 / tier.fluidCapacity()), 1, 15);
     }
 
     private void syncCount() {
@@ -270,7 +270,7 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
         SuperTankContents contents = components.get(SSDataComponents.SUPER_TANK_CONTENTS.get());
         if (contents != null) {
             stored = contents.fluid();
-            amount = Mth.clamp(contents.amount(), 0, tier.capacity());
+            amount = Mth.clamp(contents.amount(), 0, tier.fluidCapacity());
         }
         config.fromSettings(components.getOrDefault(SSDataComponents.SUPER_SETTINGS.get(), SuperSettings.DEFAULT));
     }
@@ -307,7 +307,7 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
 
         @Override
         public long getCapacityAsLong(int index, FluidResource resource) {
-            return index == 0 ? tier.capacity() : 0;
+            return index == 0 ? tier.fluidCapacity() : 0;
         }
 
         @Override
@@ -320,7 +320,7 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
             if (index != 0 || toInsertAmount <= 0 || !accepts(resource)) {
                 return 0;
             }
-            int toInsert = (int) Math.min(toInsertAmount, tier.capacity() - amount);
+            int toInsert = (int) Math.min(toInsertAmount, tier.fluidCapacity() - amount);
             boolean voiding = config.isVoidOverflow();
             if (toInsert <= 0 && !voiding) {
                 return 0;

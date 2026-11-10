@@ -1,5 +1,6 @@
 package com.misterd.superstorage.util;
 
+import com.misterd.superstorage.config.SSConfig;
 import com.mojang.serialization.Codec;
 import net.minecraft.util.StringRepresentable;
 
@@ -12,15 +13,23 @@ public enum SuperTier implements StringRepresentable {
     public static final Codec<SuperTier> CODEC = StringRepresentable.fromEnum(SuperTier::values);
 
     private final String name;
-    private final long capacity;
+    public final long capacity;
 
     SuperTier(String name, long capacity) {
         this.name = name;
         this.capacity = capacity;
     }
 
-    public long capacity() {
+    public long defaultCapacity() {
         return capacity;
+    }
+
+    public long itemCapacity() {
+        return SSConfig.superChestCapacity(this);
+    }
+
+    public int fluidCapacity() {
+        return SSConfig.superTankCapacity(this);
     }
 
     @Override
