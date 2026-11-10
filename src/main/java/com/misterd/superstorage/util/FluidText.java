@@ -39,4 +39,18 @@ public final class FluidText {
     public static String buckets(long millibuckets) {
         return BUCKETS.format(millibuckets / 1000.0);
     }
+
+    public static Component storedInfinite(FluidStack fluid) {
+        return Component.translatable("tooltip.superstorage.fluid_stored").withStyle(ChatFormatting.LIGHT_PURPLE)
+                .append(Component.translatable("tooltip.superstorage.fluid_value_infinite", fluid.getHoverName()).withStyle(ChatFormatting.WHITE));
+    }
+
+    public static Component capacityInfinite() {
+        return Component.translatable("tooltip.superstorage.fluid_capacity").withStyle(ChatFormatting.GOLD)
+                .append(Component.translatable("tooltip.superstorage.infinite").withStyle(ChatFormatting.WHITE));
+    }
+
+    public static Component barInfinite(FluidStack fluid) {
+        return Component.translatable("tooltip.superstorage.fluid_value_infinite", fluid.getHoverName()).withStyle(ChatFormatting.WHITE);
+    }
 }

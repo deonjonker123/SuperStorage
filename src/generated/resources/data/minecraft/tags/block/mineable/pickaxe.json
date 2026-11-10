@@ -16,9 +16,11 @@
     "superstorage:super_chest_ii",
     "superstorage:super_chest_iii",
     "superstorage:super_chest_iv",
+    "superstorage:creative_super_chest",
     "superstorage:super_tank_i",
     "superstorage:super_tank_ii",
     "superstorage:super_tank_iii",
-    "superstorage:super_tank_iv"
+    "superstorage:super_tank_iv",
+    "superstorage:creative_super_tank"
   ]
 }

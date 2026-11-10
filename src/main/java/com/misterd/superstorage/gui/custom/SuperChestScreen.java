@@ -28,6 +28,9 @@ public class SuperChestScreen extends SuperScreen<SuperChestMenu> {
         if (stored.isEmpty()) {
             return List.of(Component.translatable("gui.superstorage.empty"));
         }
+        if (menu.isCreative()) {
+            return List.of(stored.toStack().getHoverName(), Component.translatable("tooltip.superstorage.infinite"));
+        }
         long amount = menu.getAmount();
         long capacity = menu.getCapacity();
         return List.of(

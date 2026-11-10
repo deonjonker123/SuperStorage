@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "superstorage:super_tank_contents",
+                "superstorage:super_settings",
+                "minecraft:custom_name"
+              ],
+              "source": "block_entity"
+            }
+          ],
+          "name": "superstorage:creative_super_tank"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "superstorage:blocks/creative_super_tank"
+}

@@ -117,6 +117,9 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
     }
 
     private double fillRatio() {
+        if (menu.isCreative()) {
+            return 1.0;
+        }
         long capacity = menu.getCapacity();
         return capacity <= 0 ? 0.0 : Math.min(1.0, (double) menu.getAmount() / capacity);
     }

@@ -38,6 +38,9 @@ public class SuperTankScreen extends SuperScreen<SuperTankMenu> {
         if (stored.isEmpty()) {
             return List.of(Component.translatable("gui.superstorage.empty"));
         }
+        if (menu.isCreative()) {
+            return List.of(stored.toStack(1000).getHoverName(), Component.translatable("tooltip.superstorage.infinite"));
+        }
         long amount = menu.getAmount();
         long capacity = menu.getCapacity();
         return List.of(

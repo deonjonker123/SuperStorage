@@ -102,8 +102,7 @@ public class SuperStorage {
             List<DeferredBlock<?>> blocks = List.of(
                     SSBlocks.WOODEN_DRUM, SSBlocks.COPPER_DRUM, SSBlocks.IRON_DRUM, SSBlocks.GOLD_DRUM,
                     SSBlocks.EMERALD_DRUM, SSBlocks.DIAMOND_DRUM, SSBlocks.NETHERITE_DRUM,
-                    SSBlocks.SUPER_CHEST_I, SSBlocks.SUPER_CHEST_II, SSBlocks.SUPER_CHEST_III, SSBlocks.SUPER_CHEST_IV,
-                    SSBlocks.SUPER_TANK_I, SSBlocks.SUPER_TANK_II, SSBlocks.SUPER_TANK_III, SSBlocks.SUPER_TANK_IV);
+                    SSBlocks.SUPER_CHEST_I, SSBlocks.SUPER_CHEST_II, SSBlocks.SUPER_CHEST_III, SSBlocks.SUPER_CHEST_IV, SSBlocks.SUPER_TANK_I, SSBlocks.SUPER_TANK_II, SSBlocks.SUPER_TANK_III, SSBlocks.SUPER_TANK_IV, SSBlocks.CREATIVE_SUPER_CHEST, SSBlocks.CREATIVE_SUPER_TANK);
             for (DeferredBlock<?> block : blocks) {
                 event.register(block, StoredContentsDecorator.INSTANCE);
             }

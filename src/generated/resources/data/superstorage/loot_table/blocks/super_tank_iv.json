@@ -16,7 +16,8 @@
               "function": "minecraft:copy_components",
               "include": [
                 "superstorage:super_tank_contents",
-                "superstorage:super_settings"
+                "superstorage:super_settings",
+                "minecraft:custom_name"
               ],
               "source": "block_entity"
             }

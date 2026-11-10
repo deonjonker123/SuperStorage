@@ -90,7 +90,7 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
             if (neighbour == null) {
                 continue;
             }
-            if (mode.canOutput() && !stored.isEmpty() && amount > 0) {
+            if (mode.canOutput() && !stored.isEmpty() && (amount > 0 || isCreative())) {
                 ResourceHandlerUtil.move(storage, neighbour, resource -> true, rate, null);
             }
             if (mode.canInput()) {
@@ -128,6 +128,19 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
     }
 
     @Override
+    public boolean isCreative() {
+        return tier.isCreative();
+    }
+
+    public void setCreativeFluid(FluidResource fluid) {
+        if (fluid.isEmpty()) {
+            return;
+        }
+        stored = fluid;
+        onChanged(true);
+    }
+
+    @Override
     public long getCapacity() {
         return tier.fluidCapacity();
     }
@@ -160,11 +173,11 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
         if (resource.isEmpty()) {
             return false;
         }
-        return stored.isEmpty() || stored.equals(resource);
+        return isCreative() || stored.isEmpty() || stored.equals(resource);
     }
 
     private void fillDrum() {
-        if (stored.isEmpty() || amount == 0 || ioSlot.getResource(0).isEmpty()) {
+        if (stored.isEmpty() || (amount == 0 && !isCreative()) || ioSlot.getResource(0).isEmpty()) {
             return;
         }
         ResourceHandler<FluidResource> drum = ItemAccess.forHandlerIndex(ioSlot, 0).getCapability(Capabilities.Fluid.ITEM);
@@ -206,6 +219,9 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
     }
 
     public int getComparatorSignal() {
+        if (isCreative()) {
+            return stored.isEmpty() ? 0 : 15;
+        }
         if (amount == 0) {
             return 0;
         }
@@ -302,7 +318,10 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
 
         @Override
         public long getAmountAsLong(int index) {
-            return index == 0 ? amount : 0;
+            if (index != 0) {
+                return 0;
+            }
+            return isCreative() ? (stored.isEmpty() ? 0 : Integer.MAX_VALUE) : amount;
         }
 
         @Override
@@ -317,6 +336,9 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
 
         @Override
         public int insert(int index, FluidResource resource, int toInsertAmount, TransactionContext transaction) {
+            if (isCreative()) {
+                return index == 0 && toInsertAmount > 0 && !resource.isEmpty() ? toInsertAmount : 0;
+            }
             if (index != 0 || toInsertAmount <= 0 || !accepts(resource)) {
                 return 0;
             }
@@ -335,6 +357,9 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
 
         @Override
         public int extract(int index, FluidResource resource, int toExtractAmount, TransactionContext transaction) {
+            if (isCreative()) {
+                return index == 0 && toExtractAmount > 0 && !stored.isEmpty() && stored.equals(resource) ? toExtractAmount : 0;
+            }
             if (index != 0 || toExtractAmount <= 0 || amount == 0 || stored.isEmpty() || !stored.equals(resource)) {
                 return 0;
             }

@@ -42,14 +42,16 @@ public class SSBlockEntities {
                     SSBlocks.SUPER_CHEST_I.get(),
                     SSBlocks.SUPER_CHEST_II.get(),
                     SSBlocks.SUPER_CHEST_III.get(),
-                    SSBlocks.SUPER_CHEST_IV.get()));
+                    SSBlocks.SUPER_CHEST_IV.get(),
+                    SSBlocks.CREATIVE_SUPER_CHEST.get()));
 
     public static final Supplier<BlockEntityType<SuperTankBlockEntity>> SUPER_TANK_BE = BLOCK_ENTITIES.register("super_tank_be",
             () -> new BlockEntityType<>(SuperTankBlockEntity::new,
                     SSBlocks.SUPER_TANK_I.get(),
                     SSBlocks.SUPER_TANK_II.get(),
                     SSBlocks.SUPER_TANK_III.get(),
-                    SSBlocks.SUPER_TANK_IV.get()));
+                    SSBlocks.SUPER_TANK_IV.get(),
+                    SSBlocks.CREATIVE_SUPER_TANK.get()));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

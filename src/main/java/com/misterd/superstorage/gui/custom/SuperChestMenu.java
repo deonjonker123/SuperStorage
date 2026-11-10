@@ -122,7 +122,12 @@ public class SuperChestMenu extends SuperMenu {
             SuperChestBlockEntity chest = chest();
             ItemStack stack = getItem();
             if (server && chest != null && !stack.isEmpty()) {
-                stack.shrink(chest.insert(stack));
+                if (chest.isCreative()) {
+                    chest.setCreativeItem(stack);
+                    container.setItem(0, ItemStack.EMPTY);
+                } else {
+                    stack.shrink(chest.insert(stack));
+                }
                 container.setChanged();
             }
         }
@@ -136,7 +141,7 @@ public class SuperChestMenu extends SuperMenu {
         @Override
         public ItemStack getItem() {
             ItemResource stored = getStored();
-            long amount = getAmount();
+            long amount = isCreative() ? stored.getMaxStackSize() : getAmount();
             if (stored.isEmpty() || amount <= 0) {
                 return ItemStack.EMPTY;
             }

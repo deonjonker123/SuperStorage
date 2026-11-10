@@ -55,8 +55,8 @@ public class SuperTankRenderer implements BlockEntityRenderer<SuperTankBlockEnti
         if (!state.visible) {
             return;
         }
-        state.count = CountFormat.buckets(tank.getAmount());
-        state.fill = tank.getCapacity() == 0 ? 0 : (float) Math.min(1.0, (double) tank.getAmount() / tank.getCapacity());
+        state.count = tank.isCreative() ? CountFormat.INFINITE : CountFormat.buckets(tank.getAmount());
+        state.fill = tank.isCreative() ? 1.0F : tank.getCapacity() == 0 ? 0 : (float) Math.min(1.0, (double) tank.getAmount() / tank.getCapacity());
         if (state.fill > 0) {
             FluidModel model = Minecraft.getInstance().getModelManager().getFluidStateModelSet().get(fluid.getFluid().defaultFluidState());
             state.sprite = model.stillMaterial().sprite();

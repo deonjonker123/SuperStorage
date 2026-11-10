@@ -70,7 +70,12 @@ public class SuperTankMenu extends SuperMenu {
             if (item != null && (!drum || buttonNum == 1)) {
                 SuperTankBlockEntity tank = tank();
                 if (server && tank != null) {
-                    FluidTransfer.moveBucket(tank.getStorage(), item, level, pos, player);
+                    FluidResource fluid = tank.isCreative() ? FluidTransfer.firstFluid(item) : FluidResource.EMPTY;
+                    if (!fluid.isEmpty()) {
+                        tank.setCreativeFluid(fluid);
+                    } else {
+                        FluidTransfer.moveBucket(tank.getStorage(), item, level, pos, player);
+                    }
                 }
                 return;
             }

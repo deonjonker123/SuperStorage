@@ -31,7 +31,9 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
+import net.neoforged.neoforge.transfer.fluid.FluidResource;
 import org.jspecify.annotations.Nullable;
 
 public class SuperTankBlock extends BaseEntityBlock {
@@ -101,7 +103,15 @@ public class SuperTankBlock extends BaseEntityBlock {
         if (level.isClientSide()) {
             return InteractionResult.SUCCESS;
         }
-        if (!FluidTransfer.moveBucket(tank.getStorage(), ItemAccess.forPlayerInteraction(player, hand).oneByOne().getCapability(Capabilities.Fluid.ITEM), level, pos, player)) {
+        ResourceHandler<FluidResource> item = ItemAccess.forPlayerInteraction(player, hand).oneByOne().getCapability(Capabilities.Fluid.ITEM);
+        if (tank.isCreative()) {
+            FluidResource fluid = FluidTransfer.firstFluid(item);
+            if (!fluid.isEmpty()) {
+                tank.setCreativeFluid(fluid);
+                return InteractionResult.SUCCESS;
+            }
+        }
+        if (!FluidTransfer.moveBucket(tank.getStorage(), item, level, pos, player)) {
             openMenu(player, pos, tank);
         }
         return InteractionResult.SUCCESS;

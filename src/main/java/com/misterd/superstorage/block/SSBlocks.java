@@ -185,6 +185,22 @@ public class SSBlocks {
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
+    public static final DeferredBlock<SuperChestBlock> CREATIVE_SUPER_CHEST = registerBlock("creative_super_chest",
+            id -> new SuperChestBlock(SuperTier.CREATIVE, BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<SuperTankBlock> CREATIVE_SUPER_TANK = registerBlock("creative_super_tank",
+            id -> new SuperTankBlock(SuperTier.CREATIVE, BlockBehaviour.Properties.of()
+                    .noOcclusion()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<Identifier, T> factory) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, factory);
         return toReturn;

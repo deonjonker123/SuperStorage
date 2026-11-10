@@ -10,6 +10,8 @@ public interface SuperBlockEntity {
 
     long getCapacity();
 
+    boolean isCreative();
+
     void setLocked(boolean locked);
 
     void setVoidOverflow(boolean voidOverflow);

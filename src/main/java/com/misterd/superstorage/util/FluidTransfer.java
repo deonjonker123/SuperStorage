@@ -32,4 +32,17 @@ public final class FluidTransfer {
         }
         return false;
     }
+
+    public static FluidResource firstFluid(@Nullable ResourceHandler<FluidResource> handler) {
+        if (handler == null) {
+            return FluidResource.EMPTY;
+        }
+        for (int i = 0; i < handler.size(); i++) {
+            FluidResource resource = handler.getResource(i);
+            if (!resource.isEmpty() && handler.getAmountAsLong(i) > 0) {
+                return resource;
+            }
+        }
+        return FluidResource.EMPTY;
+    }
 }

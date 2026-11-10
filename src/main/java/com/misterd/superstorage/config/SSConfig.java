@@ -32,12 +32,18 @@ public final class SSConfig {
 
         builder.comment("Capacity of each Super Chest tier, in items").push("super_chest_capacity");
         for (SuperTier tier : SuperTier.values()) {
+            if (tier.isCreative()) {
+                continue;
+            }
             SUPER_CHEST_CAPACITY.put(tier, builder.defineInRange("tier_" + tier.getSerializedName(), tier.defaultCapacity(), 1L, Long.MAX_VALUE / 2));
         }
         builder.pop();
 
         builder.comment("Capacity of each Super Tank tier, in millibuckets").push("super_tank_capacity");
         for (SuperTier tier : SuperTier.values()) {
+            if (tier.isCreative()) {
+                continue;
+            }
             SUPER_TANK_CAPACITY.put(tier, builder.defineInRange("tier_" + tier.getSerializedName(), (int) tier.defaultCapacity(), 1000, Integer.MAX_VALUE));
         }
         builder.pop();

@@ -91,7 +91,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
             if (neighbour == null) {
                 continue;
             }
-            if (mode.canOutput() && !stored.isEmpty() && count > 0) {
+            if (mode.canOutput() && !stored.isEmpty() && (count > 0 || isCreative())) {
                 ResourceHandlerUtil.move(storage, neighbour, resource -> true, rate, null);
             }
             if (mode.canInput()) {
@@ -133,6 +133,19 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     }
 
     @Override
+    public boolean isCreative() {
+        return tier.isCreative();
+    }
+
+    public void setCreativeItem(ItemStack stack) {
+        if (stack.isEmpty() || !StorageGuard.isAllowed(ItemResource.of(stack))) {
+            return;
+        }
+        stored = ItemResource.of(stack);
+        onChanged(true);
+    }
+
+    @Override
     public long getCapacity() {
         return tier.itemCapacity();
     }
@@ -165,7 +178,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
         if (resource.isEmpty() || !StorageGuard.isAllowed(resource)) {
             return false;
         }
-        return stored.isEmpty() || stored.equals(resource);
+        return isCreative() || stored.isEmpty() || stored.equals(resource);
     }
 
     public int insert(ItemStack stack) {
@@ -188,7 +201,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     }
 
     public ItemStack extract(int amount) {
-        if (stored.isEmpty() || count == 0) {
+        if (stored.isEmpty() || (count == 0 && !isCreative())) {
             return ItemStack.EMPTY;
         }
         ItemResource resource = stored;
@@ -209,6 +222,10 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     }
 
     public void insertFromHand(Player player, ItemStack held) {
+        if (isCreative()) {
+            setCreativeItem(held);
+            return;
+        }
         long now = level == null ? 0 : level.getGameTime();
         boolean doubleClick = isDoubleClick(player, now);
         lastInsertTicks.put(player.getUUID(), now);
@@ -220,6 +237,9 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     }
 
     public boolean tryDoubleClickInsert(Player player) {
+        if (isCreative()) {
+            return false;
+        }
         long now = level == null ? 0 : level.getGameTime();
         if (!isDoubleClick(player, now)) {
             return false;
@@ -289,6 +309,9 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     }
 
     public int getComparatorSignal() {
+        if (isCreative()) {
+            return stored.isEmpty() ? 0 : 15;
+        }
         if (count == 0) {
             return 0;
         }
@@ -376,7 +399,10 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
 
         @Override
         public long getAmountAsLong(int index) {
-            return index == 0 ? count : 0;
+            if (index != 0) {
+                return 0;
+            }
+            return isCreative() ? (stored.isEmpty() ? 0 : Long.MAX_VALUE) : count;
         }
 
         @Override
@@ -391,6 +417,9 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
 
         @Override
         public int insert(int index, ItemResource resource, int amount, TransactionContext transaction) {
+            if (isCreative()) {
+                return index == 0 && amount > 0 && !resource.isEmpty() ? amount : 0;
+            }
             if (index != 0 || amount <= 0 || !accepts(resource)) {
                 return 0;
             }
@@ -409,6 +438,9 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
 
         @Override
         public int extract(int index, ItemResource resource, int amount, TransactionContext transaction) {
+            if (isCreative()) {
+                return index == 0 && amount > 0 && !stored.isEmpty() && stored.equals(resource) ? amount : 0;
+            }
             if (index != 0 || amount <= 0 || count == 0 || stored.isEmpty() || !stored.equals(resource)) {
                 return 0;
             }

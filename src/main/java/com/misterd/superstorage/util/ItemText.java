@@ -22,4 +22,14 @@ public final class ItemText {
         return Component.translatable("tooltip.superstorage.item_capacity").withStyle(ChatFormatting.GOLD)
                 .append(Component.literal(String.format("%,d", capacity)).withStyle(ChatFormatting.WHITE));
     }
+
+    public static Component storedInfinite(ItemResource item) {
+        return Component.translatable("tooltip.superstorage.item_stored").withStyle(ChatFormatting.LIGHT_PURPLE)
+                .append(Component.translatable("tooltip.superstorage.item_value", item.toStack().getHoverName(), Component.translatable("tooltip.superstorage.infinite")).withStyle(ChatFormatting.WHITE));
+    }
+
+    public static Component capacityInfinite() {
+        return Component.translatable("tooltip.superstorage.item_capacity").withStyle(ChatFormatting.GOLD)
+                .append(Component.translatable("tooltip.superstorage.infinite").withStyle(ChatFormatting.WHITE));
+    }
 }

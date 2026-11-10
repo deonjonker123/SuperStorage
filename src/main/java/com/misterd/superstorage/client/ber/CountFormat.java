@@ -4,6 +4,7 @@ import com.misterd.superstorage.util.FluidText;
 
 public final class CountFormat {
     private static final String[] UNITS = {"K", "M", "B", "T"};
+    public static final String INFINITE = "\u221E";
 
     private CountFormat() {
     }

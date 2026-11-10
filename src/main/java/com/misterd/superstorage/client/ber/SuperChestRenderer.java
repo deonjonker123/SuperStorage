@@ -47,7 +47,7 @@ public class SuperChestRenderer implements BlockEntityRenderer<SuperChestBlockEn
             state.item.clear();
             return;
         }
-        state.count = CountFormat.items(chest.getCount());
+        state.count = chest.isCreative() ? CountFormat.INFINITE : CountFormat.items(chest.getCount());
         state.time = chest.getLevel() == null ? 0 : chest.getLevel().getGameTime() + partialTicks;
         itemModelResolver.updateForTopItem(state.item, chest.getStored().toStack(), ItemDisplayContext.FIXED, chest.getLevel(), null, (int) chest.getBlockPos().asLong());
     }

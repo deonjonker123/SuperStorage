@@ -102,6 +102,10 @@ public abstract class SuperMenu extends AbstractContainerMenu {
         return server ? serverAmount() : syncedAmount;
     }
 
+    public boolean isCreative() {
+        return blockEntity != null && blockEntity.isCreative();
+    }
+
     public long getCapacity() {
         return blockEntity == null ? 0 : blockEntity.getCapacity();
     }

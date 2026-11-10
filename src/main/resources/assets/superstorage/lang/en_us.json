@@ -21,11 +21,13 @@
   "block.superstorage.super_chest_ii": "Super Chest II",
   "block.superstorage.super_chest_iii": "Super Chest III",
   "block.superstorage.super_chest_iv": "Super Chest IV",
+  "block.superstorage.creative_super_chest": "Creative Super Chest",
 
   "block.superstorage.super_tank_i": "Super Tank I",
   "block.superstorage.super_tank_ii": "Super Tank II",
   "block.superstorage.super_tank_iii": "Super Tank III",
   "block.superstorage.super_tank_iv": "Super Tank IV",
+  "block.superstorage.creative_super_tank": "Creative Super Tank",
 
   "item.superstorage.wooden_crate": "Wooden Crate",
   "item.superstorage.copper_crate": "Copper Crate",
@@ -47,11 +49,13 @@
   "item.superstorage.super_chest_ii": "Super Chest II",
   "item.superstorage.super_chest_iii": "Super Chest III",
   "item.superstorage.super_chest_iv": "Super Chest IV",
+  "item.superstorage.creative_super_chest": "Creative Super Chest",
 
   "item.superstorage.super_tank_i": "Super Tank I",
   "item.superstorage.super_tank_ii": "Super Tank II",
   "item.superstorage.super_tank_iii": "Super Tank III",
   "item.superstorage.super_tank_iv": "Super Tank IV",
+  "item.superstorage.creative_super_tank": "Creative Super Tank",
 
   "tooltip.superstorage.item_slots": "Item Slots: ",
   "tooltip.superstorage.item_stored": "Item Stored: ",
@@ -69,11 +73,13 @@
   "tooltip.superstorage.super_chest.info.1": "Right-click the front with a matching item to insert it.",
   "tooltip.superstorage.super_chest.info.2": "Double right-click the front to insert all matching items.",
   "tooltip.superstorage.super_chest.info.3": "Left-click the front to take one item.",
-  "tooltip.superstorage.super_chest.info.4": "Middle-click the front to take a stack.",
+  "tooltip.superstorage.super_chest.info.4": "Shift + left-click the front to take a stack.",
   "tooltip.superstorage.super_chest.info.5": "Keeps its contents when broken.",
   "tooltip.superstorage.super_tank.info.1": "Right-click the front with a bucket or drum to move one bucket.",
   "tooltip.superstorage.super_tank.info.2": "Place a drum in the I/O slot to fill it.",
   "tooltip.superstorage.super_tank.info.3": "Keeps its contents when broken.",
+  "tooltip.superstorage.infinite": "Infinite",
+  "tooltip.superstorage.fluid_value_infinite": "%s, Infinite",
 
   "jade.superstorage.locked": "Locked: %s",
   "jade.superstorage.void": "Void Overflow: %s",

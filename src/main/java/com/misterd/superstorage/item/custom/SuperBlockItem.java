@@ -25,7 +25,19 @@ public class SuperBlockItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
         super.appendHoverText(stack, context, display, builder, flag);
-        if (getBlock() instanceof SuperChestBlock chest) {
+        if (getBlock() instanceof SuperChestBlock chest && chest.getTier().isCreative()) {
+            SuperChestContents contents = stack.get(SSDataComponents.SUPER_CHEST_CONTENTS.get());
+            if (contents != null && !contents.item().isEmpty()) {
+                builder.accept(ItemText.storedInfinite(contents.item()));
+            }
+            builder.accept(ItemText.capacityInfinite());
+        } else if (getBlock() instanceof SuperTankBlock tank && tank.getTier().isCreative()) {
+            SuperTankContents contents = stack.get(SSDataComponents.SUPER_TANK_CONTENTS.get());
+            if (contents != null && !contents.fluid().isEmpty()) {
+                builder.accept(FluidText.storedInfinite(contents.fluid().toStack(1000)));
+            }
+            builder.accept(FluidText.capacityInfinite());
+        } else if (getBlock() instanceof SuperChestBlock chest) {
             SuperChestContents contents = stack.get(SSDataComponents.SUPER_CHEST_CONTENTS.get());
             if (contents != null && !contents.item().isEmpty() && contents.count() > 0) {
                 builder.accept(ItemText.stored(contents.item(), contents.count()));

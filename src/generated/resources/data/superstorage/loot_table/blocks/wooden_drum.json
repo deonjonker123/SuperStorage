@@ -15,7 +15,8 @@
             {
               "function": "minecraft:copy_components",
               "include": [
-                "superstorage:fluid_content"
+                "superstorage:fluid_content",
+                "minecraft:custom_name"
               ],
               "source": "block_entity"
             }

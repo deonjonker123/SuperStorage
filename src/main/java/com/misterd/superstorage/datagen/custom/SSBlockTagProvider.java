@@ -32,14 +32,20 @@ public class SSBlockTagProvider extends BlockTagsProvider {
                 .add(SSBlocks.SUPER_CHEST_II.get())
                 .add(SSBlocks.SUPER_CHEST_III.get())
                 .add(SSBlocks.SUPER_CHEST_IV.get())
+                .add(SSBlocks.CREATIVE_SUPER_CHEST.get())
                 .add(SSBlocks.SUPER_TANK_I.get())
                 .add(SSBlocks.SUPER_TANK_II.get())
                 .add(SSBlocks.SUPER_TANK_III.get())
-                .add(SSBlocks.SUPER_TANK_IV.get());
+                .add(SSBlocks.SUPER_TANK_IV.get())
+                .add(SSBlocks.CREATIVE_SUPER_TANK.get());
 
 
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .add(SSBlocks.WOODEN_CRATE.get())
                 .add(SSBlocks.WOODEN_DRUM.get());
+
+        tag(BlockTags.WITHER_IMMUNE)
+                .add(SSBlocks.CREATIVE_SUPER_CHEST.get())
+                .add(SSBlocks.CREATIVE_SUPER_TANK.get());
     }
 }

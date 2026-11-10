@@ -16,8 +16,8 @@ public enum SuperTankDataProvider implements IServerDataProvider<BlockAccessor> 
 
     @Override
     public void appendServerData(CompoundTag data, BlockAccessor accessor) {
-        if (accessor.getBlockEntity() instanceof SuperTankBlockEntity tank && !tank.getStored().isEmpty() && tank.getAmount() > 0) {
-            FluidStack fluid = tank.getStored().toStack((int) tank.getAmount());
+        if (accessor.getBlockEntity() instanceof SuperTankBlockEntity tank && !tank.getStored().isEmpty() && (tank.getAmount() > 0 || tank.isCreative())) {
+            FluidStack fluid = tank.getStored().toStack(tank.isCreative() ? 1000 : (int) tank.getAmount());
             data.put(FLUID_KEY, accessor.encodeAsNbt(FluidStack.OPTIONAL_STREAM_CODEC, fluid));
         }
     }

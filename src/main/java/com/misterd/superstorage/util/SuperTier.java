@@ -8,7 +8,8 @@ public enum SuperTier implements StringRepresentable {
     I("i", 4_000_000L),
     II("ii", 8_000_000L),
     III("iii", 16_000_000L),
-    IV("iv", 32_000_000L);
+    IV("iv", 32_000_000L),
+    CREATIVE("creative", Long.MAX_VALUE);
 
     public static final Codec<SuperTier> CODEC = StringRepresentable.fromEnum(SuperTier::values);
 
@@ -24,12 +25,16 @@ public enum SuperTier implements StringRepresentable {
         return capacity;
     }
 
+    public boolean isCreative() {
+        return this == CREATIVE;
+    }
+
     public long itemCapacity() {
-        return SSConfig.superChestCapacity(this);
+        return isCreative() ? Long.MAX_VALUE : SSConfig.superChestCapacity(this);
     }
 
     public int fluidCapacity() {
-        return SSConfig.superTankCapacity(this);
+        return isCreative() ? Integer.MAX_VALUE : SSConfig.superTankCapacity(this);
     }
 
     @Override

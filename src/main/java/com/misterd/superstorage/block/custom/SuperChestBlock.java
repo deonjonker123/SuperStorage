@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
@@ -98,7 +97,11 @@ public class SuperChestBlock extends BaseEntityBlock {
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
         if (!level.isClientSide()) {
-            chest.insertFromHand(player, stack);
+            if (chest.isCreative()) {
+                chest.setCreativeItem(stack);
+            } else {
+                chest.insertFromHand(player, stack);
+            }
         }
         return InteractionResult.SUCCESS;
     }
@@ -118,26 +121,11 @@ public class SuperChestBlock extends BaseEntityBlock {
     }
 
     @Override
-    public ItemStack getCloneItemStack(LevelReader level, BlockPos pos, BlockState state, boolean includeData, Player player) {
-        if (!player.level().isClientSide() && !player.isCreative() && isLookingAtFront(state, pos, player)
-                && level.getBlockEntity(pos) instanceof SuperChestBlockEntity chest && !chest.getStored().isEmpty() && chest.getCount() > 0) {
-            ItemStack extracted = chest.extract(chest.getStored().getMaxStackSize());
-            ItemStack picked = extracted.copy();
-            player.getInventory().add(extracted);
-            if (!extracted.isEmpty()) {
-                chest.insertSilently(extracted);
-            }
-            return picked;
-        }
-        return super.getCloneItemStack(level, pos, state, includeData, player);
-    }
-
-    @Override
     protected void attack(BlockState state, Level level, BlockPos pos, Player player) {
         if (level.isClientSide() || !isLookingAtFront(state, pos, player) || !(level.getBlockEntity(pos) instanceof SuperChestBlockEntity chest)) {
             return;
         }
-        ItemStack extracted = chest.extract(1);
+        ItemStack extracted = chest.extract(player.isShiftKeyDown() && !chest.getStored().isEmpty() ? chest.getStored().getMaxStackSize() : 1);
         if (!extracted.isEmpty() && !player.getInventory().add(extracted)) {
             player.drop(extracted, false);
         }

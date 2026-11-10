@@ -7,6 +7,7 @@ import com.misterd.superstorage.item.custom.DrumBlockItem;
 import com.misterd.superstorage.item.custom.SuperBlockItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -80,6 +81,12 @@ public class SSItems {
 
     public static final DeferredItem<Item> SUPER_TANK_IV = ITEMS.registerItem("super_tank_iv",
             props -> new SuperBlockItem(SSBlocks.SUPER_TANK_IV.get(), props));
+
+    public static final DeferredItem<Item> CREATIVE_SUPER_CHEST = ITEMS.registerItem("creative_super_chest",
+            props -> new SuperBlockItem(SSBlocks.CREATIVE_SUPER_CHEST.get(), props.rarity(Rarity.EPIC)));
+
+    public static final DeferredItem<Item> CREATIVE_SUPER_TANK = ITEMS.registerItem("creative_super_tank",
+            props -> new SuperBlockItem(SSBlocks.CREATIVE_SUPER_TANK.get(), props.rarity(Rarity.EPIC)));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

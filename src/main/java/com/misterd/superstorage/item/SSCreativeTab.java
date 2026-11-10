@@ -43,6 +43,9 @@ public class SSCreativeTab {
                         output.accept(SSBlocks.SUPER_TANK_II);
                         output.accept(SSBlocks.SUPER_TANK_III);
                         output.accept(SSBlocks.SUPER_TANK_IV);
+
+                        output.accept(SSBlocks.CREATIVE_SUPER_CHEST);
+                        output.accept(SSBlocks.CREATIVE_SUPER_TANK);
                     }).build());
 
     public static void register(IEventBus eventBus) {
