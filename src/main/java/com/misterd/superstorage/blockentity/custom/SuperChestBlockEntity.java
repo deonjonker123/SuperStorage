@@ -6,10 +6,7 @@ import com.misterd.superstorage.component.SSDataComponents;
 import com.misterd.superstorage.component.SuperChestContents;
 import com.misterd.superstorage.component.SuperSettings;
 import com.misterd.superstorage.config.SSConfig;
-import com.misterd.superstorage.util.RelativeSide;
-import com.misterd.superstorage.util.SideMode;
-import com.misterd.superstorage.util.SuperConfig;
-import com.misterd.superstorage.util.SuperTier;
+import com.misterd.superstorage.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -160,7 +157,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     }
 
     private boolean accepts(ItemResource resource) {
-        if (resource.isEmpty()) {
+        if (resource.isEmpty() || !StorageGuard.isAllowed(resource)) {
             return false;
         }
         return stored.isEmpty() || stored.equals(resource);

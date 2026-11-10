@@ -3,6 +3,7 @@ package com.misterd.superstorage.blockentity.custom;
 import com.misterd.superstorage.block.custom.CrateBlock;
 import com.misterd.superstorage.util.CrateTier;
 import com.misterd.superstorage.blockentity.SSBlockEntities;
+import com.misterd.superstorage.util.StorageGuard;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Containers;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
 public class CrateBlockEntity extends BlockEntity {
@@ -58,6 +60,11 @@ public class CrateBlockEntity extends BlockEntity {
         CrateItemHandler(int size) {
             super(size);
             this.expectedSize = size;
+        }
+
+        @Override
+        public boolean isValid(int index, ItemResource resource) {
+            return StorageGuard.isAllowed(resource);
         }
 
         @Override

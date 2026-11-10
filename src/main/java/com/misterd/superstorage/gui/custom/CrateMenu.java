@@ -3,6 +3,7 @@ package com.misterd.superstorage.gui.custom;
 import com.misterd.superstorage.blockentity.custom.CrateBlockEntity;
 import com.misterd.superstorage.gui.SSMenuTypes;
 import com.misterd.superstorage.util.CrateTier;
+import com.misterd.superstorage.util.StorageGuard;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
@@ -29,7 +30,12 @@ public class CrateMenu extends AbstractContainerMenu {
     }
 
     private CrateMenu(int containerId, Inventory inventory, CrateTier tier) {
-        this(containerId, inventory, tier, new ItemStacksResourceHandler(tier.slotCount()), ContainerLevelAccess.NULL);
+        this(containerId, inventory, tier, new ItemStacksResourceHandler(tier.slotCount()) {
+            @Override
+            public boolean isValid(int index, ItemResource resource) {
+                return StorageGuard.isAllowed(resource);
+            }
+        }, ContainerLevelAccess.NULL);
     }
 
     public CrateMenu(int containerId, Inventory inventory, CrateBlockEntity crate) {

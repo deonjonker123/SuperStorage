@@ -3,7 +3,7 @@
 	"textures": {
 		"0": "superstorage:block/shell_i",
 		"1": "superstorage:block/ped",
-		"2": "superstorage:block/super_chest_face",
+		"2": "superstorage:block/face",
 		"particle": "superstorage:block/shell_i"
 	},
 	"elements": [

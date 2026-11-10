@@ -39,6 +39,8 @@ public class SuperChestRenderer implements BlockEntityRenderer<SuperChestBlockEn
     public void extractRenderState(SuperChestBlockEntity chest, SuperChestRenderState state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(chest, state, partialTicks, cameraPosition, breakProgress);
         state.facing = chest.getBlockState().getValue(SuperChestBlock.FACING);
+        state.locked = chest.getConfig().isLocked();
+        state.voidOverflow = chest.getConfig().isVoidOverflow();
         state.visible = !chest.getStored().isEmpty();
         if (!state.visible) {
             state.item.clear();
@@ -51,21 +53,24 @@ public class SuperChestRenderer implements BlockEntityRenderer<SuperChestBlockEn
 
     @Override
     public void submit(SuperChestRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
-        if (!state.visible) {
+        if (!state.visible && !state.locked && !state.voidOverflow) {
             return;
         }
         poseStack.pushPose();
         poseStack.translate(0.5F, 0.0F, 0.5F);
         poseStack.mulPose(Axis.YP.rotationDegrees(-state.facing.toYRot()));
-        if (!state.item.isEmpty()) {
-            poseStack.pushPose();
-            poseStack.translate(0.0F, ITEM_Y, ITEM_Z);
-            poseStack.mulPose(Axis.YP.rotationDegrees(state.time * DEGREES_PER_TICK));
-            poseStack.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
-            state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
-            poseStack.popPose();
+        if (state.visible) {
+            if (!state.item.isEmpty()) {
+                poseStack.pushPose();
+                poseStack.translate(0.0F, ITEM_Y, ITEM_Z);
+                poseStack.mulPose(Axis.YP.rotationDegrees(state.time * DEGREES_PER_TICK));
+                poseStack.scale(ITEM_SCALE, ITEM_SCALE, ITEM_SCALE);
+                state.item.submit(poseStack, collector, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
+                poseStack.popPose();
+            }
+            SuperBlockText.submitCount(poseStack, collector, font, state.count);
         }
-        SuperBlockText.submitCount(poseStack, collector, font, state.count);
+        SuperBlockText.submitIcons(poseStack, collector, state.locked, state.voidOverflow);
         poseStack.popPose();
     }
 }

@@ -12,4 +12,6 @@ public class SuperTankRenderState extends BlockEntityRenderState {
     public @Nullable TextureAtlasSprite sprite;
     public int color = -1;
     public float fill;
+    public boolean locked;
+    public boolean voidOverflow;
 }

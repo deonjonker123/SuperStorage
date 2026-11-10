@@ -2,7 +2,7 @@
 	"texture_size": [32, 32],
 	"textures": {
 		"0": "superstorage:block/shell_i",
-		"2": "superstorage:block/super_tank_face",
+		"2": "superstorage:block/face",
 		"particle": "superstorage:block/shell_i"
 	},
 	"elements": [

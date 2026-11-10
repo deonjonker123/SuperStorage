@@ -47,6 +47,8 @@ public class SuperTankRenderer implements BlockEntityRenderer<SuperTankBlockEnti
     public void extractRenderState(SuperTankBlockEntity tank, SuperTankRenderState state, float partialTicks, Vec3 cameraPosition, ModelFeatureRenderer.@Nullable CrumblingOverlay breakProgress) {
         BlockEntityRenderer.super.extractRenderState(tank, state, partialTicks, cameraPosition, breakProgress);
         state.facing = tank.getBlockState().getValue(SuperTankBlock.FACING);
+        state.locked = tank.getConfig().isLocked();
+        state.voidOverflow = tank.getConfig().isVoidOverflow();
         FluidResource fluid = tank.getStored();
         state.visible = !fluid.isEmpty();
         state.sprite = null;
@@ -65,7 +67,7 @@ public class SuperTankRenderer implements BlockEntityRenderer<SuperTankBlockEnti
 
     @Override
     public void submit(SuperTankRenderState state, PoseStack poseStack, SubmitNodeCollector collector, CameraRenderState camera) {
-        if (!state.visible) {
+        if (!state.visible && !state.locked && !state.voidOverflow) {
             return;
         }
         poseStack.pushPose();
@@ -89,7 +91,10 @@ public class SuperTankRenderer implements BlockEntityRenderer<SuperTankBlockEnti
                 quad(buffer, pose, light, color, -1, 0, 0, MIN_X, MIN_Y, MIN_Z, MIN_X, MIN_Y, MAX_Z, MIN_X, top, MAX_Z, MIN_X, top, MIN_Z, u0, vSide, u1, v0);
             });
         }
-        SuperBlockText.submitCount(poseStack, collector, font, state.count);
+        if (state.visible) {
+            SuperBlockText.submitCount(poseStack, collector, font, state.count);
+        }
+        SuperBlockText.submitIcons(poseStack, collector, state.locked, state.voidOverflow);
         poseStack.popPose();
     }
 

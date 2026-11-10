@@ -10,4 +10,6 @@ public class SuperChestRenderState extends BlockEntityRenderState {
     public boolean visible;
     public String count = "";
     public float time;
+    public boolean locked;
+    public boolean voidOverflow;
 }
