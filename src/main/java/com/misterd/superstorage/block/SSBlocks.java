@@ -1,6 +1,8 @@
 package com.misterd.superstorage.block;
 
 import com.misterd.superstorage.SuperStorage;
+import com.misterd.superstorage.block.custom.CrateBlock;
+import com.misterd.superstorage.util.CrateTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -16,50 +18,50 @@ import java.util.function.Function;
 public class SSBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(SuperStorage.MODID);
 
-    public static final DeferredBlock<Block> WOODEN_CRATE = registerBlock("wooden_crate",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<CrateBlock> WOODEN_CRATE = registerBlock("wooden_crate",
+            id -> new CrateBlock(CrateTier.WOODEN, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(2F, 3F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.WOOD)));
 
-    public static final DeferredBlock<Block> COPPER_CRATE = registerBlock("copper_crate",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<CrateBlock> COPPER_CRATE = registerBlock("copper_crate",
+            id -> new CrateBlock(CrateTier.COPPER, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> IRON_CRATE = registerBlock("iron_crate",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<CrateBlock> IRON_CRATE = registerBlock("iron_crate",
+            id -> new CrateBlock(CrateTier.IRON, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> GOLD_CRATE = registerBlock("gold_crate",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<CrateBlock> GOLD_CRATE = registerBlock("gold_crate",
+            id -> new CrateBlock(CrateTier.GOLD, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> DIAMOND_CRATE = registerBlock("diamond_crate",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<CrateBlock> DIAMOND_CRATE = registerBlock("diamond_crate",
+            id -> new CrateBlock(CrateTier.DIAMOND, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> EMERALD_CRATE = registerBlock("emerald_crate",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<CrateBlock> EMERALD_CRATE = registerBlock("emerald_crate",
+            id -> new CrateBlock(CrateTier.EMERALD, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> NETHERITE_CRATE = registerBlock("netherite_crate",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<CrateBlock> NETHERITE_CRATE = registerBlock("netherite_crate",
+            id -> new CrateBlock(CrateTier.NETHERITE, BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
