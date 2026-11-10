@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "north": "superstorage:block/iron_drum_side",
+    "south": "superstorage:block/iron_drum_side",
+    "east": "superstorage:block/iron_drum_side",
+    "west": "superstorage:block/iron_drum_side",
+    "up": "superstorage:block/drum_top",
+    "down": "superstorage:block/drum_bottom",
+    "particle": "superstorage:block/iron_drum_side"
+  }
+}

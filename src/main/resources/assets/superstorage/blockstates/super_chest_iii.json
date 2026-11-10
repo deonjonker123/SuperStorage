@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "superstorage:block/super_chest_iii"
+		},
+		"facing=south": {
+			"model": "superstorage:block/super_chest_iii",
+			"y": 180
+		},
+		"facing=east": {
+			"model": "superstorage:block/super_chest_iii",
+			"y": 90
+		},
+		"facing=west": {
+			"model": "superstorage:block/super_chest_iii",
+			"y": 270
+		}
+	}
+}

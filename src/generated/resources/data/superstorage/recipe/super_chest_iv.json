@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "superstorage:netherite_crate",
+    "P": "minecraft:netherite_block",
+    "S": "minecraft:netherite_ingot"
+  },
+  "pattern": [
+    "PSP",
+    "SCS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:super_chest_iv"
+  }
+}

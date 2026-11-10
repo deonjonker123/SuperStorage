@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#c:chests",
+    "P": "#minecraft:planks",
+    "S": "#minecraft:wooden_slabs"
+  },
+  "pattern": [
+    "PSP",
+    "PCP",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:wooden_crate"
+  }
+}

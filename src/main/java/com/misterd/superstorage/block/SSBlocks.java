@@ -1,0 +1,181 @@
+package com.misterd.superstorage.block;
+
+import com.misterd.superstorage.SuperStorage;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Function;
+
+public class SSBlocks {
+    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(SuperStorage.MODID);
+
+    public static final DeferredBlock<Block> WOODEN_CRATE = registerBlock("wooden_crate",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(2F, 3F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.WOOD)));
+
+    public static final DeferredBlock<Block> COPPER_CRATE = registerBlock("copper_crate",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> IRON_CRATE = registerBlock("iron_crate",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> GOLD_CRATE = registerBlock("gold_crate",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> DIAMOND_CRATE = registerBlock("diamond_crate",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> EMERALD_CRATE = registerBlock("emerald_crate",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> NETHERITE_CRATE = registerBlock("netherite_crate",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> WOODEN_DRUM = registerBlock("wooden_drum",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(2F, 3F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.WOOD)));
+
+    public static final DeferredBlock<Block> COPPER_DRUM = registerBlock("copper_drum",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> IRON_DRUM = registerBlock("iron_drum",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> GOLD_DRUM = registerBlock("gold_drum",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> DIAMOND_DRUM = registerBlock("diamond_drum",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> EMERALD_DRUM = registerBlock("emerald_drum",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> NETHERITE_DRUM = registerBlock("netherite_drum",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> SUPER_CHEST_I = registerBlock("super_chest_i",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> SUPER_CHEST_II = registerBlock("super_chest_ii",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> SUPER_CHEST_III = registerBlock("super_chest_iii",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> SUPER_CHEST_IV = registerBlock("super_chest_iv",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> SUPER_TANK_I = registerBlock("super_tank_i",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> SUPER_TANK_II = registerBlock("super_tank_ii",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> SUPER_TANK_III = registerBlock("super_tank_iii",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> SUPER_TANK_IV = registerBlock("super_tank_iv",
+            id -> new Block(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    private static <T extends Block> DeferredBlock<T> registerBlock(String name, Function<Identifier, T> factory) {
+        DeferredBlock<T> toReturn = BLOCKS.register(name, factory);
+        return toReturn;
+    }
+
+    public static void register (IEventBus eventBus) {
+        BLOCKS.register(eventBus);
+    }
+}

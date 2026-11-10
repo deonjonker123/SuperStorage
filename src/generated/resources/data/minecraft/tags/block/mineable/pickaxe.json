@@ -1,0 +1,24 @@
+{
+  "values": [
+    "superstorage:copper_crate",
+    "superstorage:iron_crate",
+    "superstorage:gold_crate",
+    "superstorage:emerald_crate",
+    "superstorage:diamond_crate",
+    "superstorage:netherite_crate",
+    "superstorage:copper_drum",
+    "superstorage:iron_drum",
+    "superstorage:gold_drum",
+    "superstorage:emerald_drum",
+    "superstorage:diamond_drum",
+    "superstorage:netherite_drum",
+    "superstorage:super_chest_i",
+    "superstorage:super_chest_ii",
+    "superstorage:super_chest_iii",
+    "superstorage:super_chest_iv",
+    "superstorage:super_tank_i",
+    "superstorage:super_tank_ii",
+    "superstorage:super_tank_iii",
+    "superstorage:super_tank_iv"
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "creativetab.super_storage": "Super Storage",
+
+  "block.superstorage.wooden_crate": "Wooden Crate",
+  "block.superstorage.copper_crate": "Copper Crate",
+  "block.superstorage.iron_crate": "Iron Crate",
+  "block.superstorage.gold_crate": "Gold Crate",
+  "block.superstorage.diamond_crate": "Diamond Crate",
+  "block.superstorage.emerald_crate": "Emerald Crate",
+  "block.superstorage.netherite_crate": "Netherite Crate",
+
+  "block.superstorage.wooden_drum": "Wooden Drum",
+  "block.superstorage.copper_drum": "Copper Drum",
+  "block.superstorage.iron_drum": "Iron Drum",
+  "block.superstorage.gold_drum": "Gold Drum",
+  "block.superstorage.diamond_drum": "Diamond Drum",
+  "block.superstorage.emerald_drum": "Emerald Drum",
+  "block.superstorage.netherite_drum": "Netherite Drum",
+
+  "block.superstorage.super_chest_i": "Super Chest I",
+  "block.superstorage.super_chest_ii": "Super Chest II",
+  "block.superstorage.super_chest_iii": "Super Chest III",
+  "block.superstorage.super_chest_iv": "Super Chest IV",
+
+  "block.superstorage.super_tank_i": "Super Tank I",
+  "block.superstorage.super_tank_ii": "Super Tank II",
+  "block.superstorage.super_tank_iii": "Super Tank III",
+  "block.superstorage.super_tank_iv": "Super Tank IV",
+
+  "item.superstorage.wooden_crate": "Wooden Crate",
+  "item.superstorage.copper_crate": "Copper Crate",
+  "item.superstorage.iron_crate": "Iron Crate",
+  "item.superstorage.gold_crate": "Gold Crate",
+  "item.superstorage.diamond_crate": "Diamond Crate",
+  "item.superstorage.emerald_crate": "Emerald Crate",
+  "item.superstorage.netherite_crate": "Netherite Crate",
+
+  "item.superstorage.wooden_drum": "Wooden Drum",
+  "item.superstorage.wooden_drum.subtitle": "Holds 16 buckets",
+  "item.superstorage.copper_drum": "Copper Drum",
+  "item.superstorage.iron_drum": "Iron Drum",
+  "item.superstorage.gold_drum": "Gold Drum",
+  "item.superstorage.diamond_drum": "Diamond Drum",
+  "item.superstorage.emerald_drum": "Emerald Drum",
+  "item.superstorage.netherite_drum": "Netherite Drum",
+
+  "item.superstorage.super_chest_i": "Super Chest I",
+  "item.superstorage.super_chest_ii": "Super Chest II",
+  "item.superstorage.super_chest_iii": "Super Chest III",
+  "item.superstorage.super_chest_iv": "Super Chest IV",
+
+  "item.superstorage.super_tank_i": "Super Tank I",
+  "item.superstorage.super_tank_ii": "Super Tank II",
+  "item.superstorage.super_tank_iii": "Super Tank III",
+  "item.superstorage.super_tank_iv": "Super Tank IV",
+
+  "message.superstorage.tank.empty": "Drum is Empty"
+}

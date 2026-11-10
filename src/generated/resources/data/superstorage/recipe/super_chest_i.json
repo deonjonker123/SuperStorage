@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "superstorage:gold_crate",
+    "P": "minecraft:gold_block",
+    "S": "minecraft:gold_ingot"
+  },
+  "pattern": [
+    "PSP",
+    "SCS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:super_chest_i"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "superstorage:diamond_drum",
+    "P": "minecraft:diamond_block",
+    "S": "minecraft:diamond"
+  },
+  "pattern": [
+    "PSP",
+    "SCS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:super_tank_iii"
+  }
+}

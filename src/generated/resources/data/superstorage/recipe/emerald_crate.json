@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "#c:chests",
+    "P": "minecraft:emerald",
+    "S": "#c:rods"
+  },
+  "pattern": [
+    "PSP",
+    "SCS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:emerald_crate"
+  }
+}
