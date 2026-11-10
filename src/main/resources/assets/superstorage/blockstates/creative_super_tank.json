@@ -1,0 +1,19 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "superstorage:block/creative_super_tank"
+		},
+		"facing=south": {
+			"model": "superstorage:block/creative_super_tank",
+			"y": 180
+		},
+		"facing=east": {
+			"model": "superstorage:block/creative_super_tank",
+			"y": 90
+		},
+		"facing=west": {
+			"model": "superstorage:block/creative_super_tank",
+			"y": 270
+		}
+	}
+}
