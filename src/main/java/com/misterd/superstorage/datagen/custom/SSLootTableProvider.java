@@ -48,6 +48,8 @@ public class SSLootTableProvider extends BlockLootSubProvider {
         add(SSBlocks.SUPER_TANK_III.get(), this::createSuperTankTable);
         add(SSBlocks.SUPER_TANK_IV.get(), this::createSuperTankTable);
         add(SSBlocks.CREATIVE_SUPER_TANK.get(), this::createSuperTankTable);
+        dropSelf(SSBlocks.SUPER_CONTROLLER.get());
+        dropSelf(SSBlocks.STORAGE_CASING.get());
     }
 
     private LootTable.Builder createCrateTable(Block block) {

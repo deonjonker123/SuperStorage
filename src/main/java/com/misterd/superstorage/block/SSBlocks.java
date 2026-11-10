@@ -1,10 +1,7 @@
 package com.misterd.superstorage.block;
 
 import com.misterd.superstorage.SuperStorage;
-import com.misterd.superstorage.block.custom.CrateBlock;
-import com.misterd.superstorage.block.custom.DrumBlock;
-import com.misterd.superstorage.block.custom.SuperChestBlock;
-import com.misterd.superstorage.block.custom.SuperTankBlock;
+import com.misterd.superstorage.block.custom.*;
 import com.misterd.superstorage.util.CrateTier;
 import com.misterd.superstorage.util.DrumTier;
 import com.misterd.superstorage.util.SuperTier;
@@ -196,6 +193,20 @@ public class SSBlocks {
     public static final DeferredBlock<SuperTankBlock> CREATIVE_SUPER_TANK = registerBlock("creative_super_tank",
             id -> new SuperTankBlock(SuperTier.CREATIVE, BlockBehaviour.Properties.of()
                     .noOcclusion()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<SuperControllerBlock> SUPER_CONTROLLER = registerBlock("super_controller",
+            id -> new SuperControllerBlock(BlockBehaviour.Properties.of()
+                    .setId(ResourceKey.create(Registries.BLOCK, id))
+                    .strength(3F, 50F)
+                    .requiresCorrectToolForDrops()
+                    .sound(SoundType.METAL)));
+
+    public static final DeferredBlock<Block> STORAGE_CASING = registerBlock("storage_casing",
+            id -> new Block(BlockBehaviour.Properties.of()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()

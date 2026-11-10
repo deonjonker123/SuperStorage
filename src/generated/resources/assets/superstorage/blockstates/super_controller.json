@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "active=false,facing=east": {
+      "model": "superstorage:block/super_controller",
+      "y": 90
+    },
+    "active=false,facing=north": {
+      "model": "superstorage:block/super_controller"
+    },
+    "active=false,facing=south": {
+      "model": "superstorage:block/super_controller",
+      "y": 180
+    },
+    "active=false,facing=west": {
+      "model": "superstorage:block/super_controller",
+      "y": 270
+    },
+    "active=true,facing=east": {
+      "model": "superstorage:block/super_controller_on",
+      "y": 90
+    },
+    "active=true,facing=north": {
+      "model": "superstorage:block/super_controller_on"
+    },
+    "active=true,facing=south": {
+      "model": "superstorage:block/super_controller_on",
+      "y": 180
+    },
+    "active=true,facing=west": {
+      "model": "superstorage:block/super_controller_on",
+      "y": 270
+    }
+  }
+}
