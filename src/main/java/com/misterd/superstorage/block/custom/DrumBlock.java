@@ -56,7 +56,7 @@ public class DrumBlock extends BaseEntityBlock {
 
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!(level.getBlockEntity(pos) instanceof DrumBlockEntity drum)) {
+        if (stack.isEmpty() || !(level.getBlockEntity(pos) instanceof DrumBlockEntity drum)) {
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
         if (level.isClientSide()) {

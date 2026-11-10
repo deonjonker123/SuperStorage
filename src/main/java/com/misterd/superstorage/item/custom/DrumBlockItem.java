@@ -8,6 +8,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
+import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.SimpleFluidContent;
 
 import java.util.function.Consumer;
@@ -23,7 +24,10 @@ public class DrumBlockItem extends BlockItem {
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, TooltipDisplay display, Consumer<Component> builder, TooltipFlag flag) {
         super.appendHoverText(stack, context, display, builder, flag);
-        SimpleFluidContent content = stack.getOrDefault(SSDataComponents.FLUID_CONTENT.get(), SimpleFluidContent.EMPTY);
-        builder.accept(FluidText.amount(content.copy(), drum.getTier().capacity()));
+        FluidStack fluid = stack.getOrDefault(SSDataComponents.FLUID_CONTENT.get(), SimpleFluidContent.EMPTY).copy();
+        if (!fluid.isEmpty()) {
+            builder.accept(FluidText.stored(fluid));
+        }
+        builder.accept(FluidText.capacity(drum.getTier().capacity()));
     }
 }

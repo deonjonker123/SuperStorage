@@ -3,8 +3,11 @@ package com.misterd.superstorage.block;
 import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.block.custom.CrateBlock;
 import com.misterd.superstorage.block.custom.DrumBlock;
+import com.misterd.superstorage.block.custom.SuperChestBlock;
+import com.misterd.superstorage.block.custom.SuperTankBlock;
 import com.misterd.superstorage.util.CrateTier;
 import com.misterd.superstorage.util.DrumTier;
+import com.misterd.superstorage.util.SuperTier;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -118,57 +121,65 @@ public class SSBlocks {
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> SUPER_CHEST_I = registerBlock("super_chest_i",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<SuperChestBlock> SUPER_CHEST_I = registerBlock("super_chest_i",
+            id -> new SuperChestBlock(SuperTier.I, BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> SUPER_CHEST_II = registerBlock("super_chest_ii",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<SuperChestBlock> SUPER_CHEST_II = registerBlock("super_chest_ii",
+            id -> new SuperChestBlock(SuperTier.II, BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> SUPER_CHEST_III = registerBlock("super_chest_iii",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<SuperChestBlock> SUPER_CHEST_III = registerBlock("super_chest_iii",
+            id -> new SuperChestBlock(SuperTier.III, BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> SUPER_CHEST_IV = registerBlock("super_chest_iv",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<SuperChestBlock> SUPER_CHEST_IV = registerBlock("super_chest_iv",
+            id -> new SuperChestBlock(SuperTier.IV, BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> SUPER_TANK_I = registerBlock("super_tank_i",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<SuperTankBlock> SUPER_TANK_I = registerBlock("super_tank_i",
+            id -> new SuperTankBlock(SuperTier.I, BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> SUPER_TANK_II = registerBlock("super_tank_ii",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<SuperTankBlock> SUPER_TANK_II = registerBlock("super_tank_ii",
+            id -> new SuperTankBlock(SuperTier.II, BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> SUPER_TANK_III = registerBlock("super_tank_iii",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<SuperTankBlock> SUPER_TANK_III = registerBlock("super_tank_iii",
+            id -> new SuperTankBlock(SuperTier.III, BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()
                     .sound(SoundType.METAL)));
 
-    public static final DeferredBlock<Block> SUPER_TANK_IV = registerBlock("super_tank_iv",
-            id -> new Block(BlockBehaviour.Properties.of()
+    public static final DeferredBlock<SuperTankBlock> SUPER_TANK_IV = registerBlock("super_tank_iv",
+            id -> new SuperTankBlock(SuperTier.IV, BlockBehaviour.Properties.of()
+                    .noOcclusion()
                     .setId(ResourceKey.create(Registries.BLOCK, id))
                     .strength(3F, 50F)
                     .requiresCorrectToolForDrops()

@@ -28,7 +28,7 @@ public enum DrumComponentProvider implements IBlockComponentProvider {
         ProgressView.Part part = fluid.isEmpty()
                 ? ProgressView.Part.of(0.0F)
                 : ProgressView.Part.of((float) fluid.getAmount() / capacity, JadeUI.fluid(JadeFluidObject.of(fluid.getFluid(), fluid.getAmount(), fluid.getComponentsPatch())));
-        ProgressView view = new ProgressView(part, FluidText.amount(fluid, capacity), JadeUI.progressStyle().canDecrease(true), BoxStyle.nestedBox());
+        ProgressView view = new ProgressView(part, FluidText.bar(fluid), JadeUI.progressStyle().canDecrease(true), BoxStyle.nestedBox());
         tooltip.add(JadeUI.progress(view));
     }
 

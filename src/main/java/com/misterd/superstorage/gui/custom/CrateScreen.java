@@ -11,6 +11,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 
+import static com.misterd.superstorage.util.CrateTier.SCROLL_KNOB_WIDTH;
+
 public class CrateScreen extends AbstractContainerScreen<CrateMenu> {
     private static final Identifier WIDGETS = Identifier.fromNamespaceAndPath(SuperStorage.MODID, "textures/gui/widgets.png");
     private static final int TITLE_BAR_WIDTH = 176;
@@ -20,7 +22,6 @@ public class CrateScreen extends AbstractContainerScreen<CrateMenu> {
     private static final int SLOT_ROW_V = 21;
     private static final int KNOB_U = 176;
     private static final int KNOB_V = 0;
-    public static final int SCROLL_KNOB_WIDTH = 8;
     private static final int INVENTORY_LABEL_OFFSET = 11;
 
     private final CrateTier tier;

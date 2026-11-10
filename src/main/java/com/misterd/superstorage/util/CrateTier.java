@@ -25,7 +25,7 @@ public enum CrateTier implements StringRepresentable {
     public static final int SCROLL_TRACK_X = 227;
     public static final int SCROLL_TRACK_Y = 7;
     public static final int SCROLL_TRACK_HEIGHT = 144;
-    public static final int SCROLL_KNOB_WIDTH = 6;
+    public static final int SCROLL_KNOB_WIDTH = 8;
     public static final int SCROLL_KNOB_HEIGHT = 10;
 
     private final String name;

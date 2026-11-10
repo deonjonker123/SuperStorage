@@ -12,15 +12,28 @@ public final class FluidText {
     private FluidText() {
     }
 
-    public static Component amount(FluidStack fluid, long capacity) {
+    public static Component stored(FluidStack fluid) {
+        return Component.translatable("tooltip.superstorage.fluid_stored").withStyle(ChatFormatting.LIGHT_PURPLE)
+                .append(Component.translatable("tooltip.superstorage.fluid_value", fluid.getHoverName(), millibuckets(fluid.getAmount())).withStyle(ChatFormatting.WHITE));
+    }
+
+    public static Component capacity(long capacity) {
+        return Component.translatable("tooltip.superstorage.fluid_capacity").withStyle(ChatFormatting.GOLD)
+                .append(Component.translatable("tooltip.superstorage.fluid_amount", millibuckets(capacity)).withStyle(ChatFormatting.WHITE));
+    }
+
+    public static Component bar(FluidStack fluid) {
         if (fluid.isEmpty()) {
-            return Component.translatable("tooltip.superstorage.fluid.empty").withStyle(ChatFormatting.RED);
+            return Component.translatable("tooltip.superstorage.fluid.empty").withStyle(ChatFormatting.GRAY);
         }
-        return Component.translatable("tooltip.superstorage.fluid.amount",
+        return Component.translatable("jade.superstorage.fluid",
                 fluid.getHoverName().copy().withStyle(ChatFormatting.WHITE),
-                Component.literal(buckets(fluid.getAmount())).withStyle(ChatFormatting.WHITE),
-                Component.literal(buckets(capacity)).withStyle(ChatFormatting.WHITE)
-        ).withStyle(ChatFormatting.GRAY);
+                Component.literal(millibuckets(fluid.getAmount())).withStyle(ChatFormatting.WHITE)
+        ).withStyle(ChatFormatting.WHITE);
+    }
+
+    public static String millibuckets(long millibuckets) {
+        return String.format("%,d", millibuckets);
     }
 
     public static String buckets(long millibuckets) {

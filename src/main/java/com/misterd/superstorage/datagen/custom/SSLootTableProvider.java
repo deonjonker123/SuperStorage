@@ -37,23 +37,38 @@ public class SSLootTableProvider extends BlockLootSubProvider {
         add(SSBlocks.EMERALD_DRUM.get(), this::createDrumTable);
         add(SSBlocks.DIAMOND_DRUM.get(), this::createDrumTable);
         add(SSBlocks.NETHERITE_DRUM.get(), this::createDrumTable);
-        dropSelf(SSBlocks.SUPER_CHEST_I.get());
-        dropSelf(SSBlocks.SUPER_CHEST_II.get());
-        dropSelf(SSBlocks.SUPER_CHEST_III.get());
-        dropSelf(SSBlocks.SUPER_CHEST_IV.get());
-        dropSelf(SSBlocks.SUPER_TANK_I.get());
-        dropSelf(SSBlocks.SUPER_TANK_II.get());
-        dropSelf(SSBlocks.SUPER_TANK_III.get());
-        dropSelf(SSBlocks.SUPER_TANK_IV.get());
+        add(SSBlocks.SUPER_CHEST_I.get(), this::createSuperChestTable);
+        add(SSBlocks.SUPER_CHEST_II.get(), this::createSuperChestTable);
+        add(SSBlocks.SUPER_CHEST_III.get(), this::createSuperChestTable);
+        add(SSBlocks.SUPER_CHEST_IV.get(), this::createSuperChestTable);
+        add(SSBlocks.SUPER_TANK_I.get(), this::createSuperTankTable);
+        add(SSBlocks.SUPER_TANK_II.get(), this::createSuperTankTable);
+        add(SSBlocks.SUPER_TANK_III.get(), this::createSuperTankTable);
+        add(SSBlocks.SUPER_TANK_IV.get(), this::createSuperTankTable);
     }
 
     private LootTable.Builder createDrumTable(Block block) {
+        return createComponentTable(block, CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
+                .include(SSDataComponents.FLUID_CONTENT.get()));
+    }
+
+    private LootTable.Builder createSuperChestTable(Block block) {
+        return createComponentTable(block, CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
+                .include(SSDataComponents.SUPER_CHEST_CONTENTS.get())
+                .include(SSDataComponents.SUPER_SETTINGS.get()));
+    }
+
+    private LootTable.Builder createSuperTankTable(Block block) {
+        return createComponentTable(block, CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
+                .include(SSDataComponents.SUPER_TANK_CONTENTS.get())
+                .include(SSDataComponents.SUPER_SETTINGS.get()));
+    }
+
+    private LootTable.Builder createComponentTable(Block block, CopyComponentsFunction.Builder copy) {
         return LootTable.lootTable()
                 .withPool(applyExplosionCondition(block, LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(block)
-                                .apply(CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
-                                        .include(SSDataComponents.FLUID_CONTENT.get())))));
+                        .add(LootItem.lootTableItem(block).apply(copy))));
     }
 
     @Override

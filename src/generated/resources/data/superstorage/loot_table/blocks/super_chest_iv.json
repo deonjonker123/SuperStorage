@@ -11,6 +11,16 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_components",
+              "include": [
+                "superstorage:super_chest_contents",
+                "superstorage:super_settings"
+              ],
+              "source": "block_entity"
+            }
+          ],
           "name": "superstorage:super_chest_iv"
         }
       ],

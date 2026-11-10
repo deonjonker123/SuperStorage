@@ -4,6 +4,8 @@ import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.block.SSBlocks;
 import com.misterd.superstorage.blockentity.custom.CrateBlockEntity;
 import com.misterd.superstorage.blockentity.custom.DrumBlockEntity;
+import com.misterd.superstorage.blockentity.custom.SuperChestBlockEntity;
+import com.misterd.superstorage.blockentity.custom.SuperTankBlockEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
@@ -34,6 +36,20 @@ public class SSBlockEntities {
                     SSBlocks.EMERALD_DRUM.get(),
                     SSBlocks.DIAMOND_DRUM.get(),
                     SSBlocks.NETHERITE_DRUM.get()));
+
+    public static final Supplier<BlockEntityType<SuperChestBlockEntity>> SUPER_CHEST_BE = BLOCK_ENTITIES.register("super_chest_be",
+            () -> new BlockEntityType<>(SuperChestBlockEntity::new,
+                    SSBlocks.SUPER_CHEST_I.get(),
+                    SSBlocks.SUPER_CHEST_II.get(),
+                    SSBlocks.SUPER_CHEST_III.get(),
+                    SSBlocks.SUPER_CHEST_IV.get()));
+
+    public static final Supplier<BlockEntityType<SuperTankBlockEntity>> SUPER_TANK_BE = BLOCK_ENTITIES.register("super_tank_be",
+            () -> new BlockEntityType<>(SuperTankBlockEntity::new,
+                    SSBlocks.SUPER_TANK_I.get(),
+                    SSBlocks.SUPER_TANK_II.get(),
+                    SSBlocks.SUPER_TANK_III.get(),
+                    SSBlocks.SUPER_TANK_IV.get()));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
