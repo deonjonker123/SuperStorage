@@ -23,7 +23,7 @@ sourceSets.main.resources {
 
 repositories {
     mavenCentral()
-
+    maven { url = "https://api.modrinth.com/maven" }
 }
 
 base {
@@ -75,7 +75,7 @@ configurations {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
+    implementation "maven.modrinth:jade:${project.jade_version}"
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
