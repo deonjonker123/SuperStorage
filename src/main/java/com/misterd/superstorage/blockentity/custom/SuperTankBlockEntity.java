@@ -42,6 +42,8 @@ import net.neoforged.neoforge.transfer.transaction.SnapshotJournal;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Arrays;
+
 public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntity {
     private static final String FLUID_KEY = "fluid";
     private static final String AMOUNT_KEY = "amount";
@@ -192,7 +194,7 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
             return;
         }
         config.setLocked(locked);
-        if (!locked && amount == 0) {
+        if (!locked && amount == 0 && !isCreative()) {
             stored = FluidResource.EMPTY;
         }
         onChanged(true);
@@ -209,6 +211,18 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
         config.setCapabilitiesEnabled(enabled);
         invalidateCapabilities();
         onChanged(true);
+    }
+
+    @Override
+    public void setBlockState(BlockState state) {
+        boolean rotated = state.getValue(SuperTankBlock.FACING) != getBlockState().getValue(SuperTankBlock.FACING);
+        super.setBlockState(state);
+        if (rotated) {
+            Arrays.fill(neighbours, null);
+            if (level != null) {
+                invalidateCapabilities();
+            }
+        }
     }
 
     @Override

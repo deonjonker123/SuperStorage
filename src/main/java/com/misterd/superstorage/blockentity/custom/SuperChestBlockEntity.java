@@ -20,6 +20,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -38,6 +39,7 @@ import net.neoforged.neoforge.transfer.transaction.Transaction;
 import net.neoforged.neoforge.transfer.transaction.TransactionContext;
 import org.jspecify.annotations.Nullable;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -222,13 +224,9 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
     }
 
     public void insertFromHand(Player player, ItemStack held) {
-        if (isCreative()) {
-            setCreativeItem(held);
-            return;
-        }
         long now = level == null ? 0 : level.getGameTime();
         boolean doubleClick = isDoubleClick(player, now);
-        lastInsertTicks.put(player.getUUID(), now);
+        recordInsert(player, now);
         if (doubleClick) {
             insertAllFromInventory(player);
         } else {
@@ -244,9 +242,14 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
         if (!isDoubleClick(player, now)) {
             return false;
         }
-        lastInsertTicks.put(player.getUUID(), now);
+        recordInsert(player, now);
         insertAllFromInventory(player);
         return true;
+    }
+
+    private void recordInsert(Player player, long now) {
+        lastInsertTicks.values().removeIf(last -> now - last > DOUBLE_CLICK_TICKS);
+        lastInsertTicks.put(player.getUUID(), now);
     }
 
     private boolean isDoubleClick(Player player, long now) {
@@ -259,7 +262,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
             return;
         }
         boolean insertedAny = false;
-        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+        for (int i = 0; i < Inventory.INVENTORY_SIZE; i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (!stack.isEmpty() && stored.matches(stack)) {
                 int inserted = insertSilently(stack);
@@ -282,7 +285,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
             return;
         }
         config.setLocked(locked);
-        if (!locked && count == 0) {
+        if (!locked && count == 0 && !isCreative()) {
             stored = ItemResource.EMPTY;
         }
         onChanged(true);
@@ -316,6 +319,18 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
             return 0;
         }
         return Mth.clamp(1 + (int) (count * 14 / tier.itemCapacity()), 1, 15);
+    }
+
+    @Override
+    public void setBlockState(BlockState state) {
+        boolean rotated = state.getValue(SuperChestBlock.FACING) != getBlockState().getValue(SuperChestBlock.FACING);
+        super.setBlockState(state);
+        if (rotated) {
+            Arrays.fill(neighbours, null);
+            if (level != null) {
+                invalidateCapabilities();
+            }
+        }
     }
 
     private void syncCount() {
@@ -402,7 +417,7 @@ public class SuperChestBlockEntity extends BlockEntity implements SuperBlockEnti
             if (index != 0) {
                 return 0;
             }
-            return isCreative() ? (stored.isEmpty() ? 0 : Long.MAX_VALUE) : count;
+            return isCreative() ? (stored.isEmpty() ? 0 : Integer.MAX_VALUE) : count;
         }
 
         @Override

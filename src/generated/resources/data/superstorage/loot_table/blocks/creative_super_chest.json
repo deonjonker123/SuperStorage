@@ -15,7 +15,7 @@
             {
               "function": "minecraft:copy_components",
               "include": [
-                "superstorage:super_tank_contents",
+                "superstorage:super_chest_contents",
                 "superstorage:super_settings",
                 "minecraft:custom_name"
               ],

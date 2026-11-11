@@ -59,10 +59,13 @@ public class DrumBlock extends BaseEntityBlock {
         if (stack.isEmpty() || !(level.getBlockEntity(pos) instanceof DrumBlockEntity drum)) {
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
-        if (level.isClientSide()) {
-            return ItemAccess.forStack(stack).getCapability(Capabilities.Fluid.ITEM) != null ? InteractionResult.SUCCESS : InteractionResult.TRY_WITH_EMPTY_HAND;
+        if (ItemAccess.forStack(stack).getCapability(Capabilities.Fluid.ITEM) == null) {
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
-        return FluidUtil.interactWithFluidHandler(player, hand, pos, drum.getFluidHandler(), null) ? InteractionResult.SUCCESS : InteractionResult.TRY_WITH_EMPTY_HAND;
+        if (!level.isClientSide()) {
+            FluidUtil.interactWithFluidHandler(player, hand, pos, drum.getFluidHandler(), null);
+        }
+        return InteractionResult.SUCCESS;
     }
 
     @Override

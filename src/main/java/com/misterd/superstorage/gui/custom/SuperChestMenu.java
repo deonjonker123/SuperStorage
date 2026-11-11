@@ -124,11 +124,10 @@ public class SuperChestMenu extends SuperMenu {
             if (server && chest != null && !stack.isEmpty()) {
                 if (chest.isCreative()) {
                     chest.setCreativeItem(stack);
-                    container.setItem(0, ItemStack.EMPTY);
                 } else {
                     stack.shrink(chest.insert(stack));
+                    container.setChanged();
                 }
-                container.setChanged();
             }
         }
     }

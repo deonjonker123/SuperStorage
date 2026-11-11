@@ -8,6 +8,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public final class SSConfig {
+    public static final long MAX_SUPER_CHEST_CAPACITY = 100_000_000_000_000L;
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.IntValue TRANSFER_INTERVAL;
     public static final ModConfigSpec.IntValue SUPER_CHEST_TRANSFER_RATE;
@@ -35,7 +36,7 @@ public final class SSConfig {
             if (tier.isCreative()) {
                 continue;
             }
-            SUPER_CHEST_CAPACITY.put(tier, builder.defineInRange("tier_" + tier.getSerializedName(), tier.defaultCapacity(), 1L, Long.MAX_VALUE / 2));
+            SUPER_CHEST_CAPACITY.put(tier, builder.defineInRange("tier_" + tier.getSerializedName(), tier.defaultCapacity(), 1L, MAX_SUPER_CHEST_CAPACITY));
         }
         builder.pop();
 

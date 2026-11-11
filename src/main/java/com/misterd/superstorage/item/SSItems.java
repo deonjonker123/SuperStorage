@@ -49,11 +49,11 @@ public class SSItems {
     public static final DeferredItem<Item> GOLD_DRUM = ITEMS.registerItem("gold_drum",
             props -> new DrumBlockItem(SSBlocks.GOLD_DRUM.get(), props));
 
-    public static final DeferredItem<Item> DIAMOND_DRUM = ITEMS.registerItem("diamond_drum",
-            props -> new DrumBlockItem(SSBlocks.DIAMOND_DRUM.get(), props));
-
     public static final DeferredItem<Item> EMERALD_DRUM = ITEMS.registerItem("emerald_drum",
             props -> new DrumBlockItem(SSBlocks.EMERALD_DRUM.get(), props));
+
+    public static final DeferredItem<Item> DIAMOND_DRUM = ITEMS.registerItem("diamond_drum",
+            props -> new DrumBlockItem(SSBlocks.DIAMOND_DRUM.get(), props));
 
     public static final DeferredItem<Item> NETHERITE_DRUM = ITEMS.registerItem("netherite_drum",
             props -> new DrumBlockItem(SSBlocks.NETHERITE_DRUM.get(), props));

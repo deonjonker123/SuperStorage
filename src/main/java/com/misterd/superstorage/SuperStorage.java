@@ -41,9 +41,7 @@ public class SuperStorage {
     public static final String MODID = "superstorage";
 
     public SuperStorage(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::registerCapabilities);
-        NeoForge.EVENT_BUS.register(this);
         modContainer.registerConfig(ModConfig.Type.SERVER, SSConfig.SPEC);
         SSDataComponents.register(modEventBus);
         SSItems.register(modEventBus);
