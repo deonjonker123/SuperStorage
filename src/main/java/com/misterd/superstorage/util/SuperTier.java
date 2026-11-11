@@ -14,7 +14,7 @@ public enum SuperTier implements StringRepresentable {
     public static final Codec<SuperTier> CODEC = StringRepresentable.fromEnum(SuperTier::values);
 
     private final String name;
-    public final long capacity;
+    private final long capacity;
 
     SuperTier(String name, long capacity) {
         this.name = name;
