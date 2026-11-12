@@ -9,6 +9,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
@@ -59,6 +61,7 @@ public class CrateBlock extends BaseEntityBlock {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof CrateBlockEntity crate) {
             player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new CrateMenu(containerId, inventory, crate), MenuTitles.of(crate, this)),
                     buf -> buf.writeVarInt(tier.ordinal()));
+            level.playSound(null, pos, SoundEvents.BARREL_OPEN, SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
         }
         return InteractionResult.SUCCESS;
     }
