@@ -61,7 +61,7 @@ public class CrateScreen extends AbstractContainerScreen<CrateMenu> {
 
     @Override
     public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
-        if (tier.scrolls() && scrollY != 0) {
+        if (tier.scrolls() && scrollY != 0 && minecraft != null && !minecraft.hasShiftDown()) {
             scrollTo(menu.getScrollRow() - (int) Math.signum(scrollY));
             return true;
         }
@@ -119,13 +119,6 @@ public class CrateScreen extends AbstractContainerScreen<CrateMenu> {
     }
 
     private void scrollTo(int row) {
-        int clamped = Mth.clamp(row, 0, tier.hiddenRows());
-        if (clamped == menu.getScrollRow()) {
-            return;
-        }
-        menu.setScrollRow(clamped);
-        if (minecraft != null && minecraft.gameMode != null) {
-            minecraft.gameMode.handleInventoryButtonClick(menu.containerId, clamped);
-        }
+        menu.setScrollRow(row);
     }
 }

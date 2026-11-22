@@ -23,8 +23,11 @@ Storage mod inspired by GTCEu's super chest and tank.
     side="BOTH"
 
 [[dependencies.${mod_id}]]
-modId="jade"
-type="optional"
-versionRange="*"
-ordering="NONE"
-side="BOTH"
+    modId="jade"
+    type="optional"
+    versionRange="*"
+    ordering="NONE"
+    side="BOTH"
+
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"

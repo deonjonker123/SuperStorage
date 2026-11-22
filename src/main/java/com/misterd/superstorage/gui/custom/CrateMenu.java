@@ -5,7 +5,6 @@ import com.misterd.superstorage.gui.SSMenuTypes;
 import com.misterd.superstorage.util.CrateTier;
 import com.misterd.superstorage.util.StorageGuard;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -47,13 +46,9 @@ public class CrateMenu extends AbstractContainerMenu {
         this.tier = tier;
         this.itemHandler = itemHandler;
         this.access = access;
-        this.crateSlotCount = tier.columns() * tier.visibleRows();
-        for (int row = 0; row < tier.visibleRows(); row++) {
-            for (int col = 0; col < tier.columns(); col++) {
-                addSlot(new CrateSlot(row * tier.columns() + col,
-                        CrateTier.SLOT_X + col * CrateTier.SLOT_SIZE,
-                        CrateTier.SLOT_Y + row * CrateTier.SLOT_SIZE));
-            }
+        this.crateSlotCount = tier.slotCount();
+        for (int index = 0; index < crateSlotCount; index++) {
+            addSlot(new CrateSlot(index));
         }
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 9; col++) {
@@ -77,18 +72,9 @@ public class CrateMenu extends AbstractContainerMenu {
 
     public void setScrollRow(int row) {
         this.scrollRow = Mth.clamp(row, 0, tier.hiddenRows());
-    }
-
-    @Override
-    public boolean clickMenuButton(Player player, int buttonId) {
-        if (buttonId < 0 || buttonId > tier.hiddenRows()) {
-            return false;
+        for (int index = 0; index < crateSlotCount; index++) {
+            ((CrateSlot) slots.get(index)).updatePosition();
         }
-        setScrollRow(buttonId);
-        if (player instanceof ServerPlayer) {
-            sendAllDataToRemote();
-        }
-        return true;
     }
 
     @Override
@@ -125,21 +111,21 @@ public class CrateMenu extends AbstractContainerMenu {
     }
 
     private class CrateSlot extends ResourceHandlerSlot {
-        private final int baseIndex;
+        private final int row;
 
-        CrateSlot(int baseIndex, int x, int y) {
-            super(itemHandler, itemHandler::set, baseIndex, x, y);
-            this.baseIndex = baseIndex;
+        CrateSlot(int index) {
+            super(itemHandler, itemHandler::set, index, CrateTier.SLOT_X + (index % tier.columns()) * CrateTier.SLOT_SIZE, CrateTier.SLOT_Y);
+            this.row = index / tier.columns();
+            updatePosition();
+        }
+
+        void updatePosition() {
+            y = CrateTier.SLOT_Y + (row - scrollRow) * CrateTier.SLOT_SIZE;
         }
 
         @Override
-        public int getSlotIndex() {
-            return baseIndex + scrollRow * tier.columns();
-        }
-
-        @Override
-        public int getContainerSlot() {
-            return getSlotIndex();
+        public boolean isActive() {
+            return row >= scrollRow && row < scrollRow + tier.visibleRows();
         }
     }
 }
