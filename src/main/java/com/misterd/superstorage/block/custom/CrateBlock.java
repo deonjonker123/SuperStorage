@@ -1,5 +1,6 @@
 package com.misterd.superstorage.block.custom;
 
+import com.misterd.superstorage.blockentity.SSBlockEntities;
 import com.misterd.superstorage.gui.custom.CrateMenu;
 import com.misterd.superstorage.util.CrateTier;
 import com.misterd.superstorage.blockentity.custom.CrateBlockEntity;
@@ -19,6 +20,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
@@ -59,11 +62,20 @@ public class CrateBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof CrateBlockEntity crate) {
-            player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new CrateMenu(containerId, inventory, crate), MenuTitles.of(crate, this)),
-                    buf -> buf.writeVarInt(tier.ordinal()));
+            openMenu(player, crate);
             level.playSound(null, pos, SoundEvents.BARREL_OPEN, SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
         }
         return InteractionResult.SUCCESS;
+    }
+
+    public static void openMenu(Player player, CrateBlockEntity crate) {
+        player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new CrateMenu(containerId, inventory, crate), MenuTitles.of(crate, crate.getBlockState().getBlock())),
+                buf -> buf.writeVarInt(crate.getTier().ordinal()));
+    }
+
+    @Override
+    public <T extends BlockEntity> @Nullable BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return level.isClientSide() ? null : createTickerHelper(type, SSBlockEntities.CRATE_BE.get(), CrateBlockEntity::serverTick);
     }
 
     @Override

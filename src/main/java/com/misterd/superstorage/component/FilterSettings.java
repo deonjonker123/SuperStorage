@@ -11,6 +11,10 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.neoforged.neoforge.transfer.item.ItemResource;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public record FilterSettings(ItemContainerContents items, boolean blacklist, boolean matchMod, boolean matchNbt, boolean matchDurability) {
     public static final int SIZE = 27;
@@ -68,9 +72,22 @@ public record FilterSettings(ItemContainerContents items, boolean blacklist, boo
         return new FilterSettings(items, (flags & BLACKLIST) != 0, (flags & MATCH_MOD) != 0, (flags & MATCH_NBT) != 0, (flags & MATCH_DURABILITY) != 0);
     }
 
+    public static Predicate<ItemResource> predicate(ItemStack filter) {
+        if (filter.isEmpty()) {
+            return resource -> true;
+        }
+        FilterSettings settings = of(filter);
+        List<ItemStack> entries = settings.list().stream().filter(entry -> !entry.isEmpty()).toList();
+        return resource -> settings.test(resource.toStack(), entries);
+    }
+
     public boolean test(ItemStack stack) {
+        return test(stack, list());
+    }
+
+    private boolean test(ItemStack stack, List<ItemStack> entries) {
         boolean matched = false;
-        for (ItemStack entry : list()) {
+        for (ItemStack entry : entries) {
             if (!entry.isEmpty() && matches(entry, stack)) {
                 matched = true;
                 break;

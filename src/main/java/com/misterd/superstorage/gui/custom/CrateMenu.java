@@ -110,6 +110,26 @@ public class CrateMenu extends AbstractContainerMenu {
     }
 
     @Override
+    public boolean clickMenuButton(Player player, int buttonId) {
+        if (buttonId < 0 || buttonId >= UpgradeType.values().length) {
+            return false;
+        }
+        UpgradeType type = UpgradeType.values()[buttonId];
+        return access.evaluate((level, pos) -> {
+            if (!(level.getBlockEntity(pos) instanceof CrateBlockEntity crate) || !crate.getUpgrades().has(type)) {
+                return false;
+            }
+            return switch (type) {
+                case HOPPER -> {
+                    HopperUpgradeMenu.open(player, crate);
+                    yield true;
+                }
+                default -> false;
+            };
+        }, false);
+    }
+
+    @Override
     public ItemStack quickMoveStack(Player player, int index) {
         Slot slot = slots.get(index);
         if (!slot.hasItem()) {

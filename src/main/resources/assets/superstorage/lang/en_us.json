@@ -154,5 +154,13 @@
   "gui.superstorage.filter.match_nbt.on": "Match NBT: On",
   "gui.superstorage.filter.match_durability.off": "Match Durability: Off",
   "gui.superstorage.filter.match_durability.on": "Match Durability: On",
-  "gui.superstorage.filter.clear": "Clear Filter"
+  "gui.superstorage.filter.clear": "Clear Filter",
+  "gui.superstorage.direction.down": "Down: %s",
+  "gui.superstorage.direction.up": "Up: %s",
+  "gui.superstorage.direction.north": "North: %s",
+  "gui.superstorage.direction.south": "South: %s",
+  "gui.superstorage.direction.west": "West: %s",
+  "gui.superstorage.direction.east": "East: %s",
+  "gui.superstorage.slot.pull_filter": "Pull Filter",
+  "gui.superstorage.slot.push_filter": "Push Filter"
 }

@@ -1,10 +1,7 @@
 package com.misterd.superstorage.gui;
 
 import com.misterd.superstorage.SuperStorage;
-import com.misterd.superstorage.gui.custom.CrateMenu;
-import com.misterd.superstorage.gui.custom.FilterMenu;
-import com.misterd.superstorage.gui.custom.SuperChestMenu;
-import com.misterd.superstorage.gui.custom.SuperTankMenu;
+import com.misterd.superstorage.gui.custom.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.MenuType;
 import net.neoforged.bus.api.IEventBus;
@@ -26,6 +23,9 @@ public class SSMenuTypes {
 
     public static final DeferredHolder<MenuType<?>, MenuType<FilterMenu>> FILTER_MENU = MENUS.register("filter_menu",
             () -> IMenuTypeExtension.create(FilterMenu::new));
+
+    public static final DeferredHolder<MenuType<?>, MenuType<HopperUpgradeMenu>> HOPPER_UPGRADE_MENU = MENUS.register("hopper_upgrade_menu",
+            () -> IMenuTypeExtension.create(HopperUpgradeMenu::new));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

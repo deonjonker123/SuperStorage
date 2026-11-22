@@ -31,4 +31,13 @@ public class CrateUpgrades extends ItemStacksResourceHandler {
     public boolean has(UpgradeType type) {
         return !getResource(type.ordinal()).isEmpty();
     }
+
+    public ItemStack get(UpgradeType type) {
+        ItemResource resource = getResource(type.ordinal());
+        return resource.isEmpty() ? ItemStack.EMPTY : resource.toStack(1);
+    }
+
+    public void put(UpgradeType type, ItemStack stack) {
+        set(type.ordinal(), ItemResource.of(stack), stack.getCount());
+    }
 }

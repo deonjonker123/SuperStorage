@@ -8,8 +8,10 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
@@ -173,7 +175,12 @@ public class CrateScreen extends AbstractContainerScreen<CrateMenu> {
             scrollToMouse(event.y());
             return true;
         }
-        if (tabAt(event.x(), event.y()) != null) {
+        UpgradeType tab = tabAt(event.x(), event.y());
+        if (tab != null) {
+            if (event.button() == 0 && minecraft != null && minecraft.gameMode != null) {
+                minecraft.gameMode.handleInventoryButtonClick(menu.containerId, tab.ordinal());
+                minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+            }
             return true;
         }
         return super.mouseClicked(event, doubleClick);

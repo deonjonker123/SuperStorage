@@ -11,10 +11,7 @@ import com.misterd.superstorage.client.decorator.StoredContentsDecorator;
 import com.misterd.superstorage.component.SSDataComponents;
 import com.misterd.superstorage.config.SSConfig;
 import com.misterd.superstorage.gui.SSMenuTypes;
-import com.misterd.superstorage.gui.custom.CrateScreen;
-import com.misterd.superstorage.gui.custom.FilterScreen;
-import com.misterd.superstorage.gui.custom.SuperChestScreen;
-import com.misterd.superstorage.gui.custom.SuperTankScreen;
+import com.misterd.superstorage.gui.custom.*;
 import com.misterd.superstorage.item.SSCreativeTab;
 import com.misterd.superstorage.item.SSItems;
 import net.neoforged.api.distmarker.Dist;
@@ -89,6 +86,7 @@ public class SuperStorage {
             event.register(SSMenuTypes.SUPER_CHEST_MENU.get(), SuperChestScreen::new);
             event.register(SSMenuTypes.SUPER_TANK_MENU.get(), SuperTankScreen::new);
             event.register(SSMenuTypes.FILTER_MENU.get(), FilterScreen::new);
+            event.register(SSMenuTypes.HOPPER_UPGRADE_MENU.get(), HopperUpgradeScreen::new);
         }
 
         @SubscribeEvent

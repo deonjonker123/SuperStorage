@@ -26,6 +26,9 @@ public class SSDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterSettings>> FILTER = DATA_COMPONENTS.registerComponentType("filter",
             builder -> builder.persistent(FilterSettings.CODEC).networkSynchronized(FilterSettings.STREAM_CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<HopperSettings>> HOPPER_SETTINGS = DATA_COMPONENTS.registerComponentType("hopper_settings",
+            builder -> builder.persistent(HopperSettings.CODEC).networkSynchronized(HopperSettings.STREAM_CODEC));
+
     public static void register(IEventBus eventBus) {
         DATA_COMPONENTS.register(eventBus);
     }

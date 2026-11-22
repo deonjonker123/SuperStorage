@@ -13,6 +13,8 @@ public final class SSConfig {
     public static final ModConfigSpec.IntValue TRANSFER_INTERVAL;
     public static final ModConfigSpec.IntValue SUPER_CHEST_TRANSFER_RATE;
     public static final ModConfigSpec.IntValue SUPER_TANK_TRANSFER_RATE;
+    public static final ModConfigSpec.IntValue HOPPER_UPGRADE_INTERVAL;
+    public static final ModConfigSpec.IntValue HOPPER_UPGRADE_RATE;
 
     private static final Map<SuperTier, ModConfigSpec.LongValue> SUPER_CHEST_CAPACITY = new EnumMap<>(SuperTier.class);
     private static final Map<SuperTier, ModConfigSpec.IntValue> SUPER_TANK_CAPACITY = new EnumMap<>(SuperTier.class);
@@ -47,6 +49,15 @@ public final class SSConfig {
             }
             SUPER_TANK_CAPACITY.put(tier, builder.defineInRange("tier_" + tier.getSerializedName(), (int) tier.defaultCapacity(), 1000, Integer.MAX_VALUE));
         }
+        builder.pop();
+
+        builder.push("crate_upgrades");
+        HOPPER_UPGRADE_INTERVAL = builder
+                .comment("Ticks between each Hopper Upgrade push/pull")
+                .defineInRange("hopperUpgradeInterval", 8, 1, 1200);
+        HOPPER_UPGRADE_RATE = builder
+                .comment("Items a Hopper Upgrade pushes or pulls per side, per transfer")
+                .defineInRange("hopperUpgradeRate", 8, 1, Integer.MAX_VALUE);
         builder.pop();
 
         SPEC = builder.build();
