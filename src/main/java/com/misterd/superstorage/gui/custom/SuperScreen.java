@@ -17,6 +17,7 @@ import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -92,6 +93,8 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
     protected abstract List<Component> infoLines();
 
     protected abstract void extractLockedDisplay(GuiGraphicsExtractor graphics, int x, int y);
+
+    protected abstract List<Component> slotTooltip(int slotIndex);
 
     @Override
     protected void init() {
@@ -180,6 +183,15 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
         return font.plainSubstrByWidth(text, maxWidth - font.width(ELLIPSIS)).strip() + ELLIPSIS;
     }
 
+    protected static List<Component> slotLines(String title, String... lines) {
+        List<Component> tooltip = new ArrayList<>();
+        tooltip.add(Component.translatable(title));
+        for (String line : lines) {
+            tooltip.add(Component.translatable(line).withStyle(ChatFormatting.GRAY));
+        }
+        return tooltip;
+    }
+
     @Override
     public void extractRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float partialTick) {
         super.extractRenderState(graphics, mouseX, mouseY, partialTick);
@@ -193,6 +205,13 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
                 return;
             }
         }
+        Slot slot = hoveredSlot;
+        if (slot != null && !slot.hasItem() && menu.getCarried().isEmpty()) {
+            List<Component> tooltip = slotTooltip(slot.index);
+            if (!tooltip.isEmpty()) {
+                graphics.setComponentTooltipForNextFrame(font, tooltip, mouseX, mouseY);
+            }
+        }
     }
 
     @Override
@@ -201,7 +220,8 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
             for (Button button : buttons) {
                 if (button.isHovered(event.x() - leftPos, event.y() - topPos)) {
                     if (minecraft != null && minecraft.gameMode != null) {
-                        minecraft.gameMode.handleInventoryButtonClick(menu.containerId, button.id);
+                        int id = button.id == SuperMenu.BUTTON_EXTRACT && minecraft.hasShiftDown() ? SuperMenu.BUTTON_EXTRACT_ALL : button.id;
+                        minecraft.gameMode.handleInventoryButtonClick(menu.containerId, id);
                         minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                     }
                     return true;
@@ -240,7 +260,7 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
             case SuperMenu.BUTTON_CAPABILITIES -> List.of(Component.translatable(menu.isCapabilitiesEnabled() ? "gui.superstorage.capabilities.on" : "gui.superstorage.capabilities.off"));
             case SuperMenu.BUTTON_LOCK -> List.of(Component.translatable(menu.isLocked() ? "gui.superstorage.lock.on" : "gui.superstorage.lock.off"));
             case SuperMenu.BUTTON_VOID -> List.of(Component.translatable(menu.isVoidOverflow() ? "gui.superstorage.void.on" : "gui.superstorage.void.off"));
-            default -> List.of(Component.translatable("gui.superstorage.extract"));
+            default -> List.of(Component.translatable("gui.superstorage.extract"), Component.translatable("gui.superstorage.extract_all").withStyle(ChatFormatting.GRAY));
         };
     }
 

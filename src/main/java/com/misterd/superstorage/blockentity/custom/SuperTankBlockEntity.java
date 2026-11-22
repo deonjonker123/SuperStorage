@@ -7,13 +7,11 @@ import com.misterd.superstorage.component.SuperSettings;
 import com.misterd.superstorage.component.SuperTankContents;
 import com.misterd.superstorage.config.SSConfig;
 import com.misterd.superstorage.item.custom.DrumBlockItem;
-import com.misterd.superstorage.util.RelativeSide;
-import com.misterd.superstorage.util.SideMode;
-import com.misterd.superstorage.util.SuperConfig;
-import com.misterd.superstorage.util.SuperTier;
+import com.misterd.superstorage.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.nbt.CompoundTag;
@@ -51,6 +49,9 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
     private static final String IO_KEY = "io";
     private static final int DRUM_FILL_RATE = 4_000;
     private static final int COUNT_SYNC_TICKS = 4;
+    public static final int FILL_SLOT = 0;
+    public static final int DRAIN_SLOT = 1;
+    private static final int DRUM_TRANSFER_RATE = 4_000;
 
     private final SuperTier tier;
     private final SuperConfig config = new SuperConfig();
@@ -71,6 +72,7 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, SuperTankBlockEntity tank) {
         tank.fillDrum();
+        tank.drainDrum();
         if (level instanceof ServerLevel serverLevel && level.getGameTime() % SSConfig.TRANSFER_INTERVAL.get() == 0) {
             tank.transfer(serverLevel);
         }
@@ -179,13 +181,27 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
     }
 
     private void fillDrum() {
-        if (stored.isEmpty() || (amount == 0 && !isCreative()) || ioSlot.getResource(0).isEmpty()) {
+        if (stored.isEmpty() || (amount == 0 && !isCreative()) || ioSlot.getResource(FILL_SLOT).isEmpty()) {
             return;
         }
-        ResourceHandler<FluidResource> drum = ItemAccess.forHandlerIndex(ioSlot, 0).getCapability(Capabilities.Fluid.ITEM);
+        ResourceHandler<FluidResource> drum = ItemAccess.forHandlerIndex(ioSlot, FILL_SLOT).getCapability(Capabilities.Fluid.ITEM);
         if (drum != null) {
-            ResourceHandlerUtil.moveFirst(storage, drum, resource -> true, DRUM_FILL_RATE, null);
+            ResourceHandlerUtil.moveFirst(storage, drum, resource -> true, DRUM_TRANSFER_RATE, null);
         }
+    }
+
+    private void drainDrum() {
+        if (ioSlot.getResource(DRAIN_SLOT).isEmpty()) {
+            return;
+        }
+        ResourceHandler<FluidResource> drum = ItemAccess.forHandlerIndex(ioSlot, DRAIN_SLOT).getCapability(Capabilities.Fluid.ITEM);
+        if (drum == null) {
+            return;
+        }
+        if (isCreative() && stored.isEmpty()) {
+            setCreativeFluid(FluidTransfer.firstFluid(drum));
+        }
+        ResourceHandlerUtil.moveFirst(drum, storage, this::accepts, DRUM_TRANSFER_RATE, null);
     }
 
     @Override
@@ -454,8 +470,10 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
     }
 
     private class IoSlot extends ItemStacksResourceHandler {
+        private static final int SIZE = 2;
+
         IoSlot() {
-            super(1);
+            super(SIZE);
         }
 
         @Override
@@ -471,6 +489,19 @@ public class SuperTankBlockEntity extends BlockEntity implements SuperBlockEntit
         @Override
         protected void onContentsChanged(int index, ItemStack previousContents) {
             setChanged();
+        }
+
+        @Override
+        public void deserialize(ValueInput input) {
+            super.deserialize(input);
+            if (size() != SIZE) {
+                NonNullList<ItemStack> resized = NonNullList.withSize(SIZE, ItemStack.EMPTY);
+                NonNullList<ItemStack> loaded = copyToList();
+                for (int i = 0; i < Math.min(SIZE, loaded.size()); i++) {
+                    resized.set(i, loaded.get(i));
+                }
+                setStacks(resized);
+            }
         }
     }
 }

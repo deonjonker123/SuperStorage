@@ -17,8 +17,8 @@ public class SuperChestMenu extends SuperMenu {
     public static final int OUT_X = 86;
     public static final int OUT_Y = 29;
 
-    private static final int IN_SLOT = 0;
-    private static final int OUT_SLOT = 1;
+    public static final int IN_SLOT = 0;
+    public static final int OUT_SLOT = 1;
 
     private final SimpleContainer input = new SimpleContainer(1);
 
@@ -49,18 +49,27 @@ public class SuperChestMenu extends SuperMenu {
 
     @Override
     public boolean clickMenuButton(Player player, int buttonId) {
-        if (buttonId != BUTTON_EXTRACT) {
+        if (buttonId != BUTTON_EXTRACT && buttonId != BUTTON_EXTRACT_ALL) {
             return super.clickMenuButton(player, buttonId);
         }
         SuperChestBlockEntity chest = chest();
         if (chest == null || chest.getStored().isEmpty()) {
             return false;
         }
-        ItemStack extracted = chest.extract(chest.getStored().getMaxStackSize());
-        player.getInventory().add(extracted);
-        if (!extracted.isEmpty()) {
-            chest.insertSilently(extracted);
-        }
+        do {
+            if (chest.getStored().isEmpty()) {
+                break;
+            }
+            ItemStack extracted = chest.extract(chest.getStored().getMaxStackSize());
+            if (extracted.isEmpty()) {
+                break;
+            }
+            player.getInventory().add(extracted);
+            if (!extracted.isEmpty()) {
+                chest.insertSilently(extracted);
+                break;
+            }
+        } while (buttonId == BUTTON_EXTRACT_ALL);
         return true;
     }
 

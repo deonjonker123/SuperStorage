@@ -29,6 +29,7 @@ public abstract class SuperMenu extends AbstractContainerMenu {
     public static final int HOTBAR_Y = 151;
 
     private static final int AMOUNT_SLOTS = 3;
+    public static final int BUTTON_EXTRACT_ALL = 4;
 
     protected final Level level;
     protected final BlockPos pos;

@@ -1,6 +1,7 @@
 package com.misterd.superstorage.gui.custom;
 
 import com.misterd.superstorage.blockentity.custom.SuperTankBlockEntity;
+import com.misterd.superstorage.component.SSDataComponents;
 import com.misterd.superstorage.gui.SSMenuTypes;
 import com.misterd.superstorage.item.custom.DrumBlockItem;
 import com.misterd.superstorage.util.FluidTransfer;
@@ -11,6 +12,7 @@ import net.minecraft.world.inventory.ContainerInput;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.fluids.SimpleFluidContent;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
 import net.neoforged.neoforge.transfer.fluid.FluidResource;
@@ -20,10 +22,12 @@ import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 import org.jspecify.annotations.Nullable;
 
 public class SuperTankMenu extends SuperMenu {
-    public static final int IO_X = 67;
-    public static final int IO_Y = 29;
-
-    private static final int IO_SLOT = 0;
+    public static final int IN_X = 86;
+    public static final int IN_Y = 29;
+    public static final int OUT_X = 86;
+    public static final int OUT_Y = 48;
+    public static final int FILL_SLOT = SuperTankBlockEntity.FILL_SLOT;
+    public static final int DRAIN_SLOT = SuperTankBlockEntity.DRAIN_SLOT;
 
     public SuperTankMenu(int containerId, Inventory inventory, RegistryFriendlyByteBuf buf) {
         super(SSMenuTypes.SUPER_TANK_MENU.get(), containerId, inventory, buf.readBlockPos());
@@ -37,7 +41,7 @@ public class SuperTankMenu extends SuperMenu {
 
     private void addSlots(Inventory inventory) {
         SuperTankBlockEntity tank = tank();
-        ItemStacksResourceHandler io = server && tank != null ? tank.getIoSlot() : new ItemStacksResourceHandler(1) {
+        ItemStacksResourceHandler io = server && tank != null ? tank.getIoSlot() : new ItemStacksResourceHandler(2) {
             @Override
             public boolean isValid(int index, ItemResource resource) {
                 return resource.getItem() instanceof DrumBlockItem;
@@ -48,7 +52,8 @@ public class SuperTankMenu extends SuperMenu {
                 return 1;
             }
         };
-        addSlot(new ResourceHandlerSlot(io, io::set, 0, IO_X, IO_Y));
+        addSlot(new ResourceHandlerSlot(io, io::set, FILL_SLOT, OUT_X, OUT_Y));
+        addSlot(new ResourceHandlerSlot(io, io::set, DRAIN_SLOT, IN_X, IN_Y));
         addPlayerInventory(inventory);
     }
 
@@ -64,17 +69,19 @@ public class SuperTankMenu extends SuperMenu {
     @Override
     public void clicked(int slotIndex, int buttonNum, ContainerInput containerInput, Player player) {
         ItemStack carried = getCarried();
-        if (slotIndex == IO_SLOT && containerInput == ContainerInput.PICKUP && !carried.isEmpty()) {
+        boolean ioSlot = slotIndex == FILL_SLOT || slotIndex == DRAIN_SLOT;
+        if (ioSlot && containerInput == ContainerInput.PICKUP && !carried.isEmpty()) {
             boolean drum = carried.getItem() instanceof DrumBlockItem;
             ResourceHandler<FluidResource> item = ItemAccess.forPlayerCursor(player, this).oneByOne().getCapability(Capabilities.Fluid.ITEM);
             if (item != null && (!drum || buttonNum == 1)) {
                 SuperTankBlockEntity tank = tank();
                 if (server && tank != null) {
-                    FluidResource fluid = tank.isCreative() ? FluidTransfer.firstFluid(item) : FluidResource.EMPTY;
-                    if (!fluid.isEmpty()) {
-                        tank.setCreativeFluid(fluid);
+                    if (slotIndex == FILL_SLOT) {
+                        FluidTransfer.fillItem(tank.getStorage(), item, level, pos, player);
+                    } else if (tank.isCreative()) {
+                        tank.setCreativeFluid(FluidTransfer.firstFluid(item));
                     } else {
-                        FluidTransfer.moveBucket(tank.getStorage(), item, level, pos, player);
+                        FluidTransfer.emptyItem(tank.getStorage(), item, level, pos, player);
                     }
                 }
                 return;
@@ -91,12 +98,18 @@ public class SuperTankMenu extends SuperMenu {
         }
         ItemStack stack = slot.getItem();
         ItemStack original = stack.copy();
-        if (index == IO_SLOT) {
+        if (index == FILL_SLOT || index == DRAIN_SLOT) {
             if (!moveItemStackTo(stack, playerSlotStart, slots.size(), true)) {
                 return ItemStack.EMPTY;
             }
-        } else if (!(stack.getItem() instanceof DrumBlockItem) || !moveItemStackTo(stack, IO_SLOT, IO_SLOT + 1, false)) {
-            return ItemStack.EMPTY;
+        } else {
+            if (!(stack.getItem() instanceof DrumBlockItem)) {
+                return ItemStack.EMPTY;
+            }
+            int target = stack.getOrDefault(SSDataComponents.FLUID_CONTENT.get(), SimpleFluidContent.EMPTY).isEmpty() ? FILL_SLOT : DRAIN_SLOT;
+            if (!moveItemStackTo(stack, target, target + 1, false)) {
+                return ItemStack.EMPTY;
+            }
         }
         if (stack.isEmpty()) {
             slot.setByPlayer(ItemStack.EMPTY);

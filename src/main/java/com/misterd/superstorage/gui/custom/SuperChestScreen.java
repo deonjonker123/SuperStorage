@@ -43,4 +43,13 @@ public class SuperChestScreen extends SuperScreen<SuperChestMenu> {
             graphics.item(stored.toStack(), x, y);
         }
     }
+
+    @Override
+    protected List<Component> slotTooltip(int slotIndex) {
+        return switch (slotIndex) {
+            case SuperChestMenu.IN_SLOT -> slotLines("gui.superstorage.slot.input", "gui.superstorage.slot.chest_in");
+            case SuperChestMenu.OUT_SLOT -> slotLines("gui.superstorage.slot.output", "gui.superstorage.slot.chest_out");
+            default -> List.of();
+        };
+    }
 }

@@ -20,17 +20,24 @@ public final class FluidTransfer {
         if (item == null) {
             return false;
         }
-        ResourceStack<FluidResource> moved = ResourceHandlerUtil.moveFirst(tank, item, resource -> true, FluidType.BUCKET_VOLUME, null);
-        if (moved != null) {
-            FluidUtil.triggerSoundAndGameEvent(moved.resource(), level, Vec3.atCenterOf(pos), player, true);
-            return true;
+        return fillItem(tank, item, level, pos, player) || emptyItem(tank, item, level, pos, player);
+    }
+
+    public static boolean fillItem(ResourceHandler<FluidResource> tank, ResourceHandler<FluidResource> item, Level level, BlockPos pos, Player player) {
+        return move(tank, item, level, pos, player, true);
+    }
+
+    public static boolean emptyItem(ResourceHandler<FluidResource> tank, ResourceHandler<FluidResource> item, Level level, BlockPos pos, Player player) {
+        return move(item, tank, level, pos, player, false);
+    }
+
+    private static boolean move(ResourceHandler<FluidResource> from, ResourceHandler<FluidResource> to, Level level, BlockPos pos, Player player, boolean pickup) {
+        ResourceStack<FluidResource> moved = ResourceHandlerUtil.moveFirst(from, to, resource -> true, FluidType.BUCKET_VOLUME, null);
+        if (moved == null) {
+            return false;
         }
-        moved = ResourceHandlerUtil.moveFirst(item, tank, resource -> true, FluidType.BUCKET_VOLUME, null);
-        if (moved != null) {
-            FluidUtil.triggerSoundAndGameEvent(moved.resource(), level, Vec3.atCenterOf(pos), player, false);
-            return true;
-        }
-        return false;
+        FluidUtil.triggerSoundAndGameEvent(moved.resource(), level, Vec3.atCenterOf(pos), player, pickup);
+        return true;
     }
 
     public static FluidResource firstFluid(@Nullable ResourceHandler<FluidResource> handler) {

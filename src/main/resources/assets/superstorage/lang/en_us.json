@@ -122,5 +122,14 @@
   "gui.superstorage.mode.input": "Input",
   "gui.superstorage.mode.output": "Output",
   "gui.superstorage.mode.both": "Input + Output",
-  "gui.superstorage.fill": "%s%% Full"
+  "gui.superstorage.fill": "%s%% Full",
+  "gui.superstorage.slot.input": "Input",
+  "gui.superstorage.slot.output": "Output",
+  "gui.superstorage.slot.chest_in": "Place items here to store them",
+  "gui.superstorage.slot.chest_out": "Take stored items from here",
+  "gui.superstorage.slot.tank_in": "Place a drum to empty it into the tank",
+  "gui.superstorage.slot.tank_in_click": "Right-click: empty one bucket",
+  "gui.superstorage.slot.tank_out": "Place a drum to fill it from the tank",
+  "gui.superstorage.slot.tank_out_click": "Right-click: fill one bucket",
+  "gui.superstorage.extract_all": "Shift-click: Extract All"
 }
