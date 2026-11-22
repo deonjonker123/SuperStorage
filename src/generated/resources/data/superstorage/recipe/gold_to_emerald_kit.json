@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "superstorage:upgrade_base",
+    "P": "minecraft:emerald",
+    "S": "#c:rods"
+  },
+  "pattern": [
+    "PSP",
+    "SBS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:gold_to_emerald_kit"
+  }
+}

@@ -5,6 +5,7 @@ import com.misterd.superstorage.block.SSBlocks;
 import com.misterd.superstorage.item.custom.CrateBlockItem;
 import com.misterd.superstorage.item.custom.DrumBlockItem;
 import com.misterd.superstorage.item.custom.SuperBlockItem;
+import com.misterd.superstorage.item.custom.TierKitItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -15,6 +16,53 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class SSItems {
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(SuperStorage.MODID);
+
+    public static final DeferredItem<Item> UPGRADE_BASE = ITEMS.registerSimpleItem("upgrade_base");
+
+    public static final DeferredItem<Item> WOOD_TO_COPPER_KIT = ITEMS.registerItem("wood_to_copper_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.WOODEN_CRATE, SSBlocks.COPPER_CRATE),
+                    new TierKitItem.Upgrade(SSBlocks.WOODEN_DRUM, SSBlocks.COPPER_DRUM)));
+
+    public static final DeferredItem<Item> COPPER_TO_IRON_KIT = ITEMS.registerItem("copper_to_iron_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.COPPER_CRATE, SSBlocks.IRON_CRATE),
+                    new TierKitItem.Upgrade(SSBlocks.COPPER_DRUM, SSBlocks.IRON_DRUM)));
+
+    public static final DeferredItem<Item> IRON_TO_GOLD_KIT = ITEMS.registerItem("iron_to_gold_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.IRON_CRATE, SSBlocks.GOLD_CRATE),
+                    new TierKitItem.Upgrade(SSBlocks.IRON_DRUM, SSBlocks.GOLD_DRUM)));
+
+    public static final DeferredItem<Item> GOLD_TO_EMERALD_KIT = ITEMS.registerItem("gold_to_emerald_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.GOLD_CRATE, SSBlocks.EMERALD_CRATE),
+                    new TierKitItem.Upgrade(SSBlocks.GOLD_DRUM, SSBlocks.EMERALD_DRUM)));
+
+    public static final DeferredItem<Item> EMERALD_TO_DIAMOND_KIT = ITEMS.registerItem("emerald_to_diamond_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.EMERALD_CRATE, SSBlocks.DIAMOND_CRATE),
+                    new TierKitItem.Upgrade(SSBlocks.EMERALD_DRUM, SSBlocks.DIAMOND_DRUM)));
+
+    public static final DeferredItem<Item> DIAMOND_TO_NETHERITE_KIT = ITEMS.registerItem("diamond_to_netherite_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.DIAMOND_CRATE, SSBlocks.NETHERITE_CRATE),
+                    new TierKitItem.Upgrade(SSBlocks.DIAMOND_DRUM, SSBlocks.NETHERITE_DRUM)));
+
+    public static final DeferredItem<Item> I_TO_II_KIT = ITEMS.registerItem("i_to_ii_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.SUPER_CHEST_I, SSBlocks.SUPER_CHEST_II),
+                    new TierKitItem.Upgrade(SSBlocks.SUPER_TANK_I, SSBlocks.SUPER_TANK_II)));
+
+    public static final DeferredItem<Item> II_TO_III_KIT = ITEMS.registerItem("ii_to_iii_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.SUPER_CHEST_II, SSBlocks.SUPER_CHEST_III),
+                    new TierKitItem.Upgrade(SSBlocks.SUPER_TANK_II, SSBlocks.SUPER_TANK_III)));
+
+    public static final DeferredItem<Item> III_TO_IV_KIT = ITEMS.registerItem("iii_to_iv_kit",
+            props -> new TierKitItem(props,
+                    new TierKitItem.Upgrade(SSBlocks.SUPER_CHEST_III, SSBlocks.SUPER_CHEST_IV),
+                    new TierKitItem.Upgrade(SSBlocks.SUPER_TANK_III, SSBlocks.SUPER_TANK_IV)));
 
     public static final DeferredItem<Item> WOODEN_CRATE = ITEMS.registerItem("wooden_crate",
             props -> new CrateBlockItem(SSBlocks.WOODEN_CRATE.get(), props));

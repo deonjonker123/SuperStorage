@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "minecraft:iron_ingot",
+    "P": "#minecraft:planks",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    "PSP",
+    "SIS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:upgrade_base"
+  }
+}

@@ -1,13 +1,17 @@
 package com.misterd.superstorage.datagen.custom;
 
 import com.misterd.superstorage.block.SSBlocks;
+import com.misterd.superstorage.item.SSItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
@@ -253,6 +257,50 @@ public class SSRecipeProvider extends RecipeProvider {
                 .define('S', Items.NETHERITE_INGOT)
                 .define('C', SSBlocks.NETHERITE_DRUM)
                 .unlockedBy("has_netherite_drum", has(SSBlocks.NETHERITE_DRUM))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, SSItems.UPGRADE_BASE.get())
+                .pattern("PSP")
+                .pattern("SIS")
+                .pattern("PSP")
+                .define('P', ItemTags.PLANKS)
+                .define('S', Items.STICK)
+                .define('I', Items.IRON_INGOT)
+                .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+                .save(output);
+
+        kit(SSItems.WOOD_TO_COPPER_KIT.get(), Items.COPPER_INGOT, Tags.Items.RODS);
+        kit(SSItems.COPPER_TO_IRON_KIT.get(), Items.IRON_INGOT, Tags.Items.RODS);
+        kit(SSItems.IRON_TO_GOLD_KIT.get(), Items.GOLD_INGOT, Tags.Items.RODS);
+        kit(SSItems.GOLD_TO_EMERALD_KIT.get(), Items.EMERALD, Tags.Items.RODS);
+        kit(SSItems.EMERALD_TO_DIAMOND_KIT.get(), Items.DIAMOND, Tags.Items.RODS);
+        kit(SSItems.DIAMOND_TO_NETHERITE_KIT.get(), Items.NETHERITE_INGOT, Tags.Items.RODS);
+        kit(SSItems.I_TO_II_KIT.get(), Items.EMERALD_BLOCK, Items.EMERALD);
+        kit(SSItems.II_TO_III_KIT.get(), Items.DIAMOND_BLOCK, Items.DIAMOND);
+        kit(SSItems.III_TO_IV_KIT.get(), Items.NETHERITE_BLOCK, Items.NETHERITE_INGOT);
+    }
+
+    private void kit(ItemLike result, ItemLike corner, TagKey<Item> side) {
+        shaped(RecipeCategory.MISC, result)
+                .pattern("PSP")
+                .pattern("SBS")
+                .pattern("PSP")
+                .define('P', corner)
+                .define('S', side)
+                .define('B', SSItems.UPGRADE_BASE.get())
+                .unlockedBy("has_upgrade_base", has(SSItems.UPGRADE_BASE.get()))
+                .save(output);
+    }
+
+    private void kit(ItemLike result, ItemLike corner, ItemLike side) {
+        shaped(RecipeCategory.MISC, result)
+                .pattern("PSP")
+                .pattern("SBS")
+                .pattern("PSP")
+                .define('P', corner)
+                .define('S', side)
+                .define('B', SSItems.UPGRADE_BASE.get())
+                .unlockedBy("has_upgrade_base", has(SSItems.UPGRADE_BASE.get()))
                 .save(output);
     }
 

@@ -44,6 +44,17 @@ public class SSCreativeTab {
                         output.accept(SSBlocks.SUPER_TANK_III);
                         output.accept(SSBlocks.SUPER_TANK_IV);
 
+                        output.accept(SSItems.UPGRADE_BASE);
+                        output.accept(SSItems.WOOD_TO_COPPER_KIT);
+                        output.accept(SSItems.COPPER_TO_IRON_KIT);
+                        output.accept(SSItems.IRON_TO_GOLD_KIT);
+                        output.accept(SSItems.GOLD_TO_EMERALD_KIT);
+                        output.accept(SSItems.EMERALD_TO_DIAMOND_KIT);
+                        output.accept(SSItems.DIAMOND_TO_NETHERITE_KIT);
+                        output.accept(SSItems.I_TO_II_KIT);
+                        output.accept(SSItems.II_TO_III_KIT);
+                        output.accept(SSItems.III_TO_IV_KIT);
+
                         output.accept(SSBlocks.CREATIVE_SUPER_CHEST);
                         output.accept(SSBlocks.CREATIVE_SUPER_TANK);
                     }).build());

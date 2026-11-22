@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "superstorage:item/gold_to_emerald_kit"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "superstorage:upgrade_base",
+    "P": "minecraft:emerald_block",
+    "S": "minecraft:emerald"
+  },
+  "pattern": [
+    "PSP",
+    "SBS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:i_to_ii_kit"
+  }
+}

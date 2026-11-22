@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "superstorage:upgrade_base",
+    "P": "minecraft:iron_ingot",
+    "S": "#c:rods"
+  },
+  "pattern": [
+    "PSP",
+    "SBS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:copper_to_iron_kit"
+  }
+}

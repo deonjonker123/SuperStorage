@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "superstorage:upgrade_base",
+    "P": "minecraft:gold_ingot",
+    "S": "#c:rods"
+  },
+  "pattern": [
+    "PSP",
+    "SBS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:iron_to_gold_kit"
+  }
+}

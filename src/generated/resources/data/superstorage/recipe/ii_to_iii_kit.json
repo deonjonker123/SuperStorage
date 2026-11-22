@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "superstorage:upgrade_base",
+    "P": "minecraft:diamond_block",
+    "S": "minecraft:diamond"
+  },
+  "pattern": [
+    "PSP",
+    "SBS",
+    "PSP"
+  ],
+  "result": {
+    "id": "superstorage:ii_to_iii_kit"
+  }
+}

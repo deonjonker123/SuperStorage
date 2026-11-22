@@ -2,6 +2,7 @@ package com.misterd.superstorage.datagen.custom;
 
 import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.block.SSBlocks;
+import com.misterd.superstorage.item.SSItems;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.ModelProvider;
@@ -35,5 +36,16 @@ public class SSModelProvider extends ModelProvider {
         blockModels.createTrivialCube(SSBlocks.EMERALD_CRATE.get());
         blockModels.createTrivialCube(SSBlocks.DIAMOND_CRATE.get());
         blockModels.createTrivialCube(SSBlocks.NETHERITE_CRATE.get());
+
+        itemModels.generateFlatItem(SSItems.UPGRADE_BASE.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.WOOD_TO_COPPER_KIT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.COPPER_TO_IRON_KIT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.IRON_TO_GOLD_KIT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.GOLD_TO_EMERALD_KIT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.EMERALD_TO_DIAMOND_KIT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.DIAMOND_TO_NETHERITE_KIT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.I_TO_II_KIT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.II_TO_III_KIT.get(), ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(SSItems.III_TO_IV_KIT.get(), ModelTemplates.FLAT_ITEM);
     }
 }
