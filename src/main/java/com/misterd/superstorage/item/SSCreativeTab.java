@@ -58,6 +58,7 @@ public class SSCreativeTab {
                         output.accept(SSItems.HOPPER_UPGRADE);
                         output.accept(SSItems.COLLECTOR_UPGRADE);
                         output.accept(SSItems.COMPACTING_UPGRADE);
+                        output.accept(SSItems.TAPE);
 
                         output.accept(SSBlocks.CREATIVE_SUPER_CHEST);
                         output.accept(SSBlocks.CREATIVE_SUPER_TANK);

@@ -73,6 +73,8 @@ public class SSItems {
     public static final DeferredItem<Item> COMPACTING_UPGRADE = ITEMS.registerItem("compacting_upgrade",
             props -> new UpgradeItem(UpgradeType.COMPACTING, props));
 
+    public static final DeferredItem<Item> TAPE = ITEMS.registerItem("tape", TapeItem::new);
+
     public static final DeferredItem<Item> WOODEN_CRATE = ITEMS.registerItem("wooden_crate",
             props -> new CrateBlockItem(SSBlocks.WOODEN_CRATE.get(), props));
 

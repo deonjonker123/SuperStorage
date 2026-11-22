@@ -314,6 +314,15 @@ public class SSRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_filter", has(SSItems.FILTER.get()))
                 .save(output, "superstorage:filter_clear");
 
+        shaped(RecipeCategory.MISC, SSItems.TAPE.get(), 2)
+                .pattern(" P ")
+                .pattern("PSP")
+                .pattern(" P ")
+                .define('P', Items.PAPER)
+                .define('S', Items.SLIME_BALL)
+                .unlockedBy("has_slime_ball", has(Items.SLIME_BALL))
+                .save(output);
+
         kit(SSItems.WOOD_TO_COPPER_KIT.get(), Items.COPPER_INGOT, Tags.Items.RODS);
         kit(SSItems.COPPER_TO_IRON_KIT.get(), Items.IRON_INGOT, Tags.Items.RODS);
         kit(SSItems.IRON_TO_GOLD_KIT.get(), Items.GOLD_INGOT, Tags.Items.RODS);

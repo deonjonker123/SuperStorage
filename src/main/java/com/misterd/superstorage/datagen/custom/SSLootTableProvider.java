@@ -52,6 +52,7 @@ public class SSLootTableProvider extends BlockLootSubProvider {
 
     private LootTable.Builder createCrateTable(Block block) {
         return createComponentTable(block, CopyComponentsFunction.copyComponentsFromBlockEntity(LootContextParams.BLOCK_ENTITY)
+                .include(SSDataComponents.PACKED_CRATE.get())
                 .include(DataComponents.CUSTOM_NAME));
     }
 

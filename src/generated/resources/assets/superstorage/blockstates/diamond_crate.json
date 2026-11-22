@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "taped=false": {
       "model": "superstorage:block/diamond_crate"
+    },
+    "taped=true": {
+      "model": "superstorage:block/diamond_crate_taped"
     }
   }
 }

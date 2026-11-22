@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "taped=false": {
       "model": "superstorage:block/netherite_crate"
+    },
+    "taped=true": {
+      "model": "superstorage:block/netherite_crate_taped"
     }
   }
 }

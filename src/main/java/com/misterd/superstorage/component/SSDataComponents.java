@@ -35,6 +35,9 @@ public class SSDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<CollectorSettings>> COLLECTOR_SETTINGS = DATA_COMPONENTS.registerComponentType("collector_settings",
             builder -> builder.persistent(CollectorSettings.CODEC).networkSynchronized(CollectorSettings.STREAM_CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<PackedCrate>> PACKED_CRATE = DATA_COMPONENTS.registerComponentType("packed_crate",
+            builder -> builder.persistent(PackedCrate.CODEC).networkSynchronized(PackedCrate.STREAM_CODEC));
+
     public static void register(IEventBus eventBus) {
         DATA_COMPONENTS.register(eventBus);
     }

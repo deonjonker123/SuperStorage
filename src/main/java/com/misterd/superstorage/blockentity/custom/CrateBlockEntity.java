@@ -5,18 +5,29 @@ import com.misterd.superstorage.component.CollectorSettings;
 import com.misterd.superstorage.component.CompactingSettings;
 import com.misterd.superstorage.component.FilterSettings;
 import com.misterd.superstorage.component.HopperSettings;
+import com.misterd.superstorage.component.PackedCrate;
+import com.misterd.superstorage.component.SSDataComponents;
 import com.misterd.superstorage.config.SSConfig;
 import com.misterd.superstorage.util.*;
 import com.misterd.superstorage.blockentity.SSBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.NbtOps;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.storage.ValueInput;
@@ -29,7 +40,9 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -61,8 +74,57 @@ public class CrateBlockEntity extends BlockEntity {
         return upgrades;
     }
 
+    public boolean isTaped() {
+        return getBlockState().hasProperty(CrateBlock.TAPED) && getBlockState().getValue(CrateBlock.TAPED);
+    }
+
+    public @Nullable Component tape() {
+        if (isTaped()) {
+            return Component.translatable("message.superstorage.tape.already");
+        }
+        for (ItemStack stack : itemHandler.copyToList()) {
+            if (holdsItems(stack)) {
+                return Component.translatable("message.superstorage.tape.nested");
+            }
+        }
+        if (level == null) {
+            return null;
+        }
+        int size = PackedCrate.CODEC.encodeStart(level.registryAccess().createSerializationContext(NbtOps.INSTANCE), pack())
+                .result().map(Tag::sizeInBytes).orElse(Integer.MAX_VALUE);
+        if (size > SSConfig.TAPE_MAX_BYTES.get()) {
+            return Component.translatable("message.superstorage.tape.too_large");
+        }
+        level.setBlock(worldPosition, getBlockState().setValue(CrateBlock.TAPED, true), Block.UPDATE_ALL);
+        invalidateCapabilities();
+        return null;
+    }
+
+    private static boolean holdsItems(ItemStack stack) {
+        if (stack.has(SSDataComponents.PACKED_CRATE.get())) {
+            return true;
+        }
+        ItemContainerContents container = stack.get(DataComponents.CONTAINER);
+        if (container != null && !container.equals(ItemContainerContents.EMPTY)) {
+            return true;
+        }
+        BundleContents bundle = stack.get(DataComponents.BUNDLE_CONTENTS);
+        return bundle != null && !bundle.isEmpty();
+    }
+
+    private PackedCrate pack() {
+        List<PackedCrate.Entry> entries = new ArrayList<>();
+        NonNullList<ItemStack> stacks = itemHandler.copyToList();
+        for (int i = 0; i < stacks.size(); i++) {
+            if (!stacks.get(i).isEmpty()) {
+                entries.add(new PackedCrate.Entry(i, stacks.get(i)));
+            }
+        }
+        return new PackedCrate(List.copyOf(entries), ItemContainerContents.fromItems(upgrades.copyToList()));
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, CrateBlockEntity crate) {
-        if (!(level instanceof ServerLevel serverLevel)) {
+        if (!(level instanceof ServerLevel serverLevel) || crate.isTaped()) {
             return;
         }
         long time = level.getGameTime();
@@ -243,8 +305,36 @@ public class CrateBlockEntity extends BlockEntity {
     }
 
     @Override
+    protected void applyImplicitComponents(DataComponentGetter components) {
+        super.applyImplicitComponents(components);
+        PackedCrate packed = components.get(SSDataComponents.PACKED_CRATE.get());
+        if (packed == null) {
+            return;
+        }
+        NonNullList<ItemStack> stacks = NonNullList.withSize(tier.slotCount(), ItemStack.EMPTY);
+        for (PackedCrate.Entry entry : packed.items()) {
+            if (entry.slot() >= 0 && entry.slot() < stacks.size()) {
+                stacks.set(entry.slot(), entry.stack().copy());
+            }
+        }
+        itemHandler.replace(stacks);
+        NonNullList<ItemStack> installed = packed.upgradeList();
+        for (UpgradeType type : UpgradeType.values()) {
+            upgrades.put(type, installed.get(type.ordinal()));
+        }
+    }
+
+    @Override
+    protected void collectImplicitComponents(DataComponentMap.Builder components) {
+        super.collectImplicitComponents(components);
+        if (isTaped()) {
+            components.set(SSDataComponents.PACKED_CRATE.get(), pack());
+        }
+    }
+
+    @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
-        if (level != null) {
+        if (level != null && !isTaped()) {
             Containers.dropContents(level, pos, itemHandler.copyToList());
             Containers.dropContents(level, pos, upgrades.copyToList());
         }

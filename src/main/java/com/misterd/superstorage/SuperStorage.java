@@ -54,7 +54,7 @@ public class SuperStorage {
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(Capabilities.Item.BLOCK, SSBlockEntities.CRATE_BE.get(), (crate, side) -> crate.getItemHandler());
+        event.registerBlockEntity(Capabilities.Item.BLOCK, SSBlockEntities.CRATE_BE.get(), (crate, side) -> crate.isTaped() ? null : crate.getItemHandler());
         event.registerBlockEntity(Capabilities.Fluid.BLOCK, SSBlockEntities.DRUM_BE.get(), (drum, side) -> drum.getFluidHandler());
         event.registerBlockEntity(Capabilities.Item.BLOCK, SSBlockEntities.SUPER_CHEST_BE.get(), SuperChestBlockEntity::getItemHandler);
         event.registerBlockEntity(Capabilities.Fluid.BLOCK, SSBlockEntities.SUPER_TANK_BE.get(), SuperTankBlockEntity::getFluidHandler);

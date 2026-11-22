@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "taped=false": {
       "model": "superstorage:block/copper_crate"
+    },
+    "taped=true": {
+      "model": "superstorage:block/copper_crate_taped"
     }
   }
 }

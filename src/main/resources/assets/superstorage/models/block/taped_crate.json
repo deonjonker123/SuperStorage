@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:block/block",
+  "render_type": "minecraft:cutout",
+  "textures": {
+    "particle": "#crate",
+    "tape": "superstorage:block/crate_tape"
+  },
+  "elements": [
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": {"texture": "#crate", "cullface": "down"},
+        "up": {"texture": "#crate", "cullface": "up"},
+        "north": {"texture": "#crate", "cullface": "north"},
+        "south": {"texture": "#crate", "cullface": "south"},
+        "west": {"texture": "#crate", "cullface": "west"},
+        "east": {"texture": "#crate", "cullface": "east"}
+      }
+    },
+    {
+      "from": [0, 0, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": {"texture": "#tape", "cullface": "down"},
+        "up": {"texture": "#tape", "cullface": "up"},
+        "north": {"texture": "#tape", "cullface": "north"},
+        "south": {"texture": "#tape", "cullface": "south"},
+        "west": {"texture": "#tape", "cullface": "west"},
+        "east": {"texture": "#tape", "cullface": "east"}
+      }
+    }
+  ]
+}

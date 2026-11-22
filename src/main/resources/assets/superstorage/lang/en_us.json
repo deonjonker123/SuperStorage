@@ -71,6 +71,7 @@
   "item.superstorage.collector_upgrade": "Collector Upgrade",
   "item.superstorage.compacting_upgrade": "Compacting Upgrade",
   "item.superstorage.filter": "Filter",
+  "item.superstorage.tape": "Tape",
 
   "tooltip.superstorage.kit": "%s → %s",
   "tooltip.superstorage.item_slots": "Item Slots: ",
@@ -97,6 +98,14 @@
   "tooltip.superstorage.infinite": "Infinite",
   "tooltip.superstorage.fluid_value_infinite": "%s, Infinite",
   "tooltip.superstorage.filter.entries": "%s entries",
+  "tooltip.superstorage.packed": "Packed: %s stacks",
+  "tooltip.superstorage.packed_upgrades": "Packed: %s upgrades",
+
+  "message.superstorage.tape.done": "Crate taped shut. Break it to move it with its contents.",
+  "message.superstorage.tape.already": "This crate is already taped",
+  "message.superstorage.tape.nested": "Can't tape a crate holding filled shulker boxes or bundles",
+  "message.superstorage.tape.too_large": "Too much data to pack",
+  "message.superstorage.tape.sealed": "This crate is taped shut",
 
   "jade.superstorage.locked": "Locked: %s",
   "jade.superstorage.void": "Void Overflow: %s",

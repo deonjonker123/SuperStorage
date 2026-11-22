@@ -1,5 +1,6 @@
 package com.misterd.superstorage.util;
 
+import com.misterd.superstorage.block.custom.CrateBlock;
 import com.misterd.superstorage.block.custom.DrumBlock;
 import com.misterd.superstorage.block.custom.SuperChestBlock;
 import com.misterd.superstorage.block.custom.SuperTankBlock;
@@ -20,6 +21,9 @@ public final class StorageGuard {
             return true;
         }
         Block block = blockItem.getBlock();
+        if (block instanceof CrateBlock) {
+            return resource.get(SSDataComponents.PACKED_CRATE.get()) == null;
+        }
         if (block instanceof SuperChestBlock) {
             SuperChestContents contents = resource.get(SSDataComponents.SUPER_CHEST_CONTENTS.get());
             return contents == null || contents.item().isEmpty();

@@ -9,20 +9,26 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.neoforge.transfer.ResourceHandlerUtil;
 import org.jspecify.annotations.Nullable;
@@ -32,12 +38,14 @@ public class CrateBlock extends BaseEntityBlock {
             CrateTier.CODEC.fieldOf("tier").forGetter(CrateBlock::getTier),
             propertiesCodec()
     ).apply(instance, CrateBlock::new));
+    public static final BooleanProperty TAPED = BooleanProperty.create("taped");
 
     private final CrateTier tier;
 
     public CrateBlock(CrateTier tier, Properties properties) {
         super(properties);
         this.tier = tier;
+        registerDefaultState(stateDefinition.any().setValue(TAPED, false));
     }
 
     public CrateTier getTier() {
@@ -47,6 +55,11 @@ public class CrateBlock extends BaseEntityBlock {
     @Override
     protected MapCodec<CrateBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(TAPED);
     }
 
     @Override
@@ -62,6 +75,10 @@ public class CrateBlock extends BaseEntityBlock {
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (!level.isClientSide() && level.getBlockEntity(pos) instanceof CrateBlockEntity crate) {
+            if (crate.isTaped()) {
+                player.sendOverlayMessage(Component.translatable("message.superstorage.tape.sealed"));
+                return InteractionResult.SUCCESS;
+            }
             openMenu(player, crate);
             level.playSound(null, pos, SoundEvents.BARREL_OPEN, SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
         }
@@ -71,6 +88,18 @@ public class CrateBlock extends BaseEntityBlock {
     public static void openMenu(Player player, CrateBlockEntity crate) {
         player.openMenu(new SimpleMenuProvider((containerId, inventory, p) -> new CrateMenu(containerId, inventory, crate), MenuTitles.of(crate, crate.getBlockState().getBlock())),
                 buf -> buf.writeVarInt(crate.getTier().ordinal()));
+    }
+
+    @Override
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        if (!level.isClientSide() && player.preventsBlockDrops() && level.getBlockEntity(pos) instanceof CrateBlockEntity crate && crate.isTaped()) {
+            ItemStack stack = new ItemStack(this);
+            stack.applyComponents(crate.collectComponents());
+            ItemEntity entity = new ItemEntity(level, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, stack);
+            entity.setDefaultPickUpDelay();
+            level.addFreshEntity(entity);
+        }
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     @Override

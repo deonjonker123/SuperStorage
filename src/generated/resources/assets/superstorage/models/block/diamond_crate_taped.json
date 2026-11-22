@@ -1,0 +1,6 @@
+{
+  "parent": "superstorage:block/taped_crate",
+  "textures": {
+    "crate": "superstorage:block/diamond_crate"
+  }
+}

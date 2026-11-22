@@ -20,6 +20,7 @@ public final class SSConfig {
     public static final ModConfigSpec.IntValue COLLECTOR_PICKUP_DELAY;
     public static final ModConfigSpec.IntValue COLLECTOR_MAX_SIZE;
     public static final ModConfigSpec.IntValue COLLECTOR_MAX_OFFSET;
+    public static final ModConfigSpec.IntValue TAPE_MAX_BYTES;
 
     private static final Map<SuperTier, ModConfigSpec.LongValue> SUPER_CHEST_CAPACITY = new EnumMap<>(SuperTier.class);
     private static final Map<SuperTier, ModConfigSpec.IntValue> SUPER_TANK_CAPACITY = new EnumMap<>(SuperTier.class);
@@ -78,6 +79,9 @@ public final class SSConfig {
         COLLECTOR_MAX_OFFSET = builder
                 .comment("Maximum offset of the Collector Upgrade area from the crate on each axis")
                 .defineInRange("collectorMaxOffset", 8, 0, 64);
+        TAPE_MAX_BYTES = builder
+                .comment("Maximum size in bytes of a crate's contents when packed with Tape")
+                .defineInRange("tapeMaxBytes", 524288, 1024, 8388608);
         builder.pop();
 
         SPEC = builder.build();

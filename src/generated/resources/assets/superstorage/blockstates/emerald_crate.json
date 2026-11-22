@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "taped=false": {
       "model": "superstorage:block/emerald_crate"
+    },
+    "taped=true": {
+      "model": "superstorage:block/emerald_crate_taped"
     }
   }
 }
