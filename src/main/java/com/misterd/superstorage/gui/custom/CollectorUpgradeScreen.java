@@ -35,13 +35,13 @@ public class CollectorUpgradeScreen extends UpgradeSettingsScreen<CollectorUpgra
     private static final float VALUE_SCALE = 0.8F;
     private static final int VALUE_HEIGHT = 10;
     private static final int HEADER_Y = 11;
-    private static final int SIZE_CENTER_X = 61;
+    private static final int SIZE_CENTER_X = 52;
     private static final int OFFSET_CENTER_X = 115;
     private static final int AXIS_GAP = 2;
     private static final String[] AXES = {"X", "Y", "Z"};
-    private static final int[] DECREASE_X = {41, 41, 41, 95, 95, 95};
-    private static final int[] VALUE_X = {53, 53, 53, 107, 107, 107};
-    private static final int[] INCREASE_X = {71, 71, 71, 125, 125, 125};
+    private static final int[] DECREASE_X = {32, 32, 32, 95, 95, 95};
+    private static final int[] VALUE_X = {44, 44, 44, 107, 107, 107};
+    private static final int[] INCREASE_X = {62, 62, 62, 125, 125, 125};
     private static final int[] ROW_Y = {21, 36, 51, 21, 36, 51};
     private static final String[] VALUE_KEYS = {"size_x", "size_y", "size_z", "offset_x", "offset_y", "offset_z"};
 

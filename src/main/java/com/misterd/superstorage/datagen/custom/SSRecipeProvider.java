@@ -259,13 +259,13 @@ public class SSRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_netherite_drum", has(SSBlocks.NETHERITE_DRUM))
                 .save(output);
 
-        shaped(RecipeCategory.MISC, SSItems.UPGRADE_BASE.get())
+        shaped(RecipeCategory.MISC, SSItems.UPGRADE_BASE.get(), 2)
                 .pattern("PSP")
                 .pattern("SIS")
                 .pattern("PSP")
-                .define('P', ItemTags.PLANKS)
-                .define('S', Items.STICK)
-                .define('I', Items.IRON_INGOT)
+                .define('P', Items.IRON_INGOT)
+                .define('S', Items.IRON_BARS)
+                .define('I', Items.QUARTZ)
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
                 .save(output);
 

@@ -2,9 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "I": "minecraft:iron_ingot",
-    "P": "#minecraft:planks",
-    "S": "minecraft:stick"
+    "I": "minecraft:quartz",
+    "P": "minecraft:iron_ingot",
+    "S": "minecraft:iron_bars"
   },
   "pattern": [
     "PSP",
@@ -12,6 +12,7 @@
     "PSP"
   ],
   "result": {
+    "count": 2,
     "id": "superstorage:upgrade_base"
   }
 }
