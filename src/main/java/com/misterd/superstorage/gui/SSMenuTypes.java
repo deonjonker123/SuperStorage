@@ -30,6 +30,9 @@ public class SSMenuTypes {
     public static final DeferredHolder<MenuType<?>, MenuType<CompactingUpgradeMenu>> COMPACTING_UPGRADE_MENU = MENUS.register("compacting_upgrade_menu",
             () -> IMenuTypeExtension.create(CompactingUpgradeMenu::new));
 
+    public static final DeferredHolder<MenuType<?>, MenuType<CollectorUpgradeMenu>> COLLECTOR_UPGRADE_MENU = MENUS.register("collector_upgrade_menu",
+            () -> IMenuTypeExtension.create(CollectorUpgradeMenu::new));
+
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }

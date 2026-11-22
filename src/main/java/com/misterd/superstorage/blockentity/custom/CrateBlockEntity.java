@@ -1,6 +1,7 @@
 package com.misterd.superstorage.blockentity.custom;
 
 import com.misterd.superstorage.block.custom.CrateBlock;
+import com.misterd.superstorage.component.CollectorSettings;
 import com.misterd.superstorage.component.CompactingSettings;
 import com.misterd.superstorage.component.FilterSettings;
 import com.misterd.superstorage.component.HopperSettings;
@@ -12,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -69,6 +71,9 @@ public class CrateBlockEntity extends BlockEntity {
         }
         if (time % SSConfig.COMPACTING_UPGRADE_INTERVAL.get() == 0) {
             crate.runCompacting(serverLevel);
+        }
+        if (time % SSConfig.COLLECTOR_UPGRADE_INTERVAL.get() == 0) {
+            crate.runCollector(serverLevel);
         }
     }
 
@@ -140,6 +145,34 @@ public class CrateBlockEntity extends BlockEntity {
         }
         if (changed) {
             itemHandler.replace(stacks);
+        }
+    }
+
+    private void runCollector(ServerLevel serverLevel) {
+        ItemStack upgrade = upgrades.get(UpgradeType.COLLECTOR);
+        if (upgrade.isEmpty()) {
+            return;
+        }
+        CollectorSettings settings = CollectorSettings.of(upgrade);
+        Predicate<ItemResource> filter = FilterSettings.predicate(settings.filter());
+        int delay = SSConfig.COLLECTOR_PICKUP_DELAY.get();
+        for (ItemEntity entity : serverLevel.getEntitiesOfClass(ItemEntity.class, settings.area(worldPosition),
+                e -> e.isAlive() && !e.hasPickUpDelay() && e.getAge() >= delay)) {
+            ItemStack stack = entity.getItem();
+            ItemResource resource = ItemResource.of(stack);
+            if (!filter.test(resource)) {
+                continue;
+            }
+            int inserted = ResourceHandlerUtil.insertStacking(itemHandler, resource, stack.getCount(), null);
+            if (inserted <= 0) {
+                continue;
+            }
+            ItemStack remaining = stack.copyWithCount(stack.getCount() - inserted);
+            if (remaining.isEmpty()) {
+                entity.discard();
+            } else {
+                entity.setItem(remaining);
+            }
         }
     }
 

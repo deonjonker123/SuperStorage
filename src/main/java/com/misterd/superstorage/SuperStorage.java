@@ -88,6 +88,7 @@ public class SuperStorage {
             event.register(SSMenuTypes.FILTER_MENU.get(), FilterScreen::new);
             event.register(SSMenuTypes.HOPPER_UPGRADE_MENU.get(), HopperUpgradeScreen::new);
             event.register(SSMenuTypes.COMPACTING_UPGRADE_MENU.get(), CompactingUpgradeScreen::new);
+            event.register(SSMenuTypes.COLLECTOR_UPGRADE_MENU.get(), CollectorUpgradeScreen::new);
         }
 
         @SubscribeEvent

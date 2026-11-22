@@ -32,6 +32,9 @@ public class SSDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<CompactingSettings>> COMPACTING_SETTINGS = DATA_COMPONENTS.registerComponentType("compacting_settings",
             builder -> builder.persistent(CompactingSettings.CODEC).networkSynchronized(CompactingSettings.STREAM_CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CollectorSettings>> COLLECTOR_SETTINGS = DATA_COMPONENTS.registerComponentType("collector_settings",
+            builder -> builder.persistent(CollectorSettings.CODEC).networkSynchronized(CollectorSettings.STREAM_CODEC));
+
     public static void register(IEventBus eventBus) {
         DATA_COMPONENTS.register(eventBus);
     }

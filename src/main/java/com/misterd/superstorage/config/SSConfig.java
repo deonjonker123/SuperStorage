@@ -16,6 +16,10 @@ public final class SSConfig {
     public static final ModConfigSpec.IntValue HOPPER_UPGRADE_INTERVAL;
     public static final ModConfigSpec.IntValue HOPPER_UPGRADE_RATE;
     public static final ModConfigSpec.IntValue COMPACTING_UPGRADE_INTERVAL;
+    public static final ModConfigSpec.IntValue COLLECTOR_UPGRADE_INTERVAL;
+    public static final ModConfigSpec.IntValue COLLECTOR_PICKUP_DELAY;
+    public static final ModConfigSpec.IntValue COLLECTOR_MAX_SIZE;
+    public static final ModConfigSpec.IntValue COLLECTOR_MAX_OFFSET;
 
     private static final Map<SuperTier, ModConfigSpec.LongValue> SUPER_CHEST_CAPACITY = new EnumMap<>(SuperTier.class);
     private static final Map<SuperTier, ModConfigSpec.IntValue> SUPER_TANK_CAPACITY = new EnumMap<>(SuperTier.class);
@@ -62,6 +66,18 @@ public final class SSConfig {
         COMPACTING_UPGRADE_INTERVAL = builder
                 .comment("Ticks between each Compacting Upgrade pass")
                 .defineInRange("compactingUpgradeInterval", 20, 1, 1200);
+        COLLECTOR_UPGRADE_INTERVAL = builder
+                .comment("Ticks between each Collector Upgrade scan")
+                .defineInRange("collectorUpgradeInterval", 10, 1, 1200);
+        COLLECTOR_PICKUP_DELAY = builder
+                .comment("Minimum age in ticks of a dropped item before the Collector Upgrade picks it up")
+                .defineInRange("collectorPickupDelay", 20, 0, 6000);
+        COLLECTOR_MAX_SIZE = builder
+                .comment("Maximum size of the Collector Upgrade area on each axis")
+                .defineInRange("collectorMaxSize", 16, 1, 64);
+        COLLECTOR_MAX_OFFSET = builder
+                .comment("Maximum offset of the Collector Upgrade area from the crate on each axis")
+                .defineInRange("collectorMaxOffset", 8, 0, 64);
         builder.pop();
 
         SPEC = builder.build();

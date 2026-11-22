@@ -167,5 +167,17 @@
   "gui.superstorage.compacting.reversible": "Reversible Recipes Only",
   "gui.superstorage.compacting.any": "All Recipes",
   "gui.superstorage.compacting.three": "3x3 Compacting",
-  "gui.superstorage.compacting.two": "2x2 Compacting"
+  "gui.superstorage.compacting.two": "2x2 Compacting",
+  "gui.superstorage.slot.collector_filter": "Collector Filter",
+  "gui.superstorage.collector.reset": "Reset Area",
+  "gui.superstorage.collector.show_area": "Show Area",
+  "gui.superstorage.collector.hide_area": "Hide Area",
+  "gui.superstorage.collector.size_x": "Size X",
+  "gui.superstorage.collector.size_y": "Size Y",
+  "gui.superstorage.collector.size_z": "Size Z",
+  "gui.superstorage.collector.offset_x": "Offset X",
+  "gui.superstorage.collector.offset_y": "Offset Y",
+  "gui.superstorage.collector.offset_z": "Offset Z",
+  "gui.superstorage.collector.size": "Size",
+  "gui.superstorage.collector.offset": "Offset"
 }
