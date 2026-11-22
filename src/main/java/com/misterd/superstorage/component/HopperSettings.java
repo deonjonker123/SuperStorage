@@ -62,4 +62,10 @@ public record HopperSettings(List<SideMode> sides, ItemContainerContents filters
         }
         return bits;
     }
+
+    public NonNullList<ItemStack> filterList() {
+        NonNullList<ItemStack> list = NonNullList.withSize(FILTER_COUNT, ItemStack.EMPTY);
+        filters.copyInto(list);
+        return list;
+    }
 }

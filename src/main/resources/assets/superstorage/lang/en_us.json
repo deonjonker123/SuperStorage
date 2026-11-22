@@ -162,5 +162,10 @@
   "gui.superstorage.direction.west": "West: %s",
   "gui.superstorage.direction.east": "East: %s",
   "gui.superstorage.slot.pull_filter": "Pull Filter",
-  "gui.superstorage.slot.push_filter": "Push Filter"
+  "gui.superstorage.slot.push_filter": "Push Filter",
+  "gui.superstorage.slot.compacting_filter": "Compacting Filter",
+  "gui.superstorage.compacting.reversible": "Reversible Recipes Only",
+  "gui.superstorage.compacting.any": "All Recipes",
+  "gui.superstorage.compacting.three": "3x3 Compacting",
+  "gui.superstorage.compacting.two": "2x2 Compacting"
 }

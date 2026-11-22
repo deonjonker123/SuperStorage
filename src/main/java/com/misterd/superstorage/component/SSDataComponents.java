@@ -29,6 +29,9 @@ public class SSDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<HopperSettings>> HOPPER_SETTINGS = DATA_COMPONENTS.registerComponentType("hopper_settings",
             builder -> builder.persistent(HopperSettings.CODEC).networkSynchronized(HopperSettings.STREAM_CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<CompactingSettings>> COMPACTING_SETTINGS = DATA_COMPONENTS.registerComponentType("compacting_settings",
+            builder -> builder.persistent(CompactingSettings.CODEC).networkSynchronized(CompactingSettings.STREAM_CODEC));
+
     public static void register(IEventBus eventBus) {
         DATA_COMPONENTS.register(eventBus);
     }

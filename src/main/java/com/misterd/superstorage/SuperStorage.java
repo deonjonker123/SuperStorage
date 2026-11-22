@@ -87,6 +87,7 @@ public class SuperStorage {
             event.register(SSMenuTypes.SUPER_TANK_MENU.get(), SuperTankScreen::new);
             event.register(SSMenuTypes.FILTER_MENU.get(), FilterScreen::new);
             event.register(SSMenuTypes.HOPPER_UPGRADE_MENU.get(), HopperUpgradeScreen::new);
+            event.register(SSMenuTypes.COMPACTING_UPGRADE_MENU.get(), CompactingUpgradeScreen::new);
         }
 
         @SubscribeEvent

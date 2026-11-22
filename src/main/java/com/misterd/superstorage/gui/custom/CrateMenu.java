@@ -115,17 +115,20 @@ public class CrateMenu extends AbstractContainerMenu {
             return false;
         }
         UpgradeType type = UpgradeType.values()[buttonId];
+        UpgradeSettingsMenu.Factory factory = switch (type) {
+            case HOPPER -> HopperUpgradeMenu::new;
+            case COMPACTING -> CompactingUpgradeMenu::new;
+            default -> null;
+        };
+        if (factory == null) {
+            return false;
+        }
         return access.evaluate((level, pos) -> {
             if (!(level.getBlockEntity(pos) instanceof CrateBlockEntity crate) || !crate.getUpgrades().has(type)) {
                 return false;
             }
-            return switch (type) {
-                case HOPPER -> {
-                    HopperUpgradeMenu.open(player, crate);
-                    yield true;
-                }
-                default -> false;
-            };
+            UpgradeSettingsMenu.open(player, crate, type, factory);
+            return true;
         }, false);
     }
 

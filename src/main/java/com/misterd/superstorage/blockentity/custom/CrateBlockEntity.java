@@ -1,6 +1,7 @@
 package com.misterd.superstorage.blockentity.custom;
 
 import com.misterd.superstorage.block.custom.CrateBlock;
+import com.misterd.superstorage.component.CompactingSettings;
 import com.misterd.superstorage.component.FilterSettings;
 import com.misterd.superstorage.component.HopperSettings;
 import com.misterd.superstorage.config.SSConfig;
@@ -11,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Containers;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -25,6 +27,8 @@ import net.neoforged.neoforge.transfer.item.ItemResource;
 import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class CrateBlockEntity extends BlockEntity {
@@ -56,8 +60,15 @@ public class CrateBlockEntity extends BlockEntity {
     }
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, CrateBlockEntity crate) {
-        if (level instanceof ServerLevel serverLevel && level.getGameTime() % SSConfig.HOPPER_UPGRADE_INTERVAL.get() == 0) {
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        long time = level.getGameTime();
+        if (time % SSConfig.HOPPER_UPGRADE_INTERVAL.get() == 0) {
             crate.runHopper(serverLevel);
+        }
+        if (time % SSConfig.COMPACTING_UPGRADE_INTERVAL.get() == 0) {
+            crate.runCompacting(serverLevel);
         }
     }
 
@@ -86,6 +97,93 @@ public class CrateBlockEntity extends BlockEntity {
                 ResourceHandlerUtil.move(neighbour, itemHandler, pull, rate, null);
             }
         }
+    }
+
+    private void runCompacting(ServerLevel serverLevel) {
+        ItemStack upgrade = upgrades.get(UpgradeType.COMPACTING);
+        if (upgrade.isEmpty()) {
+            return;
+        }
+        CompactingSettings settings = CompactingSettings.of(upgrade);
+        int size = settings.size();
+        int needed = size * size;
+        Predicate<ItemResource> filter = FilterSettings.predicate(settings.filter());
+        NonNullList<ItemStack> stacks = itemHandler.copyToList();
+        Map<Item, Integer> totals = new LinkedHashMap<>();
+        for (ItemStack stack : stacks) {
+            if (!stack.isEmpty() && stack.getComponentsPatch().isEmpty()) {
+                totals.merge(stack.getItem(), stack.getCount(), Integer::sum);
+            }
+        }
+        boolean changed = false;
+        for (Map.Entry<Item, Integer> entry : totals.entrySet()) {
+            Item item = entry.getKey();
+            if (entry.getValue() < needed || !filter.test(ItemResource.of(new ItemStack(item)))) {
+                continue;
+            }
+            ItemStack result = CompactingRecipes.result(serverLevel, item, size, settings.reversibleOnly());
+            if (result.isEmpty()) {
+                continue;
+            }
+            int crafts = entry.getValue() / needed;
+            while (crafts > 0) {
+                NonNullList<ItemStack> attempt = copy(stacks);
+                remove(attempt, item, crafts * needed);
+                int leftover = insert(attempt, result, crafts * result.getCount());
+                if (leftover == 0) {
+                    stacks = attempt;
+                    changed = true;
+                    break;
+                }
+                crafts -= Math.max(1, (leftover + result.getCount() - 1) / result.getCount());
+            }
+        }
+        if (changed) {
+            itemHandler.replace(stacks);
+        }
+    }
+
+    private static NonNullList<ItemStack> copy(NonNullList<ItemStack> stacks) {
+        NonNullList<ItemStack> copy = NonNullList.withSize(stacks.size(), ItemStack.EMPTY);
+        for (int i = 0; i < stacks.size(); i++) {
+            copy.set(i, stacks.get(i).copy());
+        }
+        return copy;
+    }
+
+    private static void remove(NonNullList<ItemStack> stacks, Item item, int amount) {
+        for (int i = stacks.size() - 1; i >= 0 && amount > 0; i--) {
+            ItemStack stack = stacks.get(i);
+            if (stack.is(item) && stack.getComponentsPatch().isEmpty()) {
+                int taken = Math.min(amount, stack.getCount());
+                stack.shrink(taken);
+                amount -= taken;
+                if (stack.isEmpty()) {
+                    stacks.set(i, ItemStack.EMPTY);
+                }
+            }
+        }
+    }
+
+    private static int insert(NonNullList<ItemStack> stacks, ItemStack result, int amount) {
+        for (ItemStack stack : stacks) {
+            if (amount == 0) {
+                return 0;
+            }
+            if (!stack.isEmpty() && ItemStack.isSameItemSameComponents(stack, result)) {
+                int added = Math.min(amount, stack.getMaxStackSize() - stack.getCount());
+                stack.grow(added);
+                amount -= added;
+            }
+        }
+        for (int i = 0; i < stacks.size() && amount > 0; i++) {
+            if (stacks.get(i).isEmpty()) {
+                int added = Math.min(amount, result.getMaxStackSize());
+                stacks.set(i, result.copyWithCount(added));
+                amount -= added;
+            }
+        }
+        return amount;
     }
 
     private @Nullable ResourceHandler<ItemResource> neighbour(ServerLevel serverLevel, Direction direction) {
@@ -148,6 +246,11 @@ public class CrateBlockEntity extends BlockEntity {
                 }
                 setStacks(resized);
             }
+        }
+
+        void replace(NonNullList<ItemStack> stacks) {
+            setStacks(stacks);
+            setChanged();
         }
     }
 }

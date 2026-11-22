@@ -27,6 +27,9 @@ public class SSMenuTypes {
     public static final DeferredHolder<MenuType<?>, MenuType<HopperUpgradeMenu>> HOPPER_UPGRADE_MENU = MENUS.register("hopper_upgrade_menu",
             () -> IMenuTypeExtension.create(HopperUpgradeMenu::new));
 
+    public static final DeferredHolder<MenuType<?>, MenuType<CompactingUpgradeMenu>> COMPACTING_UPGRADE_MENU = MENUS.register("compacting_upgrade_menu",
+            () -> IMenuTypeExtension.create(CompactingUpgradeMenu::new));
+
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);
     }
