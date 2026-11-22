@@ -2,10 +2,8 @@ package com.misterd.superstorage.item;
 
 import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.block.SSBlocks;
-import com.misterd.superstorage.item.custom.CrateBlockItem;
-import com.misterd.superstorage.item.custom.DrumBlockItem;
-import com.misterd.superstorage.item.custom.SuperBlockItem;
-import com.misterd.superstorage.item.custom.TierKitItem;
+import com.misterd.superstorage.item.custom.*;
+import com.misterd.superstorage.util.UpgradeType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -63,6 +61,15 @@ public class SSItems {
             props -> new TierKitItem(props,
                     new TierKitItem.Upgrade(SSBlocks.SUPER_CHEST_III, SSBlocks.SUPER_CHEST_IV),
                     new TierKitItem.Upgrade(SSBlocks.SUPER_TANK_III, SSBlocks.SUPER_TANK_IV)));
+
+    public static final DeferredItem<Item> HOPPER_UPGRADE = ITEMS.registerItem("hopper_upgrade",
+            props -> new UpgradeItem(UpgradeType.HOPPER, props));
+
+    public static final DeferredItem<Item> COLLECTOR_UPGRADE = ITEMS.registerItem("collector_upgrade",
+            props -> new UpgradeItem(UpgradeType.COLLECTOR, props));
+
+    public static final DeferredItem<Item> COMPACTING_UPGRADE = ITEMS.registerItem("compacting_upgrade",
+            props -> new UpgradeItem(UpgradeType.COMPACTING, props));
 
     public static final DeferredItem<Item> WOODEN_CRATE = ITEMS.registerItem("wooden_crate",
             props -> new CrateBlockItem(SSBlocks.WOODEN_CRATE.get(), props));

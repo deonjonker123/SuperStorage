@@ -269,6 +269,36 @@ public class SSRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
                 .save(output);
 
+        shaped(RecipeCategory.MISC, SSItems.HOPPER_UPGRADE.get())
+                .pattern(" H ")
+                .pattern("IBI")
+                .pattern(" H ")
+                .define('H', Items.HOPPER)
+                .define('I', Items.IRON_INGOT)
+                .define('B', SSItems.UPGRADE_BASE.get())
+                .unlockedBy("has_upgrade_base", has(SSItems.UPGRADE_BASE.get()))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, SSItems.COLLECTOR_UPGRADE.get())
+                .pattern(" E ")
+                .pattern("EBE")
+                .pattern(" H ")
+                .define('E', Items.ENDER_PEARL)
+                .define('H', Items.HOPPER)
+                .define('B', SSItems.UPGRADE_BASE.get())
+                .unlockedBy("has_upgrade_base", has(SSItems.UPGRADE_BASE.get()))
+                .save(output);
+
+        shaped(RecipeCategory.MISC, SSItems.COMPACTING_UPGRADE.get())
+                .pattern(" P ")
+                .pattern("CBC")
+                .pattern(" P ")
+                .define('P', Items.PISTON)
+                .define('C', Items.CRAFTING_TABLE)
+                .define('B', SSItems.UPGRADE_BASE.get())
+                .unlockedBy("has_upgrade_base", has(SSItems.UPGRADE_BASE.get()))
+                .save(output);
+
         kit(SSItems.WOOD_TO_COPPER_KIT.get(), Items.COPPER_INGOT, Tags.Items.RODS);
         kit(SSItems.COPPER_TO_IRON_KIT.get(), Items.IRON_INGOT, Tags.Items.RODS);
         kit(SSItems.IRON_TO_GOLD_KIT.get(), Items.GOLD_INGOT, Tags.Items.RODS);

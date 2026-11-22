@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "superstorage:upgrade_base",
+    "E": "minecraft:ender_pearl",
+    "H": "minecraft:hopper"
+  },
+  "pattern": [
+    " E ",
+    "EBE",
+    " H "
+  ],
+  "result": {
+    "id": "superstorage:collector_upgrade"
+  }
+}

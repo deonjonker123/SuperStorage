@@ -3,6 +3,7 @@ package com.misterd.superstorage.blockentity.custom;
 import com.misterd.superstorage.block.custom.CrateBlock;
 import com.misterd.superstorage.util.CrateTier;
 import com.misterd.superstorage.blockentity.SSBlockEntities;
+import com.misterd.superstorage.util.CrateUpgrades;
 import com.misterd.superstorage.util.StorageGuard;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
@@ -17,9 +18,11 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 
 public class CrateBlockEntity extends BlockEntity {
     private static final String INVENTORY_KEY = "inventory";
+    private static final String UPGRADES_KEY = "upgrades";
 
     private final CrateTier tier;
     private final CrateItemHandler itemHandler;
+    private final CrateUpgrades upgrades = new CrateUpgrades(this::setChanged);
 
     public CrateBlockEntity(BlockPos pos, BlockState state) {
         super(SSBlockEntities.CRATE_BE.get(), pos, state);
@@ -35,22 +38,29 @@ public class CrateBlockEntity extends BlockEntity {
         return itemHandler;
     }
 
+    public CrateUpgrades getUpgrades() {
+        return upgrades;
+    }
+
     @Override
     protected void saveAdditional(ValueOutput output) {
         super.saveAdditional(output);
         itemHandler.serialize(output.child(INVENTORY_KEY));
+        upgrades.serialize(output.child(UPGRADES_KEY));
     }
 
     @Override
     protected void loadAdditional(ValueInput input) {
         super.loadAdditional(input);
         itemHandler.deserialize(input.childOrEmpty(INVENTORY_KEY));
+        upgrades.deserialize(input.childOrEmpty(UPGRADES_KEY));
     }
 
     @Override
     public void preRemoveSideEffects(BlockPos pos, BlockState state) {
         if (level != null) {
             Containers.dropContents(level, pos, itemHandler.copyToList());
+            Containers.dropContents(level, pos, upgrades.copyToList());
         }
     }
 

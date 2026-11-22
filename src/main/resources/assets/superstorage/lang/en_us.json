@@ -67,8 +67,11 @@
   "item.superstorage.i_to_ii_kit": "Super I to II Upgrade Kit",
   "item.superstorage.ii_to_iii_kit": "Super II to III Upgrade Kit",
   "item.superstorage.iii_to_iv_kit": "Super III to IV Upgrade Kit",
-  "tooltip.superstorage.kit": "%s → %s",
+  "item.superstorage.hopper_upgrade": "Hopper Upgrade",
+  "item.superstorage.collector_upgrade": "Collector Upgrade",
+  "item.superstorage.compacting_upgrade": "Compacting Upgrade",
 
+  "tooltip.superstorage.kit": "%s → %s",
   "tooltip.superstorage.item_slots": "Item Slots: ",
   "tooltip.superstorage.item_stored": "Item Stored: ",
   "tooltip.superstorage.item_capacity": "Item Capacity: ",
