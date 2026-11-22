@@ -18,10 +18,14 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class CrateMenu extends AbstractContainerMenu {
+    private static final int PLAYER_SLOT_COUNT = 36;
+    private static final int HOTBAR_OFFSET = 59;
+
     private final CrateTier tier;
     private final ItemStacksResourceHandler itemHandler;
     private final ContainerLevelAccess access;
     private final int crateSlotCount;
+    private int visibleRows;
     private int scrollRow;
 
     public CrateMenu(int containerId, Inventory inventory, RegistryFriendlyByteBuf buf) {
@@ -47,18 +51,15 @@ public class CrateMenu extends AbstractContainerMenu {
         this.itemHandler = itemHandler;
         this.access = access;
         this.crateSlotCount = tier.slotCount();
+        this.visibleRows = tier.rows();
         for (int index = 0; index < crateSlotCount; index++) {
             addSlot(new CrateSlot(index));
         }
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 9; col++) {
-                addSlot(new Slot(inventory, col + row * 9 + 9,
-                        tier.playerInvX() + col * CrateTier.SLOT_SIZE,
-                        tier.playerInvY() + row * CrateTier.SLOT_SIZE));
-            }
+        for (int index = 9; index < PLAYER_SLOT_COUNT; index++) {
+            addSlot(new Slot(inventory, index, 0, 0));
         }
-        for (int col = 0; col < 9; col++) {
-            addSlot(new Slot(inventory, col, tier.playerInvX() + col * CrateTier.SLOT_SIZE, tier.hotbarY()));
+        for (int index = 0; index < 9; index++) {
+            addSlot(new Slot(inventory, index, 0, 0));
         }
     }
 
@@ -70,8 +71,22 @@ public class CrateMenu extends AbstractContainerMenu {
         return scrollRow;
     }
 
+    public int getHiddenRows() {
+        return tier.rows() - visibleRows;
+    }
+
+    public void setLayout(int visibleRows, int playerInvX, int playerInvY) {
+        this.visibleRows = Mth.clamp(visibleRows, 1, tier.rows());
+        for (int i = 0; i < PLAYER_SLOT_COUNT; i++) {
+            Slot slot = slots.get(crateSlotCount + i);
+            slot.x = playerInvX + (i % 9) * CrateTier.SLOT_SIZE;
+            slot.y = i < 27 ? playerInvY + (i / 9) * CrateTier.SLOT_SIZE : playerInvY + HOTBAR_OFFSET;
+        }
+        setScrollRow(scrollRow);
+    }
+
     public void setScrollRow(int row) {
-        this.scrollRow = Mth.clamp(row, 0, tier.hiddenRows());
+        this.scrollRow = Mth.clamp(row, 0, getHiddenRows());
         for (int index = 0; index < crateSlotCount; index++) {
             ((CrateSlot) slots.get(index)).updatePosition();
         }
@@ -125,7 +140,7 @@ public class CrateMenu extends AbstractContainerMenu {
 
         @Override
         public boolean isActive() {
-            return row >= scrollRow && row < scrollRow + tier.visibleRows();
+            return row >= scrollRow && row < scrollRow + visibleRows;
         }
     }
 }

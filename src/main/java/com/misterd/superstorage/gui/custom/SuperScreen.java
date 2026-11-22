@@ -11,6 +11,9 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.FormattedText;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
@@ -23,9 +26,9 @@ import java.util.List;
 public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainerScreen<T> {
     protected static final Identifier WIDGETS = Identifier.fromNamespaceAndPath(SuperStorage.MODID, "textures/gui/widgets.png");
     private static final int GUI_WIDTH = 176;
-    private static final int GUI_HEIGHT = 179;
-    private static final int TITLE_BAR_WIDTH = 176;
-    private static final int TITLE_BAR_HEIGHT = 21;
+    private static final int GUI_HEIGHT = 177;
+    private static final int TITLE_BAR_WIDTH = 145;
+    private static final int TITLE_BAR_HEIGHT = 17;
     private static final int TITLE_TEXT_Y = 6;
     private static final int LABEL_COLOR = 0xFF404040;
     private static final int INFO_COLOR = 0xFFFFFFFF;
@@ -49,7 +52,7 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
     private static final int GAUGE_X = 8;
     private static final int GAUGE_Y = 71;
     private static final int GAUGE_WIDTH = 160;
-    private static final int GAUGE_HEIGHT = 8;
+    private static final int GAUGE_HEIGHT = 4;
     private static final int GAUGE_V = 165;
     private static final int[][] SIDE_POSITIONS = {
             {132, 7},
@@ -59,6 +62,8 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
             {113, 26},
             {151, 26}
     };
+    private static final int NAME_LINES = 2;
+    private static final String ELLIPSIS = "…";
 
     private final Identifier texture;
     private final int infoWidth;
@@ -132,11 +137,47 @@ public abstract class SuperScreen<T extends SuperMenu> extends AbstractContainer
     protected void extractLabels(GuiGraphicsExtractor graphics, int mouseX, int mouseY) {
         graphics.text(font, title, (imageWidth - font.width(title)) / 2, TITLE_TEXT_Y - TITLE_BAR_HEIGHT, LABEL_COLOR, false);
         graphics.text(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, LABEL_COLOR, false);
+        int maxWidth = infoWidth - INFO_PADDING * 2;
         List<Component> lines = infoLines();
+        List<InfoRow> rows = new ArrayList<>();
         for (int i = 0; i < lines.size(); i++) {
-            String line = font.plainSubstrByWidth(lines.get(i).getString(), infoWidth - INFO_PADDING * 2);
-            graphics.text(font, line, INFO_X + INFO_PADDING, INFO_Y + INFO_PADDING + i * LINE_HEIGHT, INFO_COLOR, false);
+            Component line = lines.get(i);
+            int color = colorOf(line);
+            if (i == 0) {
+                for (String part : wrapName(line.getString(), maxWidth)) {
+                    rows.add(new InfoRow(part, color));
+                }
+            } else {
+                rows.add(new InfoRow(ellipsize(line.getString(), maxWidth), color));
+            }
         }
+        for (int i = 0; i < rows.size(); i++) {
+            graphics.text(font, rows.get(i).text(), INFO_X + INFO_PADDING, INFO_Y + INFO_PADDING + i * LINE_HEIGHT, rows.get(i).color(), false);
+        }
+    }
+
+    private int colorOf(Component line) {
+        TextColor color = line.getStyle().getColor();
+        return color == null ? INFO_COLOR : 0xFF000000 | color.getValue();
+    }
+
+    private record InfoRow(String text, int color) {
+    }
+
+    private List<String> wrapName(String name, int maxWidth) {
+        List<String> lines = font.getSplitter().splitLines(name, maxWidth, Style.EMPTY).stream().map(FormattedText::getString).toList();
+        if (lines.size() <= NAME_LINES) {
+            return lines;
+        }
+        String rest = name.substring(lines.get(0).length()).strip();
+        return List.of(lines.get(0), ellipsize(rest, maxWidth));
+    }
+
+    private String ellipsize(String text, int maxWidth) {
+        if (font.width(text) <= maxWidth) {
+            return text;
+        }
+        return font.plainSubstrByWidth(text, maxWidth - font.width(ELLIPSIS)).strip() + ELLIPSIS;
     }
 
     @Override

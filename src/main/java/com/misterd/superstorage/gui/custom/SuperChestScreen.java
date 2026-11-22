@@ -1,6 +1,7 @@
 package com.misterd.superstorage.gui.custom;
 
 import com.misterd.superstorage.SuperStorage;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -28,15 +29,11 @@ public class SuperChestScreen extends SuperScreen<SuperChestMenu> {
         if (stored.isEmpty()) {
             return List.of(Component.translatable("gui.superstorage.empty"));
         }
+        Component name = stored.toStack().getHoverName().copy().withStyle(ChatFormatting.GOLD);
         if (menu.isCreative()) {
-            return List.of(stored.toStack().getHoverName(), Component.translatable("tooltip.superstorage.infinite"));
+            return List.of(name, Component.translatable("tooltip.superstorage.infinite").withStyle(ChatFormatting.GREEN));
         }
-        long amount = menu.getAmount();
-        long capacity = menu.getCapacity();
-        return List.of(
-                stored.toStack().getHoverName(),
-                Component.literal(String.format("%,d", amount)),
-                Component.translatable("gui.superstorage.of", String.format("%,d", capacity)));
+        return List.of(name, Component.literal(String.format("%,d", menu.getAmount())).withStyle(ChatFormatting.GREEN));
     }
 
     @Override

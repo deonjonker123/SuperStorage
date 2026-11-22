@@ -2,6 +2,7 @@ package com.misterd.superstorage.gui.custom;
 
 import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.util.FluidText;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
@@ -38,15 +39,11 @@ public class SuperTankScreen extends SuperScreen<SuperTankMenu> {
         if (stored.isEmpty()) {
             return List.of(Component.translatable("gui.superstorage.empty"));
         }
+        Component name = stored.toStack(1000).getHoverName().copy().withStyle(ChatFormatting.AQUA);
         if (menu.isCreative()) {
-            return List.of(stored.toStack(1000).getHoverName(), Component.translatable("tooltip.superstorage.infinite"));
+            return List.of(name, Component.translatable("tooltip.superstorage.infinite").withStyle(ChatFormatting.GREEN));
         }
-        long amount = menu.getAmount();
-        long capacity = menu.getCapacity();
-        return List.of(
-                stored.toStack(1000).getHoverName(),
-                Component.translatable("gui.superstorage.buckets", FluidText.buckets(amount)),
-                Component.translatable("gui.superstorage.of_buckets", FluidText.buckets(capacity)));
+        return List.of(name, Component.translatable("gui.superstorage.buckets", FluidText.buckets(menu.getAmount())).withStyle(ChatFormatting.GREEN));
     }
 
     @Override

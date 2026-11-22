@@ -104,9 +104,7 @@
   "config.jade.plugin_superstorage.drum": "Super Storage Drum",
 
   "gui.superstorage.empty": "Empty",
-  "gui.superstorage.of": "of %s",
   "gui.superstorage.buckets": "%s B",
-  "gui.superstorage.of_buckets": "of %s B",
   "gui.superstorage.capabilities.on": "Automation: Enabled",
   "gui.superstorage.capabilities.off": "Automation: Disabled",
   "gui.superstorage.lock.on": "Locked",
