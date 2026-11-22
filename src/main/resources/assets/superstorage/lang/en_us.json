@@ -70,6 +70,7 @@
   "item.superstorage.hopper_upgrade": "Hopper Upgrade",
   "item.superstorage.collector_upgrade": "Collector Upgrade",
   "item.superstorage.compacting_upgrade": "Compacting Upgrade",
+  "item.superstorage.filter": "Filter",
 
   "tooltip.superstorage.kit": "%s → %s",
   "tooltip.superstorage.item_slots": "Item Slots: ",
@@ -95,6 +96,7 @@
   "tooltip.superstorage.super_tank.info.3": "Keeps its contents when broken.",
   "tooltip.superstorage.infinite": "Infinite",
   "tooltip.superstorage.fluid_value_infinite": "%s, Infinite",
+  "tooltip.superstorage.filter.entries": "%s entries",
 
   "jade.superstorage.locked": "Locked: %s",
   "jade.superstorage.void": "Void Overflow: %s",
@@ -143,5 +145,14 @@
   "gui.superstorage.slot.tank_in_click": "Right-click: empty one bucket",
   "gui.superstorage.slot.tank_out": "Place a drum to fill it from the tank",
   "gui.superstorage.slot.tank_out_click": "Right-click: fill one bucket",
-  "gui.superstorage.extract_all": "Shift-click: Extract All"
+  "gui.superstorage.extract_all": "Shift-click: Extract All",
+  "gui.superstorage.filter.whitelist": "Whitelist",
+  "gui.superstorage.filter.blacklist": "Blacklist",
+  "gui.superstorage.filter.match_mod.off": "Match Mod: Off",
+  "gui.superstorage.filter.match_mod.on": "Match Mod: On",
+  "gui.superstorage.filter.match_nbt.off": "Match NBT: Off",
+  "gui.superstorage.filter.match_nbt.on": "Match NBT: On",
+  "gui.superstorage.filter.match_durability.off": "Match Durability: Off",
+  "gui.superstorage.filter.match_durability.on": "Match Durability: On",
+  "gui.superstorage.filter.clear": "Clear Filter"
 }

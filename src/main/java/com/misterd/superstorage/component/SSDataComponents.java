@@ -23,6 +23,9 @@ public class SSDataComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<SuperTankContents>> SUPER_TANK_CONTENTS = DATA_COMPONENTS.registerComponentType("super_tank_contents",
             builder -> builder.persistent(SuperTankContents.CODEC).networkSynchronized(SuperTankContents.STREAM_CODEC));
 
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<FilterSettings>> FILTER = DATA_COMPONENTS.registerComponentType("filter",
+            builder -> builder.persistent(FilterSettings.CODEC).networkSynchronized(FilterSettings.STREAM_CODEC));
+
     public static void register(IEventBus eventBus) {
         DATA_COMPONENTS.register(eventBus);
     }

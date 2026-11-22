@@ -12,6 +12,7 @@ import com.misterd.superstorage.component.SSDataComponents;
 import com.misterd.superstorage.config.SSConfig;
 import com.misterd.superstorage.gui.SSMenuTypes;
 import com.misterd.superstorage.gui.custom.CrateScreen;
+import com.misterd.superstorage.gui.custom.FilterScreen;
 import com.misterd.superstorage.gui.custom.SuperChestScreen;
 import com.misterd.superstorage.gui.custom.SuperTankScreen;
 import com.misterd.superstorage.item.SSCreativeTab;
@@ -87,6 +88,7 @@ public class SuperStorage {
             event.register(SSMenuTypes.CRATE_MENU.get(), CrateScreen::new);
             event.register(SSMenuTypes.SUPER_CHEST_MENU.get(), SuperChestScreen::new);
             event.register(SSMenuTypes.SUPER_TANK_MENU.get(), SuperTankScreen::new);
+            event.register(SSMenuTypes.FILTER_MENU.get(), FilterScreen::new);
         }
 
         @SubscribeEvent

@@ -299,6 +299,21 @@ public class SSRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_upgrade_base", has(SSItems.UPGRADE_BASE.get()))
                 .save(output);
 
+        shaped(RecipeCategory.MISC, SSItems.FILTER.get())
+                .pattern("ISI")
+                .pattern("SPS")
+                .pattern("ISI")
+                .define('I', Items.IRON_NUGGET)
+                .define('S', Items.STRING)
+                .define('P', Items.PAPER)
+                .unlockedBy("has_paper", has(Items.PAPER))
+                .save(output);
+
+        shapeless(RecipeCategory.MISC, SSItems.FILTER.get())
+                .requires(SSItems.FILTER.get())
+                .unlockedBy("has_filter", has(SSItems.FILTER.get()))
+                .save(output, "superstorage:filter_clear");
+
         kit(SSItems.WOOD_TO_COPPER_KIT.get(), Items.COPPER_INGOT, Tags.Items.RODS);
         kit(SSItems.COPPER_TO_IRON_KIT.get(), Items.IRON_INGOT, Tags.Items.RODS);
         kit(SSItems.IRON_TO_GOLD_KIT.get(), Items.GOLD_INGOT, Tags.Items.RODS);

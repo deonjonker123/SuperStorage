@@ -62,6 +62,8 @@ public class SSItems {
                     new TierKitItem.Upgrade(SSBlocks.SUPER_CHEST_III, SSBlocks.SUPER_CHEST_IV),
                     new TierKitItem.Upgrade(SSBlocks.SUPER_TANK_III, SSBlocks.SUPER_TANK_IV)));
 
+    public static final DeferredItem<Item> FILTER = ITEMS.registerItem("filter", FilterItem::new);
+
     public static final DeferredItem<Item> HOPPER_UPGRADE = ITEMS.registerItem("hopper_upgrade",
             props -> new UpgradeItem(UpgradeType.HOPPER, props));
 

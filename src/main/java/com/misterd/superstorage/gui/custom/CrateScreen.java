@@ -53,7 +53,7 @@ public class CrateScreen extends AbstractContainerScreen<CrateMenu> {
     private static final int TRACK_WIDTH = 6;
     private static final int PANEL_U = 36;
     private static final int PANEL_V = 51;
-    private static final int PANEL_WIDTH = 32;
+    private static final int PANEL_WIDTH = 28;
     private static final int PANEL_HEIGHT = 68;
     private static final int PANEL_SLOT_OFFSET = 8;
     private static final int TAB_U = 104;

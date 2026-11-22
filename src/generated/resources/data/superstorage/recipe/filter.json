@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": "minecraft:iron_nugget",
+    "P": "minecraft:paper",
+    "S": "minecraft:string"
+  },
+  "pattern": [
+    "ISI",
+    "SPS",
+    "ISI"
+  ],
+  "result": {
+    "id": "superstorage:filter"
+  }
+}

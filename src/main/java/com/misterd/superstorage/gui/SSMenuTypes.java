@@ -2,6 +2,7 @@ package com.misterd.superstorage.gui;
 
 import com.misterd.superstorage.SuperStorage;
 import com.misterd.superstorage.gui.custom.CrateMenu;
+import com.misterd.superstorage.gui.custom.FilterMenu;
 import com.misterd.superstorage.gui.custom.SuperChestMenu;
 import com.misterd.superstorage.gui.custom.SuperTankMenu;
 import net.minecraft.core.registries.Registries;
@@ -22,6 +23,9 @@ public class SSMenuTypes {
 
     public static final DeferredHolder<MenuType<?>, MenuType<SuperTankMenu>> SUPER_TANK_MENU = MENUS.register("super_tank_menu",
             () -> IMenuTypeExtension.create(SuperTankMenu::new));
+
+    public static final DeferredHolder<MenuType<?>, MenuType<FilterMenu>> FILTER_MENU = MENUS.register("filter_menu",
+            () -> IMenuTypeExtension.create(FilterMenu::new));
 
     public static void register(IEventBus eventBus) {
         MENUS.register(eventBus);

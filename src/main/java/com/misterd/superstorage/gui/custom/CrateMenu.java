@@ -21,8 +21,8 @@ import net.neoforged.neoforge.transfer.item.ItemStacksResourceHandler;
 import net.neoforged.neoforge.transfer.item.ResourceHandlerSlot;
 
 public class CrateMenu extends AbstractContainerMenu {
-    public static final int UPGRADE_X = -24;
-    public static final int UPGRADE_Y = 10;
+    public static final int UPGRADE_X = -20;
+    public static final int UPGRADE_Y = 12;
 
     private static final int PLAYER_SLOT_COUNT = 36;
     private static final int HOTBAR_OFFSET = 59;

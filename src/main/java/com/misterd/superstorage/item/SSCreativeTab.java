@@ -54,6 +54,7 @@ public class SSCreativeTab {
                         output.accept(SSItems.I_TO_II_KIT);
                         output.accept(SSItems.II_TO_III_KIT);
                         output.accept(SSItems.III_TO_IV_KIT);
+                        output.accept(SSItems.FILTER);
                         output.accept(SSItems.HOPPER_UPGRADE);
                         output.accept(SSItems.COLLECTOR_UPGRADE);
                         output.accept(SSItems.COMPACTING_UPGRADE);

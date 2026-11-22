@@ -50,6 +50,6 @@ public class SSModelProvider extends ModelProvider {
         itemModels.generateFlatItem(SSItems.HOPPER_UPGRADE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(SSItems.COLLECTOR_UPGRADE.get(), ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(SSItems.COMPACTING_UPGRADE.get(), ModelTemplates.FLAT_ITEM);
-
+        itemModels.generateFlatItem(SSItems.FILTER.get(), ModelTemplates.FLAT_ITEM);
     }
 }
