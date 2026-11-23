@@ -1,4 +1,4 @@
-![SuperStorage](https://raw.githubusercontent.com/deonjonker123/SuperStorage/refs/heads/master/ss_ban2.png)
+![SuperStorage](https://raw.githubusercontent.com/deonjonker123/SuperStorage/refs/heads/master/ssban.png)
 
 # Super Storage
 
